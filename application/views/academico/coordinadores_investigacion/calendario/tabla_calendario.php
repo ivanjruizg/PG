@@ -150,7 +150,7 @@
                         <div class="modal-footer">
 
                             <input type="button" value="Cerrar" class="btn btn-primary"
-                                   onclick="cerraModal('editar-periodo')"/>
+                                   onclick="cerrarModalId('editar-periodo')"/>
 
                             <input type="submit" value="Editar" class="btn btn-success"/>
 
