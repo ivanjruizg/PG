@@ -18,6 +18,8 @@ function comprobarClaves() {
 
 
 
+
+
     } else if(claveConfirmada==claveNueva) {
 
         $("#c").removeClass("has-error");
