@@ -9,13 +9,8 @@ class Estudiantes_Model extends  CI_Model {
 
     function consultar($nombres){
 
-
-
         $this->db->select("correo AS value, CONCAT(nombres, ' ', primer_apellido,' ',segundo_apellido) AS label", FALSE);
-
-
         $this->db->where('correo!=',$this->session->userdata('correo') );
-
         $this->db->like('nombres', $nombres);
         $this->db->or_like('primer_apellido', $nombres);
         $this->db->or_like('segundo_apellido', $nombres);
@@ -23,7 +18,6 @@ class Estudiantes_Model extends  CI_Model {
         $this->db->from('estudiantes');
         $reslt = $this->db->get();
         return $reslt->result_array();
-
 
     }
 
@@ -36,10 +30,10 @@ class Estudiantes_Model extends  CI_Model {
 
             $this->db->update("estudiantes",$datos);
 
+            return $this->db->affected_rows();
         }
 
-
-
+        return 0;
 
     }
 
