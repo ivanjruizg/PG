@@ -55,19 +55,32 @@ class Estudiante extends CI_Controller
     function cambiar_clave_de_acceso(){
 
 
-        $clave_antigua = $this->input->post('clave-antigua');
+        $clave_antigua = $this->input->post('clave-actual');
         $clave_nueva = $this->input->post('clave-nueva');
-        $this->load->model('estudiantes_model');
+        $clave_nueva_confirmada = $this->input->post('clave-nueva-confirmada');
 
-        $datos = array(
 
-            "clave"=>$clave_nueva
+        if(strcmp($clave_nueva,$clave_nueva_confirmada)==0){
 
-        );
 
-        $x= $this->estudiantes_model->cambiar_clave_de_acceso($clave_antigua,$datos);
 
-        echo var_dump($x);
+
+
+            $this->load->model('estudiantes_model');
+
+            $datos = array(
+
+                "clave"=>$clave_nueva
+
+            );
+
+            $result= $this->estudiantes_model->cambiar_clave_de_acceso($clave_antigua,$datos);
+
+            echo $result;
+
+        }
+
+
 
     }
 

@@ -28,27 +28,27 @@
                     </div>
                     <div class="x_content">
 
-                        <form class="form-horizontal form-label-left">
+                        <form id="cambiar-clave" class="form-horizontal form-label-left" method="post" action="<?=base_url('estudiante/cambiar_clave_de_acceso')?>" onsubmit="return cambiarClave();">
 
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Clave de acceso actual :</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <input type="password" class="form-control" value="" id="clave_actual">
+                                    <input type="password" class="form-control" value="" name="clave-actual" id="clave_actual">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Nueva clave de acceso :</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <input type="password" class="form-control" id="clave_nueva" value="" onkeyup="comprobarClaves()">
+                                    <input type="password" class="form-control" name="clave-nueva" minlength="8" id="clave_nueva" value="" onkeyup="comprobarClaves()">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Confirmar nueva clave de acceso :</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12" id="c">
-                                    <input type="password" class="form-control" id="clave_confirmada" value="" onkeyup="comprobarClaves()">
+                                    <input type="password" name="clave-nueva-confirmada" minlength="8"  class="form-control" id="clave_confirmada" value="" onkeyup="comprobarClaves()">
                                 </div>
                             </div>
 
@@ -57,9 +57,6 @@
                                 <div id="mensaje" class="col-md-offset-3 col-md-9">
 
 
-                                    <div class="alert alert-danger">
-                                        <strong>Error!</strong> Las claves de acceso no coindicen
-                                    </div>
 
                                 </div>
 
