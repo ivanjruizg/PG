@@ -1,3 +1,53 @@
+
+$(document).ready(function () {
+
+
+
+ //    alert("Ya.... cargo esta miertada");
+
+    $("#autocomplete").autocomplete({
+        source: baseUrl+"/coordinador/consultar_docentes",
+        minLength: 1,
+        select: function(event, ui) {
+            event.preventDefault();
+
+
+
+
+            console.log("Ya..."+ui);
+
+            /*
+            $('#director').val(ui.item.label);
+            $('#correo-investigador2').val(ui.item.value);
+
+
+            */
+
+        }
+    });
+
+    $("#co-director").autocomplete({
+        source: baseUrl+"/coordinador/consultar_docentes",
+        minLength: 1,
+        select: function(event, ui) {
+            event.preventDefault();
+
+
+
+/*            $('#investigador3').val(ui.item.label);
+            $('#correo-investigador3').val(ui.item.value);*/
+
+
+
+        }
+    });
+
+
+
+
+
+});
+
 function verModalAsignarDirectores(codigo) {
 
 
@@ -8,7 +58,7 @@ function verModalAsignarDirectores(codigo) {
 
     $.ajax({
 
-        url: "http://localhost/pg/coordinador/ver_propuesta",
+        url: baseUrl+"/coordinador/ver_propuesta",
         type: "POST",
         data: {codigo: codigo},
         success: function (resp) {

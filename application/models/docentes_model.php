@@ -12,7 +12,7 @@ class Docentes_Model extends  CI_Model {
 
     function consultar($nombres){
 
-        $this->db->select("correo AS label, CONCAT(nombres, ' ', primer_apellido,' ',segundo_apellido,' - ',correo) AS value", FALSE);
+        $this->db->select("correo AS value, CONCAT(nombres, ' ', primer_apellido,' ',segundo_apellido) AS label", FALSE);
         $this->db->like('nombres', $nombres);
         $this->db->or_like('primer_apellido', $nombres);
         $this->db->or_like('segundo_apellido', $nombres);
@@ -21,5 +21,7 @@ class Docentes_Model extends  CI_Model {
         return $reslt->result_array();
 
     }
+
+
 
 }
