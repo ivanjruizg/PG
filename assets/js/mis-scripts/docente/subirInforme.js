@@ -1,11 +1,4 @@
-
-function cerrarModal() {
-
-    $('#modal-busca-propuesta').modal('hide');
-}
-
-
-function abrirModalPropuetasParaSubirIforme() {
+function abrirModalPropuetasParaSubirInforme() {
 
 
 
@@ -36,6 +29,14 @@ function abrirModalPropuetasParaSubirIforme() {
     return false;
 
 }
+
+
+function cerrarModal() {
+
+    $('#modal-busca-propuesta').modal('hide');
+}
+
+
 
 
 function selecionarPropuestaParaSubirInforme(codigo, titulo) {

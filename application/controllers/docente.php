@@ -38,7 +38,7 @@ class Docente extends  CI_Controller {
         $datos['titulo'] = "Docentes";
         $datos['contenido'] = 'propuestas/ver_propuestas_por_evaluar';
 
-        $datos['js'] = array('docentes.js');
+        $datos['js'] = array('');
 
         $correo_docente=$this->session->userdata('correo');
 
@@ -63,7 +63,7 @@ class Docente extends  CI_Controller {
 
 
         $correo_docente=$this->session->userdata('correo');
-        $datos['js'] = array('docentes.js');
+        $datos['js'] = array('');
 
         $datos['propuestas']= $this->propuestas_model->propuestas_dirigidas($correo_docente);
 
@@ -108,7 +108,7 @@ class Docente extends  CI_Controller {
 
 
         $correo_docente=$this->session->userdata('correo');
-        $datos['js'] = array('docentes.js');
+        $datos['js'] = array('');
 
         $datos['propuestas']= $this->propuestas_model->propuestas_co_dirigidas($correo_docente);
 
@@ -143,8 +143,7 @@ class Docente extends  CI_Controller {
 
         $datos['titulo'] = "Docentes";
         $datos['contenido'] = 'informes-finales/subir_informe';
-        $datos['js'] = array('docentes.js');
-
+        $datos['js'] = array('mis-scripts/docente/subirInforme.js');
         $correo_docente=$this->session->userdata('correo');
 
 
@@ -232,7 +231,7 @@ class Docente extends  CI_Controller {
         $datos['titulo'] = "Docentes";
         $datos['contenido'] = 'propuestas/ver_propuestas_sustentadas';
 
-        $datos['js'] = array('docentes.js');
+        $datos['js'] = array('');
         $correo_docente=$this->session->userdata('correo');
 
         $datos['propuestas']= $this->propuestas_model->propuestas_por_evaluar($correo_docente);

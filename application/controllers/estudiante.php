@@ -33,7 +33,6 @@ class Estudiante extends CI_Controller
 
         $datos['titulo'] = "Estudiante";
         $datos['contenido'] = 'propuestas/ver_estado_propuesta';
-        $datos['css'] = array("");
         $datos['js'] = array("jquery.smartWizard.js");
         $this->load->view("academico/estudiantes/plantilla", $datos);
 
@@ -45,8 +44,7 @@ class Estudiante extends CI_Controller
 
         $datos['titulo'] = "Estudiante";
         $datos['contenido'] = 'cambiar_clave/cambiar_clave_de_acceso';
-        $datos['css'] = array("");
-        $datos['js'] = array("scripts/cambiarClave.js");
+        $datos['js'] = array("mis-scripts/cambiarClave.js");
         $this->load->view("academico/estudiantes/plantilla", $datos);
 
 
@@ -103,8 +101,8 @@ class Estudiante extends CI_Controller
 
             $this->load->model('tipo_propuestas_model');
             $datos['tipos'] = $this->tipo_propuestas_model->listar();
-            $datos['css'] = array("jquery-ui.css");
-            $datos['js'] = array("jquery-ui.js","scripts/nuevaPropuesta.js");
+            $datos['css'] = array('jquery-ui.css');
+            $datos['js'] = array('jquery-ui.js','mis-scripts/estudiante/nuevaPropuesta.js');
             $datos['titulo'] = "Nueva Propuesta";
             $datos['contenido'] = 'propuestas/nueva_propuesta';
             $this->load->view("academico/estudiantes/plantilla", $datos);

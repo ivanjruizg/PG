@@ -199,8 +199,10 @@
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-5">
+<!--                                <button class="btn btn-danger" onclick="cerrarModalId('modal-asignar-directores')">Cerrar</button>-->
                                 <button type="reset" class="btn btn-primary">Cancelar</button>
                                 <input id="co-director" name="co-director" type="submit" class="btn btn-success">
+
                             </div>
                         </div>
 

@@ -28,7 +28,7 @@
                                             <div class="input-group">
                                                 <input type="text" id="codigo-propuesta" name="codigo-propuesta" readonly class="form-control">
                                                 <span class="input-group-btn">
-                                              <button type="button" onclick="abrirModalPropuetasParaSubirIforme();" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                              <button type="button" onclick="abrirModalPropuetasParaSubirInforme();" class="btn btn-primary"><i class="fa fa-search"></i></button>
                                           </span>
                                             </div>
                                         </div>
@@ -47,7 +47,7 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
 
-                                            <input id="informe" accept=".doc,.docx" class="form-control col-md-3 col-xs-12 input-typehead" name="informe" placeholder="Documento del informe final" required="required" type="file">
+                                            <input id="informe" accept=".doc,.docx,.pdf" class="form-control col-md-3 col-xs-12 input-typehead" name="informe" placeholder="Documento del informe final" required="required" type="file">
                                         </div>
                                     </div>
 
@@ -118,7 +118,7 @@
 
 
                 <div class="modal-footer">
-                    <input type="submit" value="Cerrar" class="btn btn-primary" onclick="cerrarModal()" id="reg"/>
+                    <input type="submit" value="Cerrar" class="btn btn-primary" onclick="cerrarModalId('modal-busca-propuesta')" id="reg"/>
 
                 </div>
 
@@ -129,9 +129,3 @@
 </div>
 
 
-
-<script >
-
-
-    
-</script>
