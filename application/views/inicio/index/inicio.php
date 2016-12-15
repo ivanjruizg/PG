@@ -110,7 +110,7 @@
                 <div class="col-md-4 col-sm-4 text-center wow fadeInUp">
                     <div class="feature-box-heading">
                         <em>
-                            <img src="<?=base_url('assets/img/portfolios/logo/7.jpg')?>" alt="" class="img-responsive img-thumbnail">
+                            <img src="<?=base_url('assets/img/7.jpg')?>" alt="" class="img-responsive img-thumbnail">
 
                         </em>
 

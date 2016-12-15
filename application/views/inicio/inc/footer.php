@@ -79,16 +79,13 @@
 <!--small footer end-->
 
 <!-- js placed at the end of the document so the pages load faster -->
-<script src="<?php echo base_url();?>assets/js/jquery-1.11.3.min.js"></script>
-<script src="<?php echo base_url();?>assets/js/login.js"></script>
-<script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+<script src="<?= base_url('assets/js/jquery-1.11.3.min.js');?>"></script>
+<script src="<?= base_url('assets/js/scripts/inicioSesion.js');?>"></script>
+<script src="<?= base_url('assets/js/bootstrap.min.js');?>"></script>
 
-<script type="text/javascript" src="<?=base_url('assets/js/jquery.parallax-1.1.3.js')?>">
+<script  src="<?=base_url('assets/js/jquery.parallax-1.1.3.js')?>"></script>
 
-</script>
-
-<script type="text/javascript" src="<?=base_url('assets/js/parallax-slider/jquery.cslider.js')?>">
-</script>
+<script src="<?=base_url('assets/js/parallax-slider/jquery.cslider.js')?>"></script>
 
 <script type="text/javascript">
     $(function() {

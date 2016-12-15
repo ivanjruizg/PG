@@ -1,14 +1,12 @@
-$(document).on("ready",main);
-
-function main(){
 
 
-	$("#login").submit(function(event){
+function iniciarSesion(){
+
 		event.preventDefault();
 		$.ajax({
-			url:$(this).attr("action"),
-			type:$(this).attr("method"),
-			data:$(this).serialize(),
+			url:$("#login").attr("action"),
+			type:$("#login").attr("method"),
+			data:$("#login").serialize(),
 			success:function(resp){
 
 
@@ -29,7 +27,7 @@ function main(){
 					$("#password").focus();
 					$("#email").addClass("validar");
 
-					$("#error-login").html('<span class="help-inline">Estiamado estudiante, debe activar su cuenta desde el correo institucional, <a target="_blank" href="https://accounts.google.com/ServiceLogin?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ltmpl=default&hd=cecar.edu.co&service=mail&sacu=1&rip=1#identifier">Clic aquí para acceder</a></span> <br>');
+					$("#error-login").html('<span class="help-inline">Estiamado estudiante, debe activar su cuenta desde el correo institucional, <a target="_blank" href="http://mail.google.com/a/cecar.edu.co">Clic aquí para acceder</a></span> <br>');
 
 					$("#password").addClass("validar")
 
@@ -39,7 +37,7 @@ function main(){
 
 			}
 		});
-	});
 
 
+	return false;
 }

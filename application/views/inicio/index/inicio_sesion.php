@@ -7,7 +7,7 @@
             <div class="col-md-5 col-lg-5 col-xs-12 col-sm-6 div-login">
 
                 <div class="form-wrapper">
-                    <form id="login" class="form-signin wow fadeInUp" action="<?= base_url('sesion/iniciar') ?>" method="POST">
+                    <form id="login" class="form-signin wow fadeInUp" action="<?= base_url('sesion/iniciar') ?>" method="POST" onsubmit="return iniciarSesion();">
                         <h2 class="form-signin-heading">INICIO DE SESIÓN</h2>
                         <div class="login-wrap">
 
