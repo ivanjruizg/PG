@@ -57,12 +57,14 @@ $route['translate_uri_dashes'] = FALSE;
 $route['documentacion'] = 'inicio/vista_documentacion';
 $route['iniciar-sesion'] = 'inicio/vista_iniciar_sesion';
 $route['registrar-estudiante'] = 'inicio/vista_registro_estudiante';
-$route['registro-exitoso'] = 'inicio/registro_exitoso';
+$route['registro-exitoso'] = 'inscripcion_estudiante/vista_registro_exitoso';
 
 $route['coordinador/nuevo-periodo-recepcion'] = 'coordinador/vista_crear_periodo_recepcion';
 $route['coordinador/asignar-directores'] = 'coordinador/vista_asignar_directores';
 $route['coordinador/asignar-evaluadores'] = 'coordinador/vista_asignar_evaluadores';
 $route['coordinador/calendario-recepcion-propuestas'] = 'coordinador/vista_calendario_recepcion_propuestas';
+$route['coordinador/asignar-sustentaciones'] = 'coordinador/vistar_asignar_sustentaciones';
+
 
 $route['docente/subir-informe-final'] = 'docente/vista_subir_informe_final';
 $route['docente/propuestas-dirigidas'] = 'docente/vista_propuestas_dirigidas';

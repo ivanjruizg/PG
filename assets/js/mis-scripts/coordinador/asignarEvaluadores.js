@@ -1,3 +1,37 @@
+$(document).ready(function () {
+
+
+    $("#evaluador1").autocomplete({
+        source: baseUrl+"/coordinador/consultar_docentes",
+        minLength: 1,
+        appendTo: "#modal-asignar-evaluadores",
+        select: function(event, ui) {
+            event.preventDefault();
+
+            $('#evaluador1').val(ui.item.value);
+
+        }
+    });
+
+
+    $("#evaluador2").autocomplete({
+        source: baseUrl+"/coordinador/consultar_docentes",
+        minLength: 1,
+        appendTo: "#modal-asignar-evaluadores",
+        select: function(event, ui) {
+            event.preventDefault();
+
+            $('#evaluador2').val(ui.item.value);
+
+        }
+    });
+
+
+});
+
+
+
+
 function asignarEvaluadores() {
 
 
@@ -23,6 +57,9 @@ function asignarEvaluadores() {
     return false;
 
 }
+
+
+
 
 
 function verModalAsignarEvaluadores(codigo) {
@@ -75,3 +112,6 @@ function verModalAsignarEvaluadores(codigo) {
     return false;
 
 }
+
+
+

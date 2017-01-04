@@ -14,7 +14,7 @@
                             </div>
                             <div class="x_content">
 
-                                <form class="form-horizontal form-label-left" action="<?=base_url('docente/subir2') ?>"   method="post" enctype="multipart/form-data" novalidate >
+                                <form class="form-horizontal form-label-left" action="<?=base_url('docente/subir_informe_final') ?>"   method="post" enctype="multipart/form-data" novalidate >
 
 
 

@@ -55,9 +55,10 @@ class Inscripcion_estudiante extends CI_Controller
        if($filas!=-1){
 
 
-         if ($this->enviarCorreoActivacion($correo,$codigo_activacion)){
+         if ($this->enviar_correo_activacion($correo,$codigo_activacion)){
 
-             echo "Enviado";
+
+             redirect(base_url("registro-exitoso"));
 
          }
 
@@ -67,14 +68,24 @@ class Inscripcion_estudiante extends CI_Controller
    }
 
 
+    function vista_registro_exitoso(){
+
+        $datos['titulo'] = "DOCUMENTACIÓN";
+        $datos['contenido'] = "inscripcion_estudiantes/registro_exitoso";
+
+        $this->load->view('inicio/plantilla', $datos);
+
+    }
+
    function  activar($codigo_activacion=""){
 
        $datos=null;
 
-
-
-
        $filas= $this->inscripcion_model->consultar($codigo_activacion);
+
+       echo var_dump($filas);
+
+
 
        if (count($filas)>0) {
 
@@ -87,13 +98,13 @@ class Inscripcion_estudiante extends CI_Controller
                    "login" => TRUE
                );
 
-               $resp= $this->inscripcion_model->activar($fila->correo);
+               $resp= $this->inscripcion_model->activar($fila['correo']);
 
                if($resp>0){
 
                    $this->session->set_userdata($datos);
 
-                   redirect('estudiante/inicio');
+                   redirect('estudiante');
 
                }else{
 
@@ -104,6 +115,8 @@ class Inscripcion_estudiante extends CI_Controller
            }
 
        }
+
+
 
    }
 
@@ -276,6 +289,9 @@ class Inscripcion_estudiante extends CI_Controller
 
 
         return $this->correo->send();
+
+
+
     }
 
 

@@ -3,7 +3,7 @@
 
 
 
-<div class="gray-bg">
+<div class="">
     <div class="fof">
         <!-- 404 error -->
         <div class="container  error-inner wow flipInX">
