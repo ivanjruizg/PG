@@ -7,13 +7,12 @@ function verPropuesta(codigo) {
 
 
     $.ajax({
-        url: $("#modal-ver-propuesta").attr("action"),
+        url: $('#form-mostrar-propuesta').attr("action"),
         type: "POST",
         data: {codigo: codigo},
         success: function (resp) {
 
-
-            $("#mostrar-propuesta")[0].reset();
+            $("#form-mostrar-propuesta")[0].reset();
 
 
             valores = eval(resp);
@@ -35,11 +34,13 @@ function verPropuesta(codigo) {
 
             }
 
-
-            $('#asignar-directores').modal({
+            $('#modal-ver-propuesta').modal({
                 show: true,
                 backdrop: 'static'
             });
+
+
+
 
             $('#codigo').val(codigo);
 
@@ -65,9 +66,9 @@ function verCartaRemision(codigo) {
         success: function (resp) {
 
 
+
             valores = eval(resp);
 
-            console.log(valores);
 
             //$("#carta-remision").attr("src","");
             $("#carta-remision").attr("src", "./assets/docs/cartas/" + valores[0].ruta_carta);

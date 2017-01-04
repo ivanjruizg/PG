@@ -23,8 +23,8 @@ class Coordinador extends CI_Controller {
         $datos['titulo']="Coordinador de investigación";
         $datos['contenido']="contenido";
         $datos['propuestas']= $this->propuestas_model->listar();
-        $datos['css']= array("");
-        $datos['js']= array("scripts/coordinadorIndex.js");
+        $datos['css']= array('');
+        $datos['js']= array("mis-scripts/coordinador/coordinadorIndex.js");
         $this->load->view("academico/coordinadores_investigacion/plantilla",$datos);
 
     }
@@ -35,8 +35,8 @@ class Coordinador extends CI_Controller {
         $datos['titulo']="Coordinador de investigación";
         $datos['contenido']="propuestas/asignar_directores";
         $datos['propuestas']= $this->propuestas_model->listar();
-        $datos['css']= array("");
-        $datos['js'] = array("coordinador.js",'scripts/asignarDirectores.js','datatables/jquery.dataTables.min.js','datatables/dataTables.bootstrap.min.js','datatables/dataTables.responsive.min.js');
+        $datos['css']= array('');
+        $datos['js'] = array('mis-scripts/coordinador/asignarDirectores.js','datatables/jquery.dataTables.min.js','datatables/dataTables.bootstrap.min.js','datatables/dataTables.responsive.min.js');
         $this->load->view("academico/coordinadores_investigacion/plantilla",$datos);
 
     }
@@ -47,8 +47,8 @@ class Coordinador extends CI_Controller {
 
         $datos['titulo']="Coordinador de investigación";
         $datos['contenido']="propuestas/asignar_evaluadores";
-        $datos['css']= array("");
-        $datos['js'] = array('coordinador.js','scripts/asignarEvaluadores.js');
+        $datos['css']= array('');
+        $datos['js'] = array('mis-scripts/coordinador/asignarEvaluadores.js');
 
         $datos['propuestas']= $this->propuestas_model->listar();
 
@@ -138,7 +138,7 @@ class Coordinador extends CI_Controller {
         $datos['titulo']="Coordinador de investigación";
         $datos['contenido']="calendario/tabla_calendario";
         $datos['calendario'] = $this->propuestas_model->ver_calendario_de_trabajos_de_grado();
-        $datos['css']= array("");
+        $datos['css']= array('');
         $datos['js'] = array('coordinador.js','scripts/tablaCalendario.js');
         $this->load->view("academico/coordinadores_investigacion/plantilla",$datos);
 
@@ -152,8 +152,8 @@ class Coordinador extends CI_Controller {
         $datos['titulo']="Coordinador de investigación";
         $datos['contenido']="calendario/crear_periodo_recepcion";
         $datos['calendario'] = $this->propuestas_model->ver_calendario_de_trabajos_de_grado();
-        $datos['css']= array("");
-        $datos['js'] = array('coordinador.js','scripts/crearPeriodoRecepcion.js');
+        $datos['css']= array('');
+        $datos['js'] = array('mis-scripts/coordinador/crearPeriodoRecepcion.js');
         $this->load->view("academico/coordinadores_investigacion/plantilla",$datos);
 
     }

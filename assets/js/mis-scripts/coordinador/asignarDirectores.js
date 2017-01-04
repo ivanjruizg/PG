@@ -61,6 +61,7 @@ function verModalAsignarDirectores(codigo) {
         url: baseUrl+"/coordinador/ver_propuesta",
         type: "POST",
         data: {codigo: codigo},
+        appendTo: "#form-asignar-directores",
         success: function (resp) {
 
 
@@ -117,7 +118,6 @@ function asignarDirectores() {
 
             $('#modal-asignar-directores').modal('hide');
 
-            alert(resp);
 
 
         }, error: function () {

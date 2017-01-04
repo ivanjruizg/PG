@@ -41,7 +41,6 @@
 
                                     foreach ($propuestas as $propuesta) {
                                         $ruta_carta = $propuesta['ruta_carta'];
-
                                         echo '<tr>
                                         
                                                
@@ -96,7 +95,7 @@
                         </div>
 
 
-                        <form id="mostrar-propuesta" class="formulario form-horizontal"  method="POST">
+                        <form id="form-mostrar-propuesta" class="formulario form-horizontal"  method="POST" action="<?=base_url('coordinador/ver_propuesta')?>">
                             <div class="modal-body">
 
 
