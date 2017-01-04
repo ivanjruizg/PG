@@ -43,6 +43,19 @@ class Propuestas_model extends CI_Model
 
     }
 
+
+
+    function listar_propuestas_a_evaluar(){
+
+        $this->db->select("p.titulo, i.correo_director,i.correo_codirector,pa.correo_avaluador1,pa.correo_evaluador2", FALSE);
+        $this->db->from('propuestas p');
+        $this->db->join('prupuestas asignadas pa', 'pa.codigo_propuesta = p.codigo');
+
+
+
+    }
+
+
     function listar_propuestas_sin_asignar_fecha_de_sustentacion()
     {
 
@@ -122,14 +135,17 @@ AND tp.codigo = p.tipo
 
     }
 
-    function asignar_evaluador($codigo_propuesta, $datos)
+    function asignar_evaluadores($codigo_propuesta, $datos)
     {
+
 
         $this->db->where("codigo_propuesta", $codigo_propuesta);
 
-        $this->db->update("propuestas_asigandas", $datos);
+        $this->db->update("propuestas_asignadas", $datos);
 
         return $this->db->affected_rows();
+
+
 
     }
 

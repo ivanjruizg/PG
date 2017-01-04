@@ -21,14 +21,17 @@ $this->load->view("academico/inc/nav");
 $this->load->view("academico/coordinadores_investigacion/".$contenido);
 $this->load->view("academico/inc/start_footer");
 $this->load->view("academico/inc/js");
+
 ?>
 
 <?php
 if(isset($js)) {
+
     foreach ($js as $script) {
-        if ($script != '') {
-            echo script_tag('assets/js/' . $script);
-        }
+
+        echo script_tag('assets/js/'.$script);
+        echo br(1);
+
     }
 }
 ?>

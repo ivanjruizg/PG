@@ -35,8 +35,8 @@ class Coordinador extends CI_Controller {
         $datos['titulo']="Coordinador de investigación";
         $datos['contenido']="propuestas/asignar_directores";
         $datos['propuestas']= $this->propuestas_model->listar();
-        $datos['css']= array('');
-        $datos['js'] = array('mis-scripts/coordinador/asignarDirectores.js','datatables/jquery.dataTables.min.js','datatables/dataTables.bootstrap.min.js','datatables/dataTables.responsive.min.js');
+        $datos['css']= array('jquery-ui.css');
+        $datos['js'] = array('jquery-ui.js','mis-scripts/coordinador/asignarDirectores.js','datatables/jquery.dataTables.min.js','datatables/dataTables.bootstrap.min.js','datatables/dataTables.responsive.min.js');
         $this->load->view("academico/coordinadores_investigacion/plantilla",$datos);
 
     }
@@ -47,8 +47,8 @@ class Coordinador extends CI_Controller {
 
         $datos['titulo']="Coordinador de investigación";
         $datos['contenido']="propuestas/asignar_evaluadores";
-        $datos['css']= array('');
-        $datos['js'] = array('mis-scripts/coordinador/asignarEvaluadores.js');
+        $datos['css']= array('jquery-ui.css');
+        $datos['js'] = array('jquery-ui.js','mis-scripts/coordinador/asignarEvaluadores.js');
 
         $datos['propuestas']= $this->propuestas_model->listar();
 
@@ -64,20 +64,20 @@ class Coordinador extends CI_Controller {
 
 
         $codigo_propuesta = $this->input->post('codigo');
-        $director = explode(" - ", $this->input->post('director'));
+        $director =  $this->input->post('director');
 
-        $co_director = explode(" - ", $this->input->post('co-director'));
+        $co_director =  $this->input->post('co-director');
 
 
         $datos1 = array(
 
-            "correo_director" => $director[1]
+            "correo_director" => $director
 
         );
 
         $datos2 = array(
 
-            "correo_codirector" => $co_director[1]
+            "correo_codirector" => $co_director
 
         );
 
@@ -101,28 +101,39 @@ class Coordinador extends CI_Controller {
     }
 
 
+    function vistar_asignar_sustentaciones(){
+
+        $datos['titulo']="Coordinador de investigación";
+        $datos['contenido']="propuestas/asignar_sustentaciones";
+        $datos['propuestas']= $this->propuestas_model->listar_propuestas_a_evaluar();
+      //  $datos['css']= array('jquery-ui.css');
+       // $datos['js'] = array('jquery-ui.js','mis-scripts/coordinador/asignarDirectores.js','datatables/jquery.dataTables.min.js','datatables/dataTables.bootstrap.min.js','datatables/dataTables.responsive.min.js');
+        $this->load->view("academico/coordinadores_investigacion/plantilla",$datos);
+
+
+    }
 
     function asignar_evaluador()
     {
 
 
         $codigo_propuesta = $this->input->post('codigo');
-        $evaluador1 = explode(" - ", $this->input->post('evaluador1'));
+        $evaluador1 = $this->input->post('evaluador1');
 
-        $evaluador2 = explode(" - ", $this->input->post('evaluador2'));
+        $evaluador2 =  $this->input->post('evaluador2');
 
 
         $datos = array(
 
-            "correo_evaluador1" => $evaluador1[1],
-            "correo_evaluador2" => $evaluador2[1]
+            "correo_evaluador1" => $evaluador1,
+            "correo_evaluador2" => $evaluador2
 
         );
 
 
 
 
-         $this->propuestas_model->asignar_evaluador($codigo_propuesta,$datos);
+         $this->propuestas_model->asignar_evaluadores($codigo_propuesta,$datos);
 
 
 
@@ -138,8 +149,8 @@ class Coordinador extends CI_Controller {
         $datos['titulo']="Coordinador de investigación";
         $datos['contenido']="calendario/tabla_calendario";
         $datos['calendario'] = $this->propuestas_model->ver_calendario_de_trabajos_de_grado();
-        $datos['css']= array('');
-        $datos['js'] = array('coordinador.js','scripts/tablaCalendario.js');
+        $datos['css']= array();
+        $datos['js'] = array('mis-scripts/coordinador/tablaCalendario.js');
         $this->load->view("academico/coordinadores_investigacion/plantilla",$datos);
 
 
@@ -173,21 +184,21 @@ class Coordinador extends CI_Controller {
         $cambios = $this->propuestas_model->cambiar_fechas_periodos($periodo,$fecha_inicio_recepcion,$fecha_fin_recepcion, $fecha_sustentacion);
 
 
-        redirect("coordinador/calendario");
+        redirect("coordinador/calendario-recepcion-propuestas");
 
 
     }
 
 
-    function consultarDocentes(){
+    function consultar_docentes(){
 
         $this->load->model('docentes_model');
 
-        if (isset($_GET['nombres'])){
+        if (isset($_GET['term'])){
 
 
 
-            $nombres = strtolower($_GET['nombres']);
+            $nombres = strtolower($_GET['term']);
             $valores = $this->docentes_model->consultar($nombres);
 
 
@@ -196,6 +207,9 @@ class Coordinador extends CI_Controller {
             echo json_encode($valores);
         }
     }
+
+
+
 
     function crear_periodo(){
 
@@ -224,7 +238,7 @@ class Coordinador extends CI_Controller {
 
         foreach ($result as $propuesta){
 
-            $datos[] = array('codigo' => $propuesta['codigo'], 'titulo' => $propuesta['titulo'], 'estudiante' => $propuesta['estudiante'], 'tipo_propuesta' => $propuesta['tipo'], 'fecha_recepcion'=> substr($propuesta['fecha_hora_subida'],0,10));
+            $datos[] = array('codigo' => $propuesta['codigo'], 'titulo' => $propuesta['titulo'], 'estudiante' => $propuesta['estudiante'], 'tipo_propuesta' => $propuesta['tipo'], 'fecha_recepcion'=> substr($propuesta['fecha_hora_subida'],0,10),'director'=>$propuesta['correo_director'],'co_director'=>$propuesta['correo_codirector']);
 
         }
 

@@ -7,13 +7,14 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Asignar directores</h2>
+                        <h2>Asignar sustentaciones</h2>
                         <ul class="nav navbar-right panel_toolbox">
 
                         </ul>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
+
 
                         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap"
                                cellspacing="0" width="100%">
@@ -38,9 +39,9 @@
                                 echo '<tr>
                                         
                                                
-                                                <td>' . $propuesta['titulo'] . '</td>
-                                                <td>' . $propuesta['tipo'] . '</td>
-                                                <td class="text-center"><a href="javascript:verModalAsignarDirectores(' . $propuesta['codigo'] . ');" class="fa fa-edit"></a></td>
+                                                <td>'.$propuesta['titulo'].'</td>
+                                                <td>'.$propuesta['tipo'].'</td>
+                                                <td class="text-center"><a href="javascript:verModalAsignarEvaluadores(' . $propuesta['codigo'] . ');" class="fa fa-edit"></a></td>
                                                 
 
                                             </tr>';
@@ -67,7 +68,7 @@
 
 <fieldset>
 
-    <div class="modal fade modal-wide2" id="modal-asignar-directores" tabindex="-1" role="dialog"
+    <div class="modal fade modal-wide2" id="modal-asignar-evaluadores" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -82,10 +83,8 @@
                         <b>Propuesta</b></h4>
                 </div>
 
-                <!--
--->
-                <form id="form-asignar-directores" class="formulario form-horizontal" method="POST"
-                      action="<?= base_url('coordinador/asignar_director') ?>" onsubmit="return asignarDirectores();">
+                <form id="form-asignar-evaluadores" class="formulario form-horizontal" method="POST"
+                      action="<?= base_url('coordinador/asignar_evaluador') ?>" onsubmit="return asignarEvaluadores();">
                     <div class="modal-body">
 
 
@@ -141,7 +140,8 @@
                             <div class="col-md-10">
 
 
-                                <input disabled id="investigador1" type="text" class="form-control">
+                                <input disabled id="investigador1" name="investigador1" type="text"
+                                       class="form-control">
 
 
                             </div>
@@ -149,11 +149,12 @@
 
 
                         <div class="form-group  inv2">
-                            <label class="col-md-2 control-label" for="name">Investigador 2 : </label>
+                            <label class="col-md-2 control-label" for="name">Investigador 2:</label>
                             <div class="col-md-10">
 
 
-                                <input disabled id="investigador2" type="text" class="form-control">
+                                <input disabled id="investigador2" name="investigador2" type="text"
+                                       class="form-control">
 
 
                             </div>
@@ -165,18 +166,20 @@
                             <div class="col-md-10">
 
 
-                                <input disabled id="investigador3" type="text" class="form-control">
+                                <input disabled id="investigador2" name="investigador3" type="text"
+                                       class="form-control">
 
 
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="name">Director :</label>
+                            <label class="col-md-2 control-label" for="name">Evaluador 1 :</label>
                             <div class="col-md-10">
 
 
-                                <input required id="director" name="director" type="text" class="form-control">
+                                <input required id="evaluador1" name="evaluador1" type="text"
+                                       class="form-control input-typehead">
 
 
                             </div>
@@ -184,25 +187,22 @@
 
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="name">Codirector :</label>
+                            <label class="col-md-2 control-label" for="name">Evaluador 2 :</label>
                             <div class="col-md-10">
 
 
-                                <input id="co-director" name="co-director" type="text" class="form-control">
+                                <input id="evaluador2" name="evaluador2" type="text"
+                                       class="form-control input-typehead">
 
 
                             </div>
                         </div>
-
-
 
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-5">
-<!--                                <button class="btn btn-danger" onclick="cerrarModalId('modal-asignar-directores')">Cerrar</button>-->
                                 <button type="reset" class="btn btn-primary">Cancelar</button>
-                                <input id="co-director" name="co-director" type="submit" class="btn btn-success">
-
+                                <input type="submit" class="btn btn-success">
                             </div>
                         </div>
 

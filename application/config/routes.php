@@ -63,6 +63,8 @@ $route['coordinador/nuevo-periodo-recepcion'] = 'coordinador/vista_crear_periodo
 $route['coordinador/asignar-directores'] = 'coordinador/vista_asignar_directores';
 $route['coordinador/asignar-evaluadores'] = 'coordinador/vista_asignar_evaluadores';
 $route['coordinador/calendario-recepcion-propuestas'] = 'coordinador/vista_calendario_recepcion_propuestas';
+$route['coordinador/asignar-sustentaciones'] = 'coordinador/vistar_asignar_sustentaciones';
+
 
 $route['docente/subir-informe-final'] = 'docente/vista_subir_informe_final';
 $route['docente/propuestas-dirigidas'] = 'docente/vista_propuestas_dirigidas';

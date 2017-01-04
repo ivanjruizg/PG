@@ -2,51 +2,35 @@
 $(document).ready(function () {
 
 
-
- //    alert("Ya.... cargo esta miertada");
-
-    $("#autocomplete").autocomplete({
-        source: baseUrl+"/coordinador/consultar_docentes",
-        minLength: 1,
-        select: function(event, ui) {
-            event.preventDefault();
-
-
-
-
-            console.log("Ya..."+ui);
-
-            /*
-            $('#director').val(ui.item.label);
-            $('#correo-investigador2').val(ui.item.value);
-
-
-            */
-
-        }
-    });
-
     $("#co-director").autocomplete({
         source: baseUrl+"/coordinador/consultar_docentes",
         minLength: 1,
+        appendTo: "#modal-asignar-directores",
         select: function(event, ui) {
             event.preventDefault();
 
-
-
-/*            $('#investigador3').val(ui.item.label);
-            $('#correo-investigador3').val(ui.item.value);*/
-
-
+            $('#co-director').val(ui.item.value);
 
         }
     });
 
 
+    $("#director").autocomplete({
+        source: baseUrl+"/coordinador/consultar_docentes",
+        minLength: 1,
+        appendTo: "#modal-asignar-directores",
+        select: function(event, ui) {
+            event.preventDefault();
 
+            $('#director').val(ui.item.value);
+
+        }
+    });
 
 
 });
+
+
 
 function verModalAsignarDirectores(codigo) {
 
@@ -69,7 +53,7 @@ function verModalAsignarDirectores(codigo) {
 
 
             valores = eval(resp);
-
+            console.log(valores);
 
             for (var i = 0; i < valores.length; i++) {
 
@@ -78,6 +62,8 @@ function verModalAsignarDirectores(codigo) {
                 $("#titulo-propuesta").val(valores[i].titulo);
                 $("#fecha").val(valores[i].fecha_recepcion);
                 $("#tipo").val(valores[i].tipo_propuesta);
+                $("#director").val(valores[i].director);
+                $("#co-director").val(valores[i].co_director);
 
 
                 $("#investigador" + (i + 1)).val(valores[i].estudiante);
