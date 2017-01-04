@@ -1,18 +1,17 @@
-$(document).on('ready', function () {
+$(document).ready(function () {
 
 
     var dominio = 'http://localhost/pg/estudiante/reloj';
-     var servidor = $.get(dominio, function(data){
+    var servidor = $.get(dominio, function(data){
 
-             if(data!="0") {
-                 horaServidor = data;
-                 iniciarTemporizador(horaServidor);
-             }
+        if(data!="0") {
+            horaServidor = data;
+            iniciarTemporizador(horaServidor);
+        }
 
-     });
+    });
 
 });
-
 function iniciarTemporizador(horaServidor) {
 
     var clock = $("#mi-reloj").FlipClock({

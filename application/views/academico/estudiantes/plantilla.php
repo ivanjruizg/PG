@@ -23,8 +23,6 @@ $this->load->view("academico/inc/start_footer");
 $this->load->view("academico/inc/js");
 ?>
 
-
-
 <?php
 if(isset($js)) {
     foreach ($js as $script) {

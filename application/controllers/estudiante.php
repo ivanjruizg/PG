@@ -88,11 +88,10 @@ class Estudiante extends CI_Controller
         $this->load->model('propuestas_model');
         $result = $this->propuestas_model->calendario_abierto();
 
-
         if (count($result) != 1) {
 
-            $datos['css'] = array("flipclock.css");
-            $datos['js'] = array("temporizador/flipclock.min.js", "temporizador/temporizador.js");
+            $datos['css'] = array('flipclock.css');
+            $datos['js'] = array('temporizador/flipclock.min.js','temporizador/temporizador.js');
             $datos['titulo'] = "Plataforma cerrada!";
             $datos['contenido'] = 'propuestas/plataforma_cerrada';
             $this->load->view("academico/estudiantes/plantilla", $datos);
