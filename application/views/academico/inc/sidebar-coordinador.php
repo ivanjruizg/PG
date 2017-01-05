@@ -41,7 +41,9 @@
             </li>
             <li><a><i class="fa fa-users"></i>Sustentaciones<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="<?=base_url('coordinador/asignar-sustentaciones')?>">Asignar</a></li>
+
+                    <li><a href="<?=base_url('coordinador/crear-fechas-sustentaciones')?>">Crear fechas</a></li>
+                    <li><a href="<?=base_url('coordinador/asignar-sustentaciones')?>">Asignar horario</a></li>
                     <li><a href="fixed_footer.html">Fixed Footer</a></li>
                 </ul>
             </li>

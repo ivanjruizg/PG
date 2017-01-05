@@ -30,7 +30,7 @@ if(isset($js)) {
     foreach ($js as $script) {
 
         echo script_tag('assets/js/'.$script);
-        echo br(1);
+
 
     }
 }
