@@ -47,9 +47,12 @@ class Propuestas_model extends CI_Model
 
     function listar_propuestas_a_evaluar(){
 
-        $this->db->select("p.titulo, i.correo_director,i.correo_codirector,pa.correo_avaluador1,pa.correo_evaluador2", FALSE);
+        $this->db->select("p.titulo,p.codigo,pa.correo_evaluador1,pa.correo_evaluador2", FALSE);
         $this->db->from('propuestas p');
-        $this->db->join('prupuestas asignadas pa', 'pa.codigo_propuesta = p.codigo');
+        $this->db->join('propuestas_asignadas pa', 'pa.codigo_propuesta = p.codigo');
+        $this->db->where('pa.correo_evaluador1 !=',null) ;
+        $result = $this->db->get();
+        return $result->result_array();
 
 
 
@@ -373,6 +376,23 @@ AND tp.codigo = p.tipo
 
         return $this->db->affected_rows();
 
+
+
+    }
+
+    function registrar_sustentaciones($codigo_propuesta,$aula,$fecha,$hora){
+
+
+        $datos = array(
+
+            "codigo_propuesta" => $codigo_propuesta,
+            "aula" => $aula,
+            "fecha" => $fecha,
+            "hora" => $hora
+        );
+
+
+        $this->db->insert("sustentaciones", $datos);
 
 
     }

@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Coordinador extends CI_Controller {
+class Coordinador extends CI_Controller
+{
 
 
     function __construct()
@@ -9,7 +10,7 @@ class Coordinador extends CI_Controller {
         parent::__construct();
         $this->load->model('propuestas_model');
 
-        if ($this->session->userdata('tipo')!=COORDINADORES) {
+        if ($this->session->userdata('tipo') != COORDINADORES) {
 
             redirect(base_url());
 
@@ -17,27 +18,28 @@ class Coordinador extends CI_Controller {
 
     }
 
-    function index(){
+    function index()
+    {
 
 
-        $datos['titulo']="Coordinador de investigación";
-        $datos['contenido']="contenido";
-        $datos['propuestas']= $this->propuestas_model->listar();
-        $datos['css']= array('');
-        $datos['js']= array("mis-scripts/coordinador/coordinadorIndex.js");
-        $this->load->view("academico/coordinadores_investigacion/plantilla",$datos);
+        $datos['titulo'] = "Coordinador de investigación";
+        $datos['contenido'] = "contenido";
+        $datos['propuestas'] = $this->propuestas_model->listar();
+        $datos['css'] = array('');
+        $datos['js'] = array("mis-scripts/coordinador/coordinadorIndex.js");
+        $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
     }
 
     function vista_asignar_directores()
     {
 
-        $datos['titulo']="Coordinador de investigación";
-        $datos['contenido']="propuestas/asignar_directores";
-        $datos['propuestas']= $this->propuestas_model->listar();
-        $datos['css']= array('jquery-ui.css');
-        $datos['js'] = array('jquery-ui.js','mis-scripts/coordinador/asignarDirectores.js','datatables/jquery.dataTables.min.js','datatables/dataTables.bootstrap.min.js','datatables/dataTables.responsive.min.js');
-        $this->load->view("academico/coordinadores_investigacion/plantilla",$datos);
+        $datos['titulo'] = "Coordinador de investigación";
+        $datos['contenido'] = "propuestas/asignar_directores";
+        $datos['propuestas'] = $this->propuestas_model->listar();
+        $datos['css'] = array('jquery-ui.css');
+        $datos['js'] = array('jquery-ui.js', 'mis-scripts/coordinador/asignarDirectores.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
+        $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
     }
 
@@ -45,14 +47,14 @@ class Coordinador extends CI_Controller {
     {
 
 
-        $datos['titulo']="Coordinador de investigación";
-        $datos['contenido']="propuestas/asignar_evaluadores";
-        $datos['css']= array('jquery-ui.css');
-        $datos['js'] = array('jquery-ui.js','mis-scripts/coordinador/asignarEvaluadores.js');
+        $datos['titulo'] = "Coordinador de investigación";
+        $datos['contenido'] = "propuestas/asignar_evaluadores";
+        $datos['css'] = array('jquery-ui.css');
+        $datos['js'] = array('jquery-ui.js', 'mis-scripts/coordinador/asignarEvaluadores.js');
 
-        $datos['propuestas']= $this->propuestas_model->listar();
+        $datos['propuestas'] = $this->propuestas_model->listar();
 
-        $this->load->view("academico/coordinadores_investigacion/plantilla",$datos);
+        $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
     }
 
@@ -61,12 +63,10 @@ class Coordinador extends CI_Controller {
     {
 
 
-
-
         $codigo_propuesta = $this->input->post('codigo');
-        $director =  $this->input->post('director');
+        $director = $this->input->post('director');
 
-        $co_director =  $this->input->post('co-director');
+        $co_director = $this->input->post('co-director');
 
 
         $datos1 = array(
@@ -81,15 +81,15 @@ class Coordinador extends CI_Controller {
 
         );
 
-       $op  = $this->propuestas_model->asignar_director($codigo_propuesta,$datos1);
+        $op = $this->propuestas_model->asignar_director($codigo_propuesta, $datos1);
 
 
-        if($op>0){
+        if ($op > 0) {
 
             echo "SI director";
-            if(isset($co_director)){
+            if (isset($co_director)) {
 
-                $this->propuestas_model->asignar_codirector($codigo_propuesta,$datos2);
+                $this->propuestas_model->asignar_codirector($codigo_propuesta, $datos2);
 
             }
 
@@ -101,17 +101,80 @@ class Coordinador extends CI_Controller {
     }
 
 
-    function vistar_asignar_sustentaciones(){
+    function vista_asignar_sustentaciones()
+    {
 
-        $datos['titulo']="Coordinador de investigación";
-        $datos['contenido']="propuestas/asignar_sustentaciones";
-        $datos['propuestas']= $this->propuestas_model->listar_propuestas_a_evaluar();
-      //  $datos['css']= array('jquery-ui.css');
-       // $datos['js'] = array('jquery-ui.js','mis-scripts/coordinador/asignarDirectores.js','datatables/jquery.dataTables.min.js','datatables/dataTables.bootstrap.min.js','datatables/dataTables.responsive.min.js');
-        $this->load->view("academico/coordinadores_investigacion/plantilla",$datos);
+        $datos['titulo'] = "Coordinador de investigación";
+        $datos['contenido'] = "propuestas/asignar_sustentaciones";
+        $datos['propuestas'] = $this->propuestas_model->listar_propuestas_a_evaluar();
+        //  $datos['css']= array('jquery-ui.css');
+        $datos['js'] = array('mis-scripts/cerrarModal.js');
+        $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
 
     }
+
+
+    function asignar_sustentaciones()
+    {
+
+
+
+        $pos = $this->input->post("pos");
+
+        $propuestas = $this->propuestas_model->listar_propuestas_a_evaluar();
+
+
+        foreach ($propuestas as $propuesta) {
+
+
+            $titulo = "'" . $propuesta['titulo'] . "'";
+
+
+            echo '<tr>
+
+                    <td>' . $propuesta['codigo'] . '</td>
+                    <td>' . $propuesta['titulo'] . '</td>
+                    <td>' . $propuesta['correo_evaluador1'] .' - '.$propuesta['correo_evaluador2'] .'</td>
+                    <td class="text-center"><a href="javascript:selecionarPropuestaParaAsignarSustentacion('.$pos.','. $propuesta['codigo'] . ',' . $titulo . ');" class="fa fa-check fa-2x"></a></td>
+                </tr>';
+
+        }
+
+
+    }
+
+
+    function  crear_sustentaciones(){
+
+
+
+
+
+        $propuestas = $this->input->post("propuestas");
+        $fecha = $this->input->post("fecha");
+        $aula = $this->input->post("aula");
+
+
+        echo var_dump($propuestas);
+
+
+
+
+        foreach ($propuestas as &$propuesta){
+
+            list($codigo,$hora) = explode(",", $propuesta);
+            //echo $codigo."----".$hora;
+            $this->propuestas_model->registrar_sustentaciones($codigo,$aula,$fecha,$hora);
+
+
+        }
+
+
+
+
+    }
+
 
     function asignar_evaluador()
     {

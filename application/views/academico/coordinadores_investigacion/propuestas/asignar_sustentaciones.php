@@ -21,9 +21,8 @@
                             <thead>
                             <tr>
 
-                                <th>Título</th>
-                                <th width="50">Tipo</th>
-                                <th width="50">Asignar</th>
+                                <th width="10" class="text-center">Hora</th>
+                                <th width="500"> Propuesta </th>
 
 
                             </tr>
@@ -31,29 +30,177 @@
                             <tbody>
 
 
+
+
+                            <a ></a>
+
+
                             <?php
 
 
-                            foreach ($propuestas as $propuesta) {
 
-                                echo '<tr>
-                                        
-                                               
-                                                <td>'.$propuesta['titulo'].'</td>
-                                                <td>'.$propuesta['tipo'].'</td>
-                                                <td class="text-center"><a href="javascript:verModalAsignarEvaluadores(' . $propuesta['codigo'] . ');" class="fa fa-edit"></a></td>
-                                                
+                                $horas = array('08:00','08:30','09:00','09:30','10:00','10:30','11:00','14:00','14:30','15:00','15:30','16:00','16:30','17:00');
 
-                                            </tr>';
+                                $i=0;
 
-                            }
+                            foreach ($horas as $hora){
+
+                                    $hora2= "'".$hora."'";
+
+                                    echo '<tr>
+                                            <td class="text-center">'.$hora.'</td>
+                                             <td id="'.$i.'"  onclick="abrirModalPropuestasParaSustentar('.$i.')"></td>
+                                              
+                                          </tr>';
+
+                                    $i++;
+                                }
+
+
+
 
                             ?>
+
+
+                            <script >
+
+                                horas = ['08:00','08:30','09:00','09:30','10:00','10:30','11:00','14:00','14:30','15:00','15:30','16:00','16:30','17:00'];
+                                propuestas = [];
+
+                                function selecionarPropuestaParaAsignarSustentacion(pos,codigo,propuesta) {
+
+                                 propuestas.push(codigo+","+horas[pos]);
+
+                                   $("#"+pos).html(propuesta);
+
+                                    cerrarModalId('modal-asignar-sustentaciones');
+
+                                }
+
+
+
+                                function abrirModalPropuestasParaSustentar(pos) {
+
+
+
+                                    $.ajax({
+                                        url: baseUrl+"/coordinador/asignar_sustentaciones",
+                                        data: "pos="+pos,
+                                        type: "POST",
+                                        success: function (resp) {
+
+
+
+                                            $('#hora-susetentacion').html("Hola");
+
+                                            $("#propuestas-dirigidas").html(resp);
+
+
+
+                                            $('#modal-asignar-sustentaciones').modal({
+                                                show: true,
+                                                backdrop: 'static'
+                                            });
+
+
+
+                                        },error: function () {
+
+                                            alert("Error");
+
+                                        }
+                                    });
+                                    return false;
+
+                                }
+
+
+
+                                function asignarSustentaciones(){
+
+                                    var fecha = $("#fecha").val();
+                                    var aula = $("#aula").val();
+
+
+                                    $.ajax({
+
+                                        type: "POST",
+                                        data: {propuestas: propuestas, fecha:fecha,aula:aula},
+                                       // data: {cdp_detalles: cdp_detalles, cdps: cdps},
+                                        url: baseUrl+"/coordinador/crear_sustentaciones",
+                                        success: function (msg) {
+
+
+                                            console.log(msg);
+
+
+                                        }
+                                    });
+
+
+                                    return  false;
+                                }
+
+
+                            </script>
+
 
 
                             </tbody>
 
                         </table>
+
+
+
+                        <div class="container">
+
+
+                            <form action="" class="form-horizontal" onsubmit="return asignarSustentaciones() ;">
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-1 col-sm-1 col-xs-12" for="name">Día* <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+
+                                        <input required name="fecha" id="fecha" type="date"  class="form-control">
+
+                                    </div>
+
+
+
+                                    <label class="control-label col-md-1 col-sm-1 col-xs-12" for="name">Aula <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-3 col-sm-3 col-xs-3">
+
+                                        <input  required   name="aula" id="aula" type="text"  class="form-control">
+
+                                    </div>
+
+
+                                    <button type="submit" class="btn btn-primary">Cancel</button>
+
+                                    <input type="submit" class="btn btn-success" value="Subir">
+
+
+                                </div>
+
+
+<!--                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <button type="submit" class="btn btn-primary">Cancel</button>
+
+                                        <input type="submit" class="btn btn-success" value="Subir">
+
+                                    </div>
+                                </div>
+-->
+
+                            </form>
+
+
+
+                        </div>
+
 
 
                     </div>
@@ -68,149 +215,55 @@
 
 <fieldset>
 
-    <div class="modal fade modal-wide2" id="modal-asignar-evaluadores" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal fade modal-wide2" id="modal-asignar-sustentaciones" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">
-
-
-                        <i class="fa fa-eye"></i>
-
-                        <b>Propuesta</b></h4>
+                    <h4 class="modal-title" id="myModalLabel"><b>Propuestas disponibles para sustentar  <div id="hora-susetentacion"></div>  </b></h4>
                 </div>
 
-                <form id="form-asignar-evaluadores" class="formulario form-horizontal" method="POST"
-                      action="<?= base_url('coordinador/asignar_evaluador') ?>" onsubmit="return asignarEvaluadores();">
-                    <div class="modal-body">
 
 
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="name">Código:</label>
-                            <div class="col-md-2">
+                <div class="modal-body">
 
 
-                                <input readonly id="codigo" name="codigo" type="text" class="form-control">
 
 
-                            </div>
 
-                            <label class="col-md-1 control-label" for="name">Fecha:</label>
-                            <div class="col-md-2">
+                    <table id="datatable-calendario" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
 
 
-                                <input disabled id="fecha" name="fecha" type="text" class="form-control">
+                        <thead>
+                        <tr>
+
+                            <th width="5">Codigo</th>
+                            <th>Título</th>
+                            <th width="5">Evaluadores</th>
+                            <th width="5">Seleccionar</th>
 
 
-                            </div>
+                        </tr>
+                        </thead>
+                        <tbody id="propuestas-dirigidas">
 
 
-                            <label class="col-md-1 control-label" for="name">Tipo:</label>
-                            <div class="col-md-4">
 
 
-                                <input disabled id="tipo" name="tipo" type="text" class="form-control">
+                        </tbody>
+                    </table>
+
+                </div>
 
 
-                            </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Cerrar" class="btn btn-primary" onclick="cerrarModalId('modal-busca-propuesta')" id="reg"/>
 
-                        </div>
+                </div>
 
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="name">Título:</label>
-                            <div class="col-md-10">
-
-
-                                <textarea disabled class="form-control" name="" id="titulo-propuesta" cols="20"
-                                          rows="5"></textarea>
-
-
-                            </div>
-                        </div>
-
-
-                        <hr>
-
-                        <div class="form-group inv1">
-                            <label class="col-md-2 control-label" for="name">Investigador 1:</label>
-                            <div class="col-md-10">
-
-
-                                <input disabled id="investigador1" name="investigador1" type="text"
-                                       class="form-control">
-
-
-                            </div>
-                        </div>
-
-
-                        <div class="form-group  inv2">
-                            <label class="col-md-2 control-label" for="name">Investigador 2:</label>
-                            <div class="col-md-10">
-
-
-                                <input disabled id="investigador2" name="investigador2" type="text"
-                                       class="form-control">
-
-
-                            </div>
-                        </div>
-
-
-                        <div class="form-group inv3">
-                            <label class="col-md-2 control-label" for="name">Investigador 3:</label>
-                            <div class="col-md-10">
-
-
-                                <input disabled id="investigador2" name="investigador3" type="text"
-                                       class="form-control">
-
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="name">Evaluador 1 :</label>
-                            <div class="col-md-10">
-
-
-                                <input required id="evaluador1" name="evaluador1" type="text"
-                                       class="form-control input-typehead">
-
-
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="name">Evaluador 2 :</label>
-                            <div class="col-md-10">
-
-
-                                <input id="evaluador2" name="evaluador2" type="text"
-                                       class="form-control input-typehead">
-
-
-                            </div>
-                        </div>
-
-                        <div class="ln_solid"></div>
-                        <div class="form-group">
-                            <div class="col-md-4 col-md-offset-5">
-                                <button type="reset" class="btn btn-primary">Cancelar</button>
-                                <input type="submit" class="btn btn-success">
-                            </div>
-                        </div>
-
-                </form>
             </div>
         </div>
-
-
-    </div>
 </fieldset>
 
