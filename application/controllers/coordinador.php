@@ -103,6 +103,7 @@ class Coordinador extends CI_Controller
 
     function vista_asignar_sustentaciones()
     {
+<<<<<<< HEAD
 
         $datos['titulo'] = "Coordinador de investigación";
         $datos['contenido'] = "sustentaciones/asignar_sustentaciones";
@@ -197,11 +198,84 @@ class Coordinador extends CI_Controller
 
 
         }
+=======
+
+        $datos['titulo'] = "Coordinador de investigación";
+        $datos['contenido'] = "propuestas/asignar_sustentaciones";
+        $datos['propuestas'] = $this->propuestas_model->listar_propuestas_a_evaluar();
+        //  $datos['css']= array('jquery-ui.css');
+        $datos['js'] = array('mis-scripts/cerrarModal.js');
+        $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
+>>>>>>> origin/master
 
 
     }
 
 
+<<<<<<< HEAD
+=======
+    function asignar_sustentaciones()
+    {
+
+
+
+        $pos = $this->input->post("pos");
+
+        $propuestas = $this->propuestas_model->listar_propuestas_a_evaluar();
+
+
+        foreach ($propuestas as $propuesta) {
+
+
+            $titulo = "'" . $propuesta['titulo'] . "'";
+
+
+            echo '<tr>
+
+                    <td>' . $propuesta['codigo'] . '</td>
+                    <td>' . $propuesta['titulo'] . '</td>
+                    <td>' . $propuesta['correo_evaluador1'] .' - '.$propuesta['correo_evaluador2'] .'</td>
+                    <td class="text-center"><a href="javascript:selecionarPropuestaParaAsignarSustentacion('.$pos.','. $propuesta['codigo'] . ',' . $titulo . ');" class="fa fa-check fa-2x"></a></td>
+                </tr>';
+
+        }
+
+
+    }
+
+
+    function  crear_sustentaciones(){
+
+
+
+
+
+        $propuestas = $this->input->post("propuestas");
+        $fecha = $this->input->post("fecha");
+        $aula = $this->input->post("aula");
+
+
+        echo var_dump($propuestas);
+
+
+
+
+        foreach ($propuestas as &$propuesta){
+
+            list($codigo,$hora) = explode(",", $propuesta);
+            //echo $codigo."----".$hora;
+            $this->propuestas_model->registrar_sustentaciones($codigo,$aula,$fecha,$hora);
+
+
+        }
+
+
+
+
+    }
+
+
+>>>>>>> origin/master
     function asignar_evaluador()
     {
 

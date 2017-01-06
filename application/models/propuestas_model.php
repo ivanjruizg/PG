@@ -45,6 +45,7 @@ class Propuestas_model extends CI_Model
 
 
 
+<<<<<<< HEAD
     function listar_propuestas_a_evaluar($propuestas)
     {
 
@@ -54,6 +55,14 @@ class Propuestas_model extends CI_Model
         $this->db->where('pa.correo_evaluador1 !=', null);
         $this->db->where_not_in('p.codigo', $propuestas);
         $this->db->where_not_in('p.codigo', $this->consultar_propuestas_a_sustentar());
+=======
+        $this->db->select("p.titulo,p.codigo,pa.correo_evaluador1,pa.correo_evaluador2", FALSE);
+        $this->db->from('propuestas p');
+        $this->db->join('propuestas_asignadas pa', 'pa.codigo_propuesta = p.codigo');
+        $this->db->where('pa.correo_evaluador1 !=',null) ;
+        $result = $this->db->get();
+        return $result->result_array();
+>>>>>>> origin/master
 
         $result = $this->db->get();
         return $result->result_array();
@@ -437,6 +446,7 @@ AND tp.codigo = p.tipo
 
     }
 
+<<<<<<< HEAD
     function horarios_de_sustentaciones2(){
 
 
@@ -473,4 +483,23 @@ AND tp.codigo = p.tipo
     }
 
 
+=======
+    function registrar_sustentaciones($codigo_propuesta,$aula,$fecha,$hora){
+
+
+        $datos = array(
+
+            "codigo_propuesta" => $codigo_propuesta,
+            "aula" => $aula,
+            "fecha" => $fecha,
+            "hora" => $hora
+        );
+
+
+        $this->db->insert("sustentaciones", $datos);
+
+
+    }
+
+>>>>>>> origin/master
 }
