@@ -5,9 +5,24 @@
 }
 
 .modal.modal-wide2 .modal-dialog {
-  width: 70%;
+  width: 100%;
 }
 
+
+#label-preguntas{
+
+
+    padding-top: 7px !important;
+    margin-bottom: 0 !important;
+    text-align: left !important;
+
+}
+
+
+
+.modal.modal-wide3{
+  width: 90%;
+}
 
 textarea {
   resize: vertical;

@@ -12,8 +12,8 @@
 
                     <li><a href="<?=base_url('docente/propuestas-dirigidas')?>">Dirigidas</a></li>
                     <li><a href="<?=base_url('docente/propuestas-codirigidas')?>"">Codirigidas</a></li>
+                    <li><a href="<?=base_url('docente/propuestas-por-evaluar1')?>">Por evaluar1</a></li>
                     <li><a href="<?=base_url('docente/propuestas-por-evaluar')?>">Por evaluar</a></li>
-                    <li><a href="<?=base_url('docente/')?>">Evaluadas</a></li>
 
                 </ul>
             </li>
@@ -24,6 +24,8 @@
                     <li><a href="#<?=base_url('docente/')?>">Ver informe subidos</a></li>
                 </ul>
             </li>
+
+
 
     </div>
 

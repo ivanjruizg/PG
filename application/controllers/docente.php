@@ -28,11 +28,11 @@ class Docente extends  CI_Controller {
     function index()
     {
 
-        $this->vista_propuestas_por_evaluar();
+        $this->vista_propuestas_por_evaluar1();
 
     }
 
-    function vista_propuestas_por_evaluar()
+    function vista_propuestas_por_evaluar1()
     {
 
         $datos['titulo'] = "Docentes";
@@ -42,7 +42,25 @@ class Docente extends  CI_Controller {
 
         $correo_docente=$this->session->userdata('correo');
 
-        $datos['propuestas']= $this->propuestas_model->propuestas_por_evaluar($correo_docente);
+        $datos['propuestas']= $this->propuestas_model->propuestas_por_evaluar1($correo_docente);
+
+        $this->load->view("academico/docentes/plantilla", $datos);
+
+
+    }
+
+    function vista_propuestas_disponibles_por_evaluar()
+    {
+
+        $datos['titulo'] = "Docentes";
+        $datos['contenido'] = 'propuestas/ver_propuestas_disponibles_evaluar';
+
+        $datos['js'] = array('');
+
+        $correo_docente=$this->session->userdata('correo');
+
+        $datos['propuestas']= $this->propuestas_model->propuestas_por_evaluar_abiertas($correo_docente);
+        $datos['preguntas']= $this->propuestas_model->listar_preguntas();
 
         $this->load->view("academico/docentes/plantilla", $datos);
 
@@ -241,6 +259,12 @@ class Docente extends  CI_Controller {
     }
 
 
+
+    function p($correo){
+
+        echo var_dump($this->propuestas_model->propuestas_por_evaluar_abiertas($correo));
+
+    }
 
 
 }
