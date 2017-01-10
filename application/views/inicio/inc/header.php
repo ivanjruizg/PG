@@ -13,8 +13,6 @@
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js">
-
     <!--external css-->
     <link href="<?php echo base_url();?>assets/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/animate.css">

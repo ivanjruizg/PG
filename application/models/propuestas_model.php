@@ -551,4 +551,59 @@ AND CURTIME() >= s.hora  AND CURTIME()<=ADDTIME(s.hora,'1:00:00')";*/
     }
 
 
+
+    function crear_detalle_evaluacion($correo_evaluador,$codigo_propuesta,$codigo_pregunta,$nota){
+
+        $datos  = array(
+
+            "codigo_propuesta"=>$codigo_propuesta,
+            "correo_evaluador"=>$correo_evaluador,
+            "codigo_pregunta"=>$codigo_pregunta,
+            "nota"=>$nota,
+
+
+
+        );
+
+
+        $this->db->insert("propuestas_evaluadas_detalle",$datos);
+
+
+
+    }
+
+
+    function crear_evaluacion($correo_evaluador,$codigo_propuesta,$nota,$observaciones){
+
+        $datos  = array(
+
+            "codigo_propuesta"=>$codigo_propuesta,
+            "correo_evaluador"=>$correo_evaluador,
+            "observaciones"=>$observaciones,
+            "nota"=>$nota
+
+
+
+        );
+
+
+        $this->db->insert("propuestas_evaluadas",$datos);
+
+    }
+
+    function  consultar_evaluacion($codigo_propuesta){
+
+
+        $this->db->select("pe.nota,r.valor_pregunta");
+        $this->db->from("propuestas_evaluadas_detalle pe");
+        $this->db->join("rubrica_evaluacion_propuesta r","r.codigo = pe.codigo_pregunta");
+        $this->db->where("pe.codigo_propuesta",$codigo_propuesta);
+
+
+         $result =$this->db->get();
+
+
+        return $result->result_array();
+    }
+
 }

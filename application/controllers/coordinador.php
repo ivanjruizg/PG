@@ -109,7 +109,7 @@ class Coordinador extends CI_Controller
         //$datos['propuestas'] = $this->propuestas_model->listar_propuestas_a_evaluar();
         $datos['horarios']= $this->propuestas_model->horarios_de_sustentaciones2();
         $datos['css'] = array('dataTables.bootstrap.css');
-        $datos['js'] = array('mis-scripts/coordinador/asignarSustentaciones.js','mis-scripts/cerrarModal.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
+        $datos['js'] = array('mis-scripts/coordinador/asignarSustentaciones.js','mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
 
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
@@ -149,7 +149,7 @@ class Coordinador extends CI_Controller
         $datos['contenido'] = "sustentaciones/crear_fechas_sustentaciones";
         $datos['periodo'] = $this->propuestas_model->calendario_abierto();
         //  $datos['css']= array('jquery-ui.css');
-        $datos['js'] = array('mis-scripts/cerrarModal.js');
+        $datos['js'] = array('mis-scripts/modalBootstrap.js');
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
 

@@ -5,7 +5,11 @@
 }
 
 .modal.modal-wide2 .modal-dialog {
-  width: 100%;
+  width: 70%;
+}
+
+.modal.modal-wide3 .modal-dialog {
+  width: 95%;
 }
 
 
@@ -20,9 +24,6 @@
 
 
 
-.modal.modal-wide3{
-  width: 90%;
-}
 
 textarea {
   resize: vertical;

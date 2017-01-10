@@ -55,7 +55,7 @@ class Docente extends  CI_Controller {
         $datos['titulo'] = "Docentes";
         $datos['contenido'] = 'propuestas/ver_propuestas_disponibles_evaluar';
 
-        $datos['js'] = array('');
+        $datos['js'] = array('mis-scripts/modalBootstrap.js');
 
         $correo_docente=$this->session->userdata('correo');
 
@@ -67,11 +67,44 @@ class Docente extends  CI_Controller {
 
     }
 
-    function ver_correo(){
 
-        echo $this->session->userdata('correo');
+    function evaluar_propuesta(){
+
+        $codigo_propuesta = $this->input->post('codigo-propuesta');
+        $observaciones = $this->input->post('observaciones');
+        $preguntas=array();
+
+        for ($i =1; $i<=8 ; $i++ ){
+
+            $preguntas[]= array(
+                "pregunta"=>$this->input->post("p".$i),
+                "nota"=>$this->input->post("nota-p".$i)
+
+            );
+
+        }
+
+
+        $correo_docente=$this->session->userdata('correo');
+
+        foreach ($preguntas as $pregunta){
+
+            $this->propuestas_model->crear_detalle_evaluacion($correo_docente,$codigo_propuesta,$pregunta['pregunta'],$pregunta['nota']);
+        }
+
+
+
+       $nota = $this->calcular_nota_fina_docente($codigo_propuesta);
+
+
+        $this->propuestas_model->crear_evaluacion($correo_docente,$codigo_propuesta,$nota,$observaciones);
+
+
+
+        redirect(base_url('docente/propuestas-por-evaluar'));
 
     }
+
 
     function vista_propuestas_dirigidas()
     {
@@ -175,6 +208,22 @@ class Docente extends  CI_Controller {
 
 
 
+    function calcular_nota_fina_docente($codigo_propuesta){
+
+        $x = $this->propuestas_model->consultar_evaluacion($codigo_propuesta);
+        $nota =0;
+
+        foreach ($x as $evaluacion){
+
+            $nota+=$evaluacion['valor_pregunta']*$evaluacion['nota'];
+
+        }
+
+
+        return $nota;
+
+
+    }
 
     function subir_informe_final()
     {
@@ -260,11 +309,7 @@ class Docente extends  CI_Controller {
 
 
 
-    function p($correo){
 
-        echo var_dump($this->propuestas_model->propuestas_por_evaluar_abiertas($correo));
-
-    }
 
 
 }

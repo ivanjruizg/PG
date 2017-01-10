@@ -37,12 +37,19 @@
 
                             foreach ($propuestas as $propuesta) {
 
+
+
+
+                                    $titulo2= "'".$propuesta['titulo']."'";
+
+
                                 echo '<tr>
+
                                         
                                                
                                                 <td>' . $propuesta['codigo'] . '</td>
                                                 <td>' . $propuesta['titulo'] . '</td>
-                                                <td class="text-center"><a  href="javascript:abrirFormatoDeEvaluacion('.$propuesta['codigo'].')" class="fa fa-edit"></a></td>
+                                                <td class="text-center"><a  href="javascript:abrirModalFormatoDeEvaluacion('.$propuesta['codigo'].','.$titulo2.')" class="fa fa-edit"></a></td>
                                                 
 
                                             </tr>';
@@ -67,13 +74,18 @@
 
 
 
-<div class="modal fade modal-wide2" id="modal-formato-evaluacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade modal-wide3" id="modal-formato-evaluacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel"><b>Propuestas dirigidas</b></h4>
+                <h4 class="modal-title" id="myModalLabel">
+
+
+                    <i class="fa fa-eye"></i>
+                    <b>Evaluación de la propuesta de trabajo grado</b>
+                </h4>
             </div>
 
 
@@ -81,15 +93,18 @@
             <div class="modal-body">
 
 
-                <form action="" class="form-horizontal">
 
 
+                <form  class="form-horizontal" method="post" action="<?=base_url('docente/evaluar_propuesta')?>">
+
+
+                    <input type="hidden" name="codigo-propuesta" id="codigo-propuesta">
 
                     <div class="item form-group">
-                        <label  class=" col-md-3 col-sm-3 col-xs-12" for="name">Título de la
+                        <label  class="control-label col-md-2 col-sm-3 col-xs-12" for="name">Título de la
                             propuesta <span class="required">*</span>
                         </label>
-                        <div class="col-md-9 col-sm-6 col-xs-12">
+                        <div class="col-md-10 col-sm-6 col-xs-12">
 
                                     <textarea rows="1" disabled id="titulo" required="required" name="titulo"
                                               class="form-control col-md-7 col-xs-12 mayus"></textarea>
@@ -113,13 +128,19 @@
 
 
                         echo '<div id="" class="item form-group">
-                        <label class="col-md-10 col-sm-10 col-xs-12" for="name">'.$pregunta['pregunta'].' (valor: '.($pregunta['valor_pregunta']*100).'%)'.'<span class="required">*</span>
+
+
+
+                        <label class="col-md-11 col-sm-10 col-xs-12" for="name">'.$pregunta['pregunta'].' (VALOR : '.($pregunta['valor_pregunta']*100).'%)'.'<span class="required">*</span>
                         </label>
-                        <div class="col-md-2 col-sm-6 col-xs-12">
+                        <div class="col-md-1 col-sm-6 col-xs-12">
 
 
-                            <input name="'.$pregunta['codigo'].'"
-                                   class=" item form-control col-md-7 col-xs-12 mayus"  required="required" type="text">
+                            <input type="hidden" name="p'.$pregunta['codigo'].'" value="'.$pregunta['codigo'].'">
+
+
+                            <input name="nota-p'.$pregunta['codigo'].'"
+                                   class=" item form-control col-md-7 col-xs-12 mayus" min="0" max="5" required="required" type="number">
 
 
                         </div>
@@ -132,31 +153,42 @@
 
                     ?>
 
-                    <div class="ln_solid"></div>
-                        <div class="form-group">
-                        <div class="col-md-6 col-md-offset-3">
-                            <button type="submit" class="btn btn-primary">Cancel</button>
 
 
-                            <input type="submit" class="btn btn-success" value="Subir">
+                    <div class="item form-group">
 
-                        </div>
+                        <div class="ln_solid"></div>
+
+                        <h2 class="text-center">Observaciones y comentarios</h2>
+                            <div class="col-md-10 col-sm-6 col-xs-12 col-lg-offset-1">
+
+                                    <textarea rows="10" cols="3"  required="required" name="observaciones"
+                                              class="form-control mayus"></textarea>
+
+                            </div>
+
+
                     </div>
 
 
-
-
-
-                </form>
-
             </div>
+
+
 
 
             <div class="modal-footer">
-                <input type="submit" value="Cerrar" class="btn btn-primary" onclick="cerrarModalId('modal-busca-propuesta')" id="reg"/>
+
+
+
+
+
+
+                <input type="submit" class="btn btn-success" value="Evaluar">
+                <input type="button" value="Cerrar" class="btn btn-primary" onclick="cerrarModalId('modal-formato-evaluacion')" id="reg"/>
 
             </div>
 
+            </form>
         </div>
     </div>
 </div>
@@ -164,12 +196,13 @@
 
 <script !src="">
     
-    function abrirFormatoDeEvaluacion(codigo) {
+    function abrirModalFormatoDeEvaluacion(codigo,titulo) {
 
-        $('#modal-formato-evaluacion').modal({
-            show: true,
-            backdrop: 'static'
-        });
+        abrirModalId("modal-formato-evaluacion");
+
+        $('#codigo-propuesta').val(codigo);
+        $('#titulo').val(titulo);
+
 
 
 
