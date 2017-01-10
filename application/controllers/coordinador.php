@@ -13,6 +13,9 @@ class Coordinador extends CI_Controller
 
 
 
+
+
+
         if ($this->session->userdata('tipo') != COORDINADORES) {
 
             redirect(base_url());
