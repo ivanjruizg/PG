@@ -12,9 +12,9 @@
                         <div class="login-wrap">
 
                             <input type="email" required name="email" id="email" class="form-control mayus"
-                                   placeholder="Correo Electrónico" autocomplete autofocus>
+                                   placeholder="Correo Electrónico" autocomplete autofocus >
                             <input type="password" required name="password" id="password" class="form-control mayus"
-                                   placeholder="Contraseña">
+                                   placeholder="Contraseña" >
 
 
                             <div id="error-login">
@@ -60,4 +60,10 @@
 
 
     </div>
+
+<script>
+
+
+    </script>
+
 </div>
