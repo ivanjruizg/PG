@@ -10,6 +10,9 @@ class Coordinador extends CI_Controller
         parent::__construct();
         $this->load->model('propuestas_model');
 
+
+
+
         if ($this->session->userdata('tipo') != COORDINADORES) {
 
             redirect(base_url());
