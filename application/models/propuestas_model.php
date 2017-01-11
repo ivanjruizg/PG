@@ -30,12 +30,21 @@ class Propuestas_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    function listar()
+    function listar_propuestas_periodo($periodo_recepcion=null)
     {
 
         $this->db->select("p.codigo, p.titulo, p.ruta_carta, tp.convencion AS tipo,   DATE_FORMAT( p.fecha_hora_subida,'%d %b %y') AS fecha");
         $this->db->from('propuestas p');
         $this->db->join('tipos_propuesta tp', 'p.tipo = tp.codigo');
+
+
+        if($periodo_recepcion!=null){
+
+            $this->db->where("periodo_recepcion",$periodo_recepcion);
+        }
+
+
+
         $result = $this->db->get();
 
         return $result->result_array();

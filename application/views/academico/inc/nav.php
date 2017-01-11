@@ -15,7 +15,35 @@
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
                         <li><a href="javascript:;"> Perfil</a></li>
                         <li>
-                            <a href="<?=base_url('estudiante/cambiar-clave-de-acceso')?>">
+
+                            <?php
+
+
+                             $tipo=$this->session->userdata('tipo');
+
+
+                            $tipo2="";
+
+                            if ($tipo == ESTUDIANTES) {
+
+                                $tipo2="estudiante";
+
+                            } else if ($tipo == COORDINADORES) {
+
+                                $tipo2="coordinador";
+
+                            }else if ($tipo == DOCENTES) {
+
+                                $tipo2="docente";
+                            }
+
+                            echo ' <a href="'.base_url($tipo2.'/cambiar-clave-de-acceso').'">'
+
+                            ?>
+
+
+
+
                            <!--     <span class="badge bg-red pull-right">50%</span>-->
                                 <span>Cambiar clave de acceso</span>
                             </a>

@@ -66,18 +66,16 @@ $route['coordinador/calendario-recepcion-propuestas'] = 'coordinador/vista_calen
 $route['coordinador/asignar-sustentaciones'] = 'coordinador/vista_asignar_sustentaciones';
 $route['coordinador/crear-fechas-sustentaciones'] = 'coordinador/vista_crear_fechas_sustentaciones';
 
+
 $route['docente/subir-informe-final'] = 'docente/vista_subir_informe_final';
 $route['docente/propuestas-dirigidas'] = 'docente/vista_propuestas_dirigidas';
 $route['docente/propuestas-codirigidas'] = 'docente/vista_propuestas_co_dirigidas';
 $route['docente/propuestas-por-revisar'] = 'docente/vista_propuestas_por_revisar';
-
 $route['docente/propuestas-por-evaluar'] = 'docente/vista_propuestas_disponibles_por_evaluar';
-
+$route['docente/cambiar-clave-de-acceso'] = 'docente/vista_cambiar_clave_de_acceso';
 
 
 $route['estudiante/nueva-propuesta'] = 'estudiante/vista_nueva_propuesta';
 $route['estudiante/consultar-estado-propuesta'] = 'estudiante/vista_consultar_propuesta';
-
-
 $route['estudiante/cambiar-clave-de-acceso'] = 'estudiante/vista_cambiar_clave_de_acceso';
 

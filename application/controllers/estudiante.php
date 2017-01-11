@@ -60,10 +60,6 @@ class Estudiante extends CI_Controller
 
         if(strcmp($clave_nueva,$clave_nueva_confirmada)==0){
 
-
-
-
-
             $this->load->model('estudiantes_model');
 
             $datos = array(

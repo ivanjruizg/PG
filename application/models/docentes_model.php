@@ -23,5 +23,38 @@ class Docentes_Model extends  CI_Model {
     }
 
 
+    function cambiar_clave_de_acceso($clave,$datos){
+
+        if(strcmp($clave,$this->optener_clave())==0){
+
+
+            $this->db->where('correo=',$this->session->userdata('correo') );
+
+            $this->db->update("docentes",$datos);
+
+            return $this->db->affected_rows();
+        }
+
+        return 0;
+
+    }
+
+
+    function optener_clave(){
+
+        $this->db->select("clave");
+        $this->db->where('correo=',$this->session->userdata('correo') );
+        $this->db->from('docentes');
+
+        $reslt = $this->db->get();
+
+        foreach ($reslt->result_array() as $clave){
+
+            return $clave['clave'];
+
+        }
+
+    }
+
 
 }

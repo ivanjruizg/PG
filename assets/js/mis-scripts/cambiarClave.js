@@ -51,9 +51,6 @@ function cambiarClave() {
 
             if(resps==0){
 
-
-                alert();
-
                 var mensaje = '<div class="alert alert-danger"><strong>Error!</strong> Debe escribir la clave de acceso actual correctamente</div>';
 
                 $('#mensaje').html(mensaje).show(200).delay(4000).hide(200);

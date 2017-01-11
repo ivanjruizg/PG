@@ -14,6 +14,7 @@ class Docente extends  CI_Controller {
     {
         parent::__construct();
         $this->load->model('propuestas_model');
+        $this->load->model('docentes_model');
 
         if ($this->session->userdata('tipo') != DOCENTES) {
 
@@ -28,9 +29,52 @@ class Docente extends  CI_Controller {
     function index()
     {
 
-        $this->vista_propuestas_por_evaluar1();
+        $this->vista_propuestas_por_revisar();
 
     }
+
+
+    function vista_cambiar_clave_de_acceso()
+    {
+
+        $datos['titulo'] = "Estudiante";
+        $datos['contenido'] = 'cambiar_clave/cambiar_clave_de_acceso';
+        $datos['js'] = array("mis-scripts/cambiarClave.js");
+        $this->load->view("academico/docentes/plantilla", $datos);
+
+
+    }
+
+
+    function cambiar_clave_de_acceso(){
+
+
+        $clave_antigua = $this->input->post('clave-actual');
+        $clave_nueva = $this->input->post('clave-nueva');
+        $clave_nueva_confirmada = $this->input->post('clave-nueva-confirmada');
+
+
+        if(strcmp($clave_nueva,$clave_nueva_confirmada)==0){
+
+
+
+            $datos = array(
+
+                "clave"=>$clave_nueva
+
+            );
+
+            $result= $this->docentes_model->cambiar_clave_de_acceso($clave_antigua,$datos);
+
+            echo $result;
+
+        }
+
+
+
+    }
+
+
 
     function vista_propuestas_por_revisar()
     {
@@ -173,7 +217,7 @@ class Docente extends  CI_Controller {
 
     function consultar(){
 
-        $this->load->model('docentes_model');
+
 
         if (isset($_GET['nombres'])){
 

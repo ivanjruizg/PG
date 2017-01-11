@@ -30,7 +30,11 @@ class Coordinador extends CI_Controller
 
         $datos['titulo'] = "Coordinador de investigación";
         $datos['contenido'] = "contenido";
-        $datos['propuestas'] = $this->propuestas_model->listar();
+
+
+        $periodo_recepcion = $this->propuestas_model->calendario_recepcion_abierto();
+
+        $datos['propuestas'] = $this->propuestas_model->listar_propuestas_periodo($periodo_recepcion);
         $datos['css'] = array('');
         $datos['js'] = array("mis-scripts/coordinador/coordinadorIndex.js");
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
