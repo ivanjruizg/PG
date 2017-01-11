@@ -69,7 +69,7 @@ $route['coordinador/crear-fechas-sustentaciones'] = 'coordinador/vista_crear_fec
 $route['docente/subir-informe-final'] = 'docente/vista_subir_informe_final';
 $route['docente/propuestas-dirigidas'] = 'docente/vista_propuestas_dirigidas';
 $route['docente/propuestas-codirigidas'] = 'docente/vista_propuestas_co_dirigidas';
-$route['docente/propuestas-por-evaluar1'] = 'docente/vista_propuestas_por_evaluar1';
+$route['docente/propuestas-por-revisar'] = 'docente/vista_propuestas_por_revisar';
 
 $route['docente/propuestas-por-evaluar'] = 'docente/vista_propuestas_disponibles_por_evaluar';
 

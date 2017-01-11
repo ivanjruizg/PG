@@ -44,6 +44,8 @@ class Coordinador extends CI_Controller
         $datos['contenido'] = "propuestas/asignar_directores";
         $datos['propuestas'] = $this->propuestas_model->listar();
         $datos['css'] = array('jquery-ui.css');
+    //   $datos['js'] = array('mis-scripts/coordinador/asignarSustentaciones.js','mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
+
         $datos['js'] = array('jquery-ui.js', 'mis-scripts/coordinador/asignarDirectores.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
@@ -56,7 +58,9 @@ class Coordinador extends CI_Controller
         $datos['titulo'] = "Coordinador de investigación";
         $datos['contenido'] = "propuestas/asignar_evaluadores";
         $datos['css'] = array('jquery-ui.css');
-        $datos['js'] = array('jquery-ui.js', 'mis-scripts/coordinador/asignarEvaluadores.js');
+
+        $datos['js'] = array('jquery-ui.js', 'mis-scripts/coordinador/asignarEvaluadores.js','mis-scripts/coordinador/asignarSustentaciones.js','mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
+
 
         $datos['propuestas'] = $this->propuestas_model->listar();
 
@@ -153,7 +157,7 @@ class Coordinador extends CI_Controller
 
         $datos['titulo'] = "Coordinador de investigación";
         $datos['contenido'] = "sustentaciones/crear_fechas_sustentaciones";
-        $datos['periodo'] = $this->propuestas_model->calendario_abierto();
+        $datos['periodo'] = $this->propuestas_model->calendario_recepcion_abierto();
         //  $datos['css']= array('jquery-ui.css');
         $datos['js'] = array('mis-scripts/modalBootstrap.js');
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);

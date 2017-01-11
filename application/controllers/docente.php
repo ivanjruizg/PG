@@ -32,17 +32,17 @@ class Docente extends  CI_Controller {
 
     }
 
-    function vista_propuestas_por_evaluar1()
+    function vista_propuestas_por_revisar()
     {
 
         $datos['titulo'] = "Docentes";
-        $datos['contenido'] = 'propuestas/ver_propuestas_por_evaluar';
+        $datos['contenido'] = 'propuestas/ver_propuestas_por_revisar';
 
         $datos['js'] = array('');
 
         $correo_docente=$this->session->userdata('correo');
 
-        $datos['propuestas']= $this->propuestas_model->propuestas_por_evaluar1($correo_docente);
+        $datos['propuestas']= $this->propuestas_model->propuestas_por_revisar($correo_docente);
 
         $this->load->view("academico/docentes/plantilla", $datos);
 

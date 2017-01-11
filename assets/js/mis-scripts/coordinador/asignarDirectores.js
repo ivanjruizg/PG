@@ -2,6 +2,12 @@
 $(document).ready(function () {
 
 
+
+
+
+    $('#datatable-asignar-directores').DataTable();
+
+
     $("#co-director").autocomplete({
         source: baseUrl+"/coordinador/consultar_docentes",
         minLength: 1,
@@ -30,6 +36,18 @@ $(document).ready(function () {
 
 });
 
+/*
+$(document).ready(function () {
+
+
+
+
+
+
+});
+
+
+*/
 
 
 function verModalAsignarDirectores(codigo) {
