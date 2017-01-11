@@ -14,9 +14,6 @@ class Inscripcion_estudiante extends CI_Controller
 
     }
 
-
-
-
    function registrar(){
 
        $nombres = $this->input->post("nombres");
