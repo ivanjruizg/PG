@@ -247,7 +247,7 @@ AND tp.codigo = p.tipo
     }
 
 
-    function calendario_abierto()
+    function calendario_recepcion_abierto()
     {
 
 
@@ -328,30 +328,7 @@ AND tp.codigo = p.tipo
 
     }
 
-    function propuestas_por_evaluar1($correo_docente)
-    {
-
-        $this->db->select("p.codigo, p.titulo, tp.convencion AS tipo");
-        $this->db->from('propuestas p');
-        $this->db->join('tipos_propuesta tp', 'p.tipo = tp.codigo');
-
-        $this->db->join('propuestas_asignadas i', 'p.codigo = i.codigo_propuesta');
-        $this->db->join('sustentaciones s', 'p.codigo = s.codigo_propuesta');
-
-        $this->db->where('i.correo_evaluador1', $correo_docente);
-        $this->db->or_where('i.correo_evaluador2', $correo_docente);
-
-
-        $result = $this->db->get();
-
-        return $result->result_array();
-
-
-    }
-
-
-
-    function propuestas_por_evaluar($correo_docente)
+    function propuestas_por_revisar($correo_docente)
     {
 
         $this->db->select("p.codigo, p.titulo, tp.convencion AS tipo,ruta_propuesta");
@@ -359,6 +336,7 @@ AND tp.codigo = p.tipo
         $this->db->join('tipos_propuesta tp', 'p.tipo = tp.codigo');
 
         $this->db->join('propuestas_asignadas i', 'p.codigo = i.codigo_propuesta');
+        $this->db->join('sustentaciones s', 'p.codigo = s.codigo_propuesta');
 
         $this->db->where('i.correo_evaluador1', $correo_docente);
         $this->db->or_where('i.correo_evaluador2', $correo_docente);
@@ -527,12 +505,12 @@ AND CURTIME() >= s.hora  AND CURTIME()<=ADDTIME(s.hora,'1:00:00')";*/
         $this->db->from("propuestas p");
         $this->db->join("propuestas_asignadas pa","pa.codigo_propuesta = p.codigo");
         $this->db->join("sustentaciones s","p.codigo = s.codigo_propuesta");
+        $this->db->where("s.fecha = CURDATE()");
         $this->db->where("pa.correo_evaluador1",$correo_evaluador);
         $this->db->or_where("pa.correo_evaluador2",$correo_evaluador);
-        $this->db->where("s.fecha = CURDATE()");
         $this->db->where("CURTIME() >= s.hora");
         $this->db->where("CURTIME()<=ADDTIME(s.hora,'1:00:00')");
-        $this->db->group_by("p.codigo");
+
 
         $result = $this->db->get();
 

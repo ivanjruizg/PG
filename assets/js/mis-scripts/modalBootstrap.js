@@ -6,7 +6,7 @@ function cerrarModalId(id) {
 }
 
 
-function abrirModalId(id) {
+function abrirModalId(id){
 
 
     $('#'+id+'').modal({

@@ -15,10 +15,34 @@
                         </ul>
                         <div class="clearfix"></div>
                     </div>
+
+
+
                     <div class="x_content">
 
 
-                        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap"
+                           <?php
+
+
+
+                            if(count($propuestas)==0) {
+
+                                echo '<h4 class="text-center">
+
+                                            Estimado '.$this->session->userdata('nombres').', en el momento no tienes propuestas por evaluar
+                    
+                                            
+                                    </h4>';
+
+
+                                      echo  '<h1 class="text-center">  <i onclick="javascrip:location.reload(true)" class="fa fa-refresh fa-3x" aria-hidden="true"></i></h1>';
+
+
+                            }
+
+                            else{
+
+                              echo  '<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap"
                                cellspacing="0" width="100%">
                             <thead>
                             <tr>
@@ -29,30 +53,27 @@
 
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody>';
+
+                                foreach ($propuestas as $propuesta) {
 
 
-                            <?php
+                                    $titulo2 = "'" . $propuesta['titulo'] . "'";
 
 
-                            foreach ($propuestas as $propuesta) {
-
-
-
-
-                                    $titulo2= "'".$propuesta['titulo']."'";
-
-
-                                echo '<tr>
+                                    echo '<tr>
 
                                         
                                                
                                                 <td>' . $propuesta['codigo'] . '</td>
                                                 <td>' . $propuesta['titulo'] . '</td>
-                                                <td class="text-center"><a  href="javascript:abrirModalFormatoDeEvaluacion('.$propuesta['codigo'].','.$titulo2.')" class="fa fa-edit"></a></td>
+                                                <td class="text-center"><a  href="javascript:abrirModalFormatoDeEvaluacion(' . $propuesta['codigo'] . ',' . $titulo2 . ')" class="fa fa-edit"></a></td>
                                                 
 
                                             </tr>';
+
+                                }
+
 
                             }
 
@@ -203,10 +224,8 @@
         $('#codigo-propuesta').val(codigo);
         $('#titulo').val(titulo);
 
-
-
-
     }
+
     
 </script>
 

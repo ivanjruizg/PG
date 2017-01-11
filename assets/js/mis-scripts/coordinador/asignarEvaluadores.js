@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    $('#datatable-asignar-evaluadores').DataTable();
+
 
     $("#evaluador1").autocomplete({
         source: baseUrl+"/coordinador/consultar_docentes",

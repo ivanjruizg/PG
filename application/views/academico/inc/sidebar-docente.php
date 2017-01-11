@@ -12,7 +12,7 @@
 
                     <li><a href="<?=base_url('docente/propuestas-dirigidas')?>">Dirigidas</a></li>
                     <li><a href="<?=base_url('docente/propuestas-codirigidas')?>"">Codirigidas</a></li>
-                    <li><a href="<?=base_url('docente/propuestas-por-evaluar1')?>">Por evaluar1</a></li>
+                    <li><a href="<?=base_url('docente/propuestas-por-revisar')?>">Por revisar</a></li>
                     <li><a href="<?=base_url('docente/propuestas-por-evaluar')?>">Por evaluar</a></li>
 
                 </ul>
@@ -21,7 +21,7 @@
             <li><a><i class="fa fa-file-word-o"></i> Informe final <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="<?=base_url('docente/subir-informe-final')?>">Subir documento</a></li>
-                    <li><a href="#<?=base_url('docente/')?>">Ver informe subidos</a></li>
+                    <li><a href="#">Ver informe subidos</a></li>
                 </ul>
             </li>
 

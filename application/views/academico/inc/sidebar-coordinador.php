@@ -24,12 +24,22 @@
             </li>
 
 
+
+
             <li><a><i class="fa fa-table"></i> Informes <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="tables.html">Tables</a></li>
                     <li><a href="tables_dynamic.html">Table Dynamic</a></li>
                 </ul>
             </li>
+
+            <li><a><i class="fa fa-file-pdf-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="tables.html">Peridos de repeción</a></li>
+                    <li><a href="tables_dynamic.html">Horarios de sustentaciones</a></li>
+                </ul>
+            </li>
+
             <li><a><i class="fa fa-bar-chart-o"></i> Estadísticas <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="chartjs.html">Chart JS</a></li>
