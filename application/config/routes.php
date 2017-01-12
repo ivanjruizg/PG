@@ -65,6 +65,7 @@ $route['coordinador/asignar-evaluadores'] = 'coordinador/vista_asignar_evaluador
 $route['coordinador/calendario-recepcion-propuestas'] = 'coordinador/vista_calendario_recepcion_propuestas';
 $route['coordinador/asignar-sustentaciones'] = 'coordinador/vista_asignar_sustentaciones';
 $route['coordinador/crear-fechas-sustentaciones'] = 'coordinador/vista_crear_fechas_sustentaciones';
+$route['coordinador/cambiar-clave-de-acceso'] = 'coordinador/vista_cambiar_clave_de_acceso';
 
 
 $route['docente/subir-informe-final'] = 'docente/vista_subir_informe_final';

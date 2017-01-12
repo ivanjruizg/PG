@@ -11,11 +11,6 @@ class Coordinador extends CI_Controller
         $this->load->model('propuestas_model');
 
 
-
-
-
-
-
         if ($this->session->userdata('tipo') != COORDINADORES) {
 
             redirect(base_url());
@@ -38,6 +33,50 @@ class Coordinador extends CI_Controller
         $datos['css'] = array('');
         $datos['js'] = array("mis-scripts/coordinador/coordinadorIndex.js");
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
+
+    }
+
+
+    function vista_cambiar_clave_de_acceso()
+    {
+
+        $datos['titulo'] = "Estudiante";
+        $datos['contenido'] = 'cambiar_clave/cambiar_clave_de_acceso';
+        $datos['js'] = array("mis-scripts/cambiarClave.js");
+        $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
+
+
+    }
+
+
+    function cambiar_clave_de_acceso(){
+
+
+
+        $this->load->model('coordinador_model');
+
+        $clave_antigua = $this->input->post('clave-actual');
+        $clave_nueva = $this->input->post('clave-nueva');
+        $clave_nueva_confirmada = $this->input->post('clave-nueva-confirmada');
+
+
+        if(strcmp($clave_nueva,$clave_nueva_confirmada)==0){
+
+
+
+            $datos = array(
+
+                "clave"=>$clave_nueva
+
+            );
+
+            $result= $this->coordinador_model->cambiar_clave_de_acceso($clave_antigua,$datos);
+
+            echo $result;
+
+        }
+
+
 
     }
 
