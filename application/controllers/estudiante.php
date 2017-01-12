@@ -9,6 +9,8 @@ class Estudiante extends CI_Controller
     {
         parent::__construct();
 
+        $this->load->model('estudiantes_model');
+
         if ($this->session->userdata('tipo') != ESTUDIANTES) {
 
             redirect(base_url());
@@ -60,8 +62,6 @@ class Estudiante extends CI_Controller
 
         if(strcmp($clave_nueva,$clave_nueva_confirmada)==0){
 
-            $this->load->model('estudiantes_model');
-
             $datos = array(
 
                 "clave"=>$clave_nueva
@@ -82,7 +82,7 @@ class Estudiante extends CI_Controller
     {
 
         $this->load->model('propuestas_model');
-        $result = $this->propuestas_model->calendario_recepcion_abierto();
+        $result = $this->estudiantes_model->calendario_recepcion_abierto();
 
         if (count($result) != 1) {
 
@@ -109,7 +109,7 @@ class Estudiante extends CI_Controller
     function consultar()
     {
 
-        $this->load->model('estudiantes_model');
+
 
         if (isset($_GET['term'])) {
 
@@ -198,10 +198,10 @@ class Estudiante extends CI_Controller
         $this->load->model('propuestas_model');
 
 
-        $periodo_recepcion = $this->propuestas_model->calendario_abierto();
+        $periodo_recepcion = $this->propuestas_model-> calendario_recepcion_abierto();
 
 
-        echo var_dump($periodo_recepcion);
+
 
 
         foreach ($periodo_recepcion as $p) {
@@ -221,7 +221,7 @@ class Estudiante extends CI_Controller
         );
 
 
-        $codigo_propuesta = $this->propuestas_model->registrar_propuestas($datos_propuesta);
+        $codigo_propuesta = $this->estudiantes_model->registrar_propuestas($datos_propuesta);
 
 
         if ($codigo_propuesta > 0) {
@@ -328,16 +328,9 @@ class Estudiante extends CI_Controller
         $ruta_carta = $this->subir_documentos->Subir_Carta('./assets/docs/cartas', "");
 
 
-        $periodo_recepcion = $this->propuestas_model->calendario_abierto();
+        $periodo_recepcion = $this->estudiantes_model->calendario_recepcion_abierto();
 
 
-        echo var_dump($periodo_recepcion);
-
-
-        foreach ($periodo_recepcion as $p) {
-
-            $periodo = $p['periodo'];
-        }
 
 
         $datos_propuesta = array(
@@ -346,12 +339,12 @@ class Estudiante extends CI_Controller
             "ruta_propuesta" => $ruta_propuesta,
             "ruta_carta" => $ruta_carta,
             "resumen" => $resumen,
-            "periodo_recepcion" => $periodo
+            "periodo_recepcion" => $periodo_recepcion
 
         );
 
 
-        $codigo_propuesta = $this->propuestas_model->registrar_propuestas($datos_propuesta);
+        $codigo_propuesta = $this->estudiantes_model->registrar_propuestas($datos_propuesta);
 
 
         if ($codigo_propuesta > 0) {
@@ -366,7 +359,7 @@ class Estudiante extends CI_Controller
             );
 
 
-            if ($this->propuestas_model->registrar_investigadores($datos_investigador1) > 0) {
+            if ($this->estudiantes_model->registrar_investigadores($datos_investigador1) > 0) {
 
 
                 if (!empty($investigador2[0])) {
@@ -380,7 +373,7 @@ class Estudiante extends CI_Controller
 
                     );
 
-                    if ($this->propuestas_model->registrar_investigadores($datos_investigador2) > 0) {
+                    if ($this->estudiantes_model->registrar_investigadores($datos_investigador2) > 0) {
 
 
                         if (!empty($investigador3[0])) {
@@ -421,7 +414,7 @@ class Estudiante extends CI_Controller
         }
 
 
-        redirect(base_url());
+        redirect(base_url('estudiante'));
 
 
     }
@@ -430,8 +423,8 @@ class Estudiante extends CI_Controller
     function reloj()
     {
 
-        $this->load->model('propuestas_model');
-        $result = $this->propuestas_model->reloj();
+
+        $result = $this->estudiantes_model->reloj();
 
         if ($result != FALSE) {
 

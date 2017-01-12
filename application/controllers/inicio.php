@@ -81,7 +81,6 @@ class Inicio extends CI_Controller
         $this->load->model('inscripcion_model');
         $datos['programas'] = $this->inscripcion_model->listar_carreras();
 
-        $this->load->model('grupo_investigacion_model');
         $datos['grupos'] = $this->inscripcion_model->listar_grupos_de_investigacion();
 
         $this->load->view('inicio/plantilla', $datos);

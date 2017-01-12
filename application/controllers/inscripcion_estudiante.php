@@ -80,7 +80,7 @@ class Inscripcion_estudiante extends CI_Controller
 
        $filas= $this->inscripcion_model->consultar($codigo_activacion);
 
-       echo var_dump($filas);
+
 
 
 
