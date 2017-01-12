@@ -174,7 +174,7 @@ class Docente extends  CI_Controller {
 
         $correo_docente=$this->session->userdata('correo');
 
-        $propuestas= $this->propuestas_model->propuestas_dirigidas($correo_docente);
+        $propuestas= $this->docentes_model->propuestas_dirigidas($correo_docente);
 
 
 
@@ -324,7 +324,7 @@ class Docente extends  CI_Controller {
 
 
 
-        $codigo_propuesta = $this->propuestas_model->registrar_informe($codigo_propuesta,$datos_informe,$datos_propuesta);
+        $codigo_propuesta = $this->docentes_model->registrar_informe($codigo_propuesta,$datos_informe,$datos_propuesta);
 
 
         if ($codigo_propuesta > 0) {

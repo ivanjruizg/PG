@@ -150,20 +150,6 @@ AND tp.codigo = p.tipo
 
 
 
-    function registrar_informe($codigo_propuesta, $datos_informe, $datos_propuesta)
-    {
-
-
-        $this->db->where("codigo", $codigo_propuesta);
-        $this->db->update("propuestas", $datos_propuesta);
-
-
-        $this->db->insert("informes_finales", $datos_informe);
-
-        return $this->db->affected_rows();
-
-
-    }
 
     function registrar_sustentaciones($codigo_propuesta, $codigo_sustentacion)
     {
