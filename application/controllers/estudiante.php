@@ -94,7 +94,7 @@ class Estudiante extends CI_Controller
 
         } else {
 
-            $this->load->model('tipo_propuestas_model');
+
             $datos['tipos'] = $this->propuestas_model->listar_tipos_propuestas();
             $datos['css'] = array('jquery-ui.css');
             $datos['js'] = array('jquery-ui.js','mis-scripts/estudiante/nuevaPropuesta.js');
