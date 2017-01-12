@@ -119,7 +119,6 @@ class Inscripcion_estudiante extends CI_Controller
 
     function generar_codigo_activacion(){
 
-
         $this->load->library("generadorclave");
         $clave =$this->generadorclave->generar(50,true,true,true);
 

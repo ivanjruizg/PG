@@ -4,10 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Sesion extends CI_Controller
 {
 
-    function index() {
-
-        $this->iniciar();
-    }
 
     function iniciar() {
 

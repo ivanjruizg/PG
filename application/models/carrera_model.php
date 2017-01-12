@@ -11,7 +11,6 @@ class Carrera_Model extends CI_Model
 
     function listar(){
 
-
         $this->db->select('codigo,nombre');
         $this->db->from('programas');
         $reslt = $this->db->get();

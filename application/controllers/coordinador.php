@@ -85,7 +85,10 @@ class Coordinador extends CI_Controller
 
         $datos['titulo'] = "Coordinador de investigación";
         $datos['contenido'] = "propuestas/asignar_directores";
-        $datos['propuestas'] = $this->propuestas_model->listar();
+        $periodo = $this->propuestas_model->calendario_recepcion_abierto();
+
+
+        $datos['propuestas'] = $this->propuestas_model->listar_propuestas_periodo($periodo);
         $datos['css'] = array('jquery-ui.css');
     //   $datos['js'] = array('mis-scripts/coordinador/asignarSustentaciones.js','mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
 
@@ -104,8 +107,10 @@ class Coordinador extends CI_Controller
 
         $datos['js'] = array('jquery-ui.js', 'mis-scripts/coordinador/asignarEvaluadores.js','mis-scripts/coordinador/asignarSustentaciones.js','mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
 
+        $periodo = $this->propuestas_model->calendario_recepcion_abierto();
 
-        $datos['propuestas'] = $this->propuestas_model->listar();
+
+        $datos['propuestas'] = $this->propuestas_model->listar_propuestas_periodo($periodo);
 
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 

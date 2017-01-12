@@ -37,7 +37,6 @@ class Reportes_model extends CI_Model
 
 
 
-
         $result= $this->db->query(" Select s.fecha,s.aula,p.titulo,s.hora,i.correo_director,i.correo_codirector,pa.correo_evaluador1,pa.correo_evaluador2
 FROM propuestas p, sustentaciones s, investigadores i, propuestas_asignadas pa
 WHERE pa.codigo_propuesta=p.codigo
@@ -46,6 +45,17 @@ WHERE pa.codigo_propuesta=p.codigo
         AND s.periodo_recepcion= '2017-01'
 GROUP BY p.codigo;
         ");
+
+
+/*
+        $result= $this->db->query("Select s.fecha,s.aula,p.titulo,s.hora
+FROM propuestas p, sustentaciones s 
+WHERE p.codigo = s.codigo_propuesta
+AND s.periodo_recepcion= '2017-01'
+GROUP BY s.fecha;
+        ");
+
+        */
 
         /*$this->db->select("s.fecha, s.aula,p.titulo, s.hora, i.correo_director,i.correo_codirector,pa.correo_evaluador1,pa.correo_evaluador2");
         $this->db->from('propuestas p');
