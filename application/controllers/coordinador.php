@@ -9,6 +9,8 @@ class Coordinador extends CI_Controller
     {
         parent::__construct();
         $this->load->model('propuestas_model');
+        $this->load->model('docentes_model');
+        $this->load->model('coordinador_model');
 
 
         if ($this->session->userdata('tipo') != COORDINADORES) {
@@ -139,7 +141,7 @@ class Coordinador extends CI_Controller
 
         );
 
-        $op = $this->propuestas_model->asignar_director($codigo_propuesta, $datos1);
+        $op = $this->cordinador_model->asignar_director($codigo_propuesta, $datos1);
 
 
         if ($op > 0) {
@@ -147,7 +149,7 @@ class Coordinador extends CI_Controller
             echo "SI director";
             if (isset($co_director)) {
 
-                $this->propuestas_model->asignar_codirector($codigo_propuesta, $datos2);
+                $this->coordinador_model->asignar_codirector($codigo_propuesta, $datos2);
 
             }
 
@@ -290,7 +292,7 @@ class Coordinador extends CI_Controller
         );
 
 
-        $this->propuestas_model->asignar_evaluadores($codigo_propuesta, $datos);
+        $this->cordinador_model->asignar_evaluadores($codigo_propuesta, $datos);
 
 
         echo "SI evaluador 2";
@@ -439,7 +441,7 @@ class Coordinador extends CI_Controller
         $fecha_sustentacion = $this->input->post('fecha-sustentacion');
 
 
-        $this->propuestas_model->crear_periodo($anio, $mes, $fecha_recepcion, $fecha_sustentacion);
+        $this->coordinador_model->crear_periodo($anio, $mes, $fecha_recepcion, $fecha_sustentacion);
 
 
         echo '<div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Registro completado con exito!</strong></div>';

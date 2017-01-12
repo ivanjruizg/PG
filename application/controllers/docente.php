@@ -86,7 +86,7 @@ class Docente extends  CI_Controller {
 
         $correo_docente=$this->session->userdata('correo');
 
-        $datos['propuestas']= $this->propuestas_model->propuestas_por_revisar($correo_docente);
+        $datos['propuestas']= $this->docentes_model->propuestas_por_revisar($correo_docente);
 
         $this->load->view("academico/docentes/plantilla", $datos);
 
@@ -103,8 +103,8 @@ class Docente extends  CI_Controller {
 
         $correo_docente=$this->session->userdata('correo');
 
-        $datos['propuestas']= $this->propuestas_model->propuestas_por_evaluar_abiertas($correo_docente);
-        $datos['preguntas']= $this->propuestas_model->listar_preguntas();
+        $datos['propuestas']= $this->docentes_model->propuestas_por_evaluar_abiertas($correo_docente);
+        $datos['preguntas']= $this->docentes_model->listar_preguntas();
 
         $this->load->view("academico/docentes/plantilla", $datos);
 
@@ -160,7 +160,7 @@ class Docente extends  CI_Controller {
         $correo_docente=$this->session->userdata('correo');
         $datos['js'] = array('');
 
-        $datos['propuestas']= $this->propuestas_model->propuestas_dirigidas($correo_docente);
+        $datos['propuestas']= $this->docentes_model->propuestas_dirigidas($correo_docente);
 
         $this->load->view("academico/docentes/plantilla", $datos);
 
@@ -205,7 +205,7 @@ class Docente extends  CI_Controller {
         $correo_docente=$this->session->userdata('correo');
         $datos['js'] = array('');
 
-        $datos['propuestas']= $this->propuestas_model->propuestas_co_dirigidas($correo_docente);
+        $datos['propuestas']= $this->docentes_model->propuestas_co_dirigidas($correo_docente);
 
         $this->load->view("academico/docentes/plantilla", $datos);
 
@@ -242,7 +242,7 @@ class Docente extends  CI_Controller {
         $correo_docente=$this->session->userdata('correo');
 
 
-        $datos['propuestas']= $this->propuestas_model->propuestas_dirigidas($correo_docente);
+        $datos['propuestas']= $this->docentes_model->propuestas_dirigidas($correo_docente);
 
         $this->load->view("academico/docentes/plantilla", $datos);
 
