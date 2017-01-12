@@ -4,6 +4,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Propuestas_model extends CI_Model
 {
 
+
+    function calendario_recepcion_abierto()
+    {
+
+
+        /*
+         *
+         *  Select fecha_inicio_recepcion
+            from calendario_trabajos_de_grado
+            where CURDATE() >= fecha_inicio_recepcion and CURDATE() <= fecha_limite_recepcion
+         *
+         *
+         *
+         *
+         */
+
+
+        $this->db->select('c.fecha_inicio_recepcion AS calendario_abierto,periodo');
+        $this->db->from('calendario_trabajos_de_grado c');
+        $this->db->where('CURDATE() >=c.fecha_inicio_recepcion');
+        $this->db->where('CURDATE() <= c.fecha_limite_recepcion');
+        $result = $this->db->get();
+
+        return $result->result_array()[0]['periodo'];
+
+    }
+
+
+
     function listar_propuestas_periodo($periodo_recepcion=null)
     {
 

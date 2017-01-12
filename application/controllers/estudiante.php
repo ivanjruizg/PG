@@ -82,7 +82,7 @@ class Estudiante extends CI_Controller
     {
 
         $this->load->model('propuestas_model');
-        $result = $this->estudiantes_model->calendario_recepcion_abierto();
+        $result = $this->propuestas_model->calendario_recepcion_abierto();
 
         if (count($result) != 1) {
 
@@ -328,7 +328,7 @@ class Estudiante extends CI_Controller
         $ruta_carta = $this->subir_documentos->Subir_Carta('./assets/docs/cartas', "");
 
 
-        $periodo_recepcion = $this->estudiantes_model->calendario_recepcion_abierto();
+        $periodo_recepcion = $this->propuestas_model->calendario_recepcion_abierto();
 
 
 
