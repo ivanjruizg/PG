@@ -82,7 +82,7 @@ class Estudiante extends CI_Controller
     {
 
         $this->load->model('propuestas_model');
-        $result = $this->propuestas_model->calendario_abierto();
+        $result = $this->propuestas_model->calendario_recepcion_abierto();
 
         if (count($result) != 1) {
 
@@ -95,7 +95,7 @@ class Estudiante extends CI_Controller
         } else {
 
             $this->load->model('tipo_propuestas_model');
-            $datos['tipos'] = $this->tipo_propuestas_model->listar();
+            $datos['tipos'] = $this->propuestas_model->listar_tipos_propuestas();
             $datos['css'] = array('jquery-ui.css');
             $datos['js'] = array('jquery-ui.js','mis-scripts/estudiante/nuevaPropuesta.js');
             $datos['titulo'] = "Nueva Propuesta";

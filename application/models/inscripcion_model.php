@@ -28,6 +28,27 @@ class Inscripcion_Model extends CI_Model
         return $reslt->result_array();
     }
 
+    function listar_carreras(){
+
+        $this->db->select('codigo,nombre');
+        $this->db->from('programas');
+        $reslt = $this->db->get();
+
+        return $reslt->result_array();
+
+    }
+
+    function listar_grupos_de_investigacion(){
+
+
+        $this->db->select('codigo,nombre');
+        $this->db->from('grupos_de_investigacion');
+        $reslt = $this->db->get();
+
+        return $reslt->result_array();
+
+    }
+
 
     function activar($correo){
 

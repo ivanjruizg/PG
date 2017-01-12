@@ -78,11 +78,11 @@ class Inicio extends CI_Controller
         $datos['titulo'] = "REGISTRO DE ESTUDIANTES";
 
         $datos['contenido'] = "inscripcion_estudiantes/inscripcion_estudiantes";
-        $this->load->model('carrera_model');
-        $datos['programas'] = $this->carrera_model->listar();
+        $this->load->model('inscripcion_model');
+        $datos['programas'] = $this->inscripcion_model->listar_carreras();
 
         $this->load->model('grupo_investigacion_model');
-        $datos['grupos'] = $this->grupo_investigacion_model->listar();
+        $datos['grupos'] = $this->inscripcion_model->listar_grupos_de_investigacion();
 
         $this->load->view('inicio/plantilla', $datos);
 

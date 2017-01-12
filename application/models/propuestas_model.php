@@ -593,4 +593,16 @@ AND CURTIME() >= s.hora  AND CURTIME()<=ADDTIME(s.hora,'1:00:00')";*/
         return $result->result_array();
     }
 
+    function listar_tipos_propuestas(){
+
+
+        $this->db->select('codigo,nombre');
+        $this->db->from('tipos_propuesta');
+        $reslt = $this->db->get();
+
+        return $reslt->result_array();
+
+    }
+
+
 }
