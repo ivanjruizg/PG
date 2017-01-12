@@ -33,72 +33,8 @@ class Propuestas_model extends CI_Model
 
 
 
-    function listar_propuestas_periodo($periodo_recepcion=null)
-    {
-
-        $this->db->select("p.codigo, p.titulo, p.ruta_carta, tp.convencion AS tipo,   DATE_FORMAT( p.fecha_hora_subida,'%d %b %y') AS fecha");
-        $this->db->from('propuestas p');
-        $this->db->join('tipos_propuesta tp', 'p.tipo = tp.codigo');
 
 
-        if($periodo_recepcion!=null){
-
-            $this->db->where("periodo_recepcion",$periodo_recepcion);
-        }
-
-
-
-        $result = $this->db->get();
-
-        return $result->result_array();
-
-    }
-
-
-
-
-    function consultar_propuestas_a_sustentar(){
-
-        $result =  $this->db->query("SELECT s.codigo_propuesta FROM sustentaciones s
-                                        WHERE s.codigo_propuesta  IS NOT NULL");
-
-
-
-         $codigos = array("-1");
-
-        foreach ($result->result_array() as $a){
-
-            array_push($codigos,$a['codigo_propuesta']);
-
-        }
-
-
-        return $codigos;
-
-
-
-    }
-
-    function listar_propuestas_sin_asignar_fecha_de_sustentacion()
-    {
-
-        /*
-        $this->db->select("p.codigo, p.titulo, tp.convencion AS tipo,   DATE_FORMAT( p.fecha_hora_subida,'%d %b %y') AS fecha");
-        $this->db->from('propuestas p');
-        $this->db->join('tipos_propuesta tp', 'p.tipo = tp.codigo');
-        $result = $this->db->get();
-
-        */
-
-        $result = $this->db->query("SELECT p.codigo, p.titulo, tp.convencion AS tipo FROM propuestas p, tipos_propuesta tp
- 
-WHERE NOT (p.codigo IN(SELECT s.codigo_propuesta FROM sustentaciones s)) 
-AND tp.codigo = p.tipo
-");
-
-        return $result->result_array();
-
-    }
 
 
 
@@ -126,30 +62,6 @@ AND tp.codigo = p.tipo
     }
 
 
-    function buscarCarta($codigo)
-    {
-        $this->db->select("p.ruta_carta");
-        $this->db->from('propuestas p');
-        $this->db->where('p.codigo', $codigo);
-
-        $result = $this->db->get();
-
-        return $result->result_array();
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     function registrar_sustentaciones($codigo_propuesta, $codigo_sustentacion)
     {
@@ -167,6 +79,7 @@ AND tp.codigo = p.tipo
 
 
     }
+
 
 
     function crear_horario_sustentaciones($periodo,$aula, $fecha,$hora)

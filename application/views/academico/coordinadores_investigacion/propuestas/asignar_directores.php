@@ -201,7 +201,7 @@
                             <div class="col-md-4 col-md-offset-5">
 <!--                                <button class="btn btn-danger" onclick="cerrarModalId('modal-asignar-directores')">Cerrar</button>-->
                                 <button type="reset" class="btn btn-primary">Cancelar</button>
-                                <input id="co-director" name="co-director" type="submit" class="btn btn-success">
+                                <input  type="submit" class="btn btn-success" value="Asignar">
 
                             </div>
                         </div>

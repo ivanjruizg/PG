@@ -31,7 +31,7 @@ class Coordinador extends CI_Controller
 
         $periodo_recepcion = $this->propuestas_model->calendario_recepcion_abierto();
 
-        $datos['propuestas'] = $this->propuestas_model->listar_propuestas_periodo($periodo_recepcion);
+        $datos['propuestas'] = $this->coordinador_model->listar_propuestas_periodo($periodo_recepcion);
         $datos['css'] = array('');
         $datos['js'] = array("mis-scripts/coordinador/coordinadorIndex.js");
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
@@ -90,7 +90,7 @@ class Coordinador extends CI_Controller
         $periodo = $this->propuestas_model->calendario_recepcion_abierto();
 
 
-        $datos['propuestas'] = $this->propuestas_model->listar_propuestas_periodo($periodo);
+        $datos['propuestas'] = $this->coordinador_model->listar_propuestas_periodo($periodo);
         $datos['css'] = array('jquery-ui.css');
     //   $datos['js'] = array('mis-scripts/coordinador/asignarSustentaciones.js','mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
 
@@ -112,7 +112,7 @@ class Coordinador extends CI_Controller
         $periodo = $this->propuestas_model->calendario_recepcion_abierto();
 
 
-        $datos['propuestas'] = $this->propuestas_model->listar_propuestas_periodo($periodo);
+        $datos['propuestas'] = $this->coordinador_model->listar_propuestas_periodo($periodo);
 
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
@@ -129,6 +129,7 @@ class Coordinador extends CI_Controller
         $co_director = $this->input->post('co-director');
 
 
+
         $datos1 = array(
 
             "correo_director" => $director
@@ -141,7 +142,7 @@ class Coordinador extends CI_Controller
 
         );
 
-        $op = $this->cordinador_model->asignar_director($codigo_propuesta, $datos1);
+        $op = $this->coordinador_model->asignar_director($codigo_propuesta, $datos1);
 
 
         if ($op > 0) {
@@ -149,13 +150,18 @@ class Coordinador extends CI_Controller
             echo "SI director";
             if (isset($co_director)) {
 
-                $this->coordinador_model->asignar_codirector($codigo_propuesta, $datos2);
+              $op=  $this->coordinador_model->asignar_codirector($codigo_propuesta, $datos2);
+
+
+                    if ($op > 0) {
+                        echo "Si co-director";
+                    }
 
             }
 
         }
 
-        echo "Si co-director";
+
 
 
     }
@@ -196,7 +202,7 @@ class Coordinador extends CI_Controller
         $codigo = $this->input->post("codigo");
 
 
-        $this->propuestas_model->quitar_propuesta_horario_sustentacion($codigo);
+        $this->coordinador_model->quitar_propuesta_horario_sustentacion($codigo);
 
 
 
@@ -228,7 +234,7 @@ class Coordinador extends CI_Controller
         $pos = $this->input->post("pos");
 
 
-        $propuestas = $this->propuestas_model->listar_propuestas_a_evaluar($arrays);
+        $propuestas = $this->coordinador_model->listar_propuestas_a_evaluar($arrays);
 
 
         foreach ($propuestas as $propuesta) {
@@ -292,7 +298,7 @@ class Coordinador extends CI_Controller
         );
 
 
-        $this->cordinador_model->asignar_evaluadores($codigo_propuesta, $datos);
+        $this->coordinador_model->asignar_evaluadores($codigo_propuesta, $datos);
 
 
         echo "SI evaluador 2";
@@ -404,7 +410,7 @@ class Coordinador extends CI_Controller
         $fecha_sustentacion = $this->input->post('fecha-sustentacion');
 
 
-        $cambios = $this->propuestas_model->cambiar_fechas_periodos($periodo, $fecha_inicio_recepcion, $fecha_fin_recepcion, $fecha_sustentacion);
+        $cambios = $this->coordinador_model->cambiar_fechas_periodos($periodo, $fecha_inicio_recepcion, $fecha_fin_recepcion, $fecha_sustentacion);
 
 
         redirect("coordinador/calendario-recepcion-propuestas");
@@ -474,7 +480,7 @@ class Coordinador extends CI_Controller
 
 
         $codigo = $this->input->post('codigo');
-        $result = $this->propuestas_model->buscarCarta($codigo);
+        $result = $this->coordinador_model->buscarCarta($codigo);
 
         /*        $datos=array();
 
