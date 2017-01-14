@@ -145,17 +145,23 @@ class Coordinador extends CI_Controller
 
         if ($op > 0) {
 
-            echo "SI director";
+
             if (isset($co_director)) {
 
                 $op = $this->coordinador_model->asignar_codirector($codigo_propuesta, $datos2);
 
 
                 if ($op > 0) {
-                    echo "Si co-director";
+                    echo '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Registro completado con exito!</strong></div>';
+
                 }
 
             }
+
+        }
+
+        else{
+            echo '<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Error!</strong></div>';
 
         }
 
@@ -163,15 +169,27 @@ class Coordinador extends CI_Controller
     }
 
 
-    function vista_asignar_sustentaciones()
+    function vista_asignar_sustentaciones($fecha=null)
     {
+
+        //$fecha=$this->input->post('fecha');
+
+//        echo var_dump($fecha);
 
         $datos['titulo'] = "Coordinador de investigación";
         $datos['contenido'] = "sustentaciones/asignar_sustentaciones";
         //$datos['propuestas'] = $this->propuestas_model->listar_propuestas_a_evaluar();
-        $datos['horarios'] = $this->propuestas_model->horarios_de_sustentaciones2();
-        $datos['css'] = array('dataTables.bootstrap.css');
-        $datos['js'] = array('mis-scripts/coordinador/asignarSustentaciones.js', 'mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
+
+
+        if($fecha==null){
+
+            $fecha=date('Y-m-d');
+        }
+
+
+        $datos['horarios'] = $this->propuestas_model->horarios_de_sustentaciones2($fecha);
+        $datos['css'] = array('dataTables.bootstrap.css','jquery-ui.css');
+        $datos['js'] = array('jquery-ui.js','mis-scripts/coordinador/asignarSustentaciones.js', 'mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
 
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
@@ -375,6 +393,9 @@ class Coordinador extends CI_Controller
 
         }
 
+
+        redirect('coordinador/vista_asignar_sustentaciones/'.$fecha);
+
     }
 
 
@@ -548,6 +569,16 @@ class Coordinador extends CI_Controller
 
         }
 
+
+        function p(){
+
+            $fecha=$this->input->get('date');
+            $fecha1=date($fecha);
+
+            echo count($this->propuestas_model->horarios_de_sustentaciones2($fecha1))."-".$fecha1;
+
+
+        }
 
    }
 

@@ -192,7 +192,15 @@
                             </div>
                         </div>
 
+                        <div class="form-group ">
 
+                            <div id="mensaje-director" class="col-md-offset-3 col-md-6">
+
+
+                            </div>
+
+
+                        </div>
 
                         <div class="ln_solid"></div>
                         <div class="form-group">

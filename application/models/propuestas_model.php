@@ -116,17 +116,17 @@ class Propuestas_model extends CI_Model
 
     }
 
-    function horarios_de_sustentaciones2(){
+    function horarios_de_sustentaciones2($fecha){
 
 
-        $result= $this->db->query("SELECT s.* FROM sustentaciones s, propuestas p
-                            WHERE p.codigo = s.codigo_propuesta 
-                           
-                            UNION
-                            
-                            SELECT * FROM sustentaciones
-                            ORDER BY fecha,hora
-                            ");
+        $sql ="SELECT s.* FROM sustentaciones s, propuestas p
+                WHERE p.codigo = s.codigo_propuesta AND fecha='$fecha'
+                UNION
+                SELECT * FROM sustentaciones WHERE fecha='$fecha' 
+                ORDER BY fecha,hora
+                      ";
+
+        $result= $this->db->query($sql);
 
 
 

@@ -65,7 +65,7 @@ class Coordinador_Model extends  CI_Model {
 
     function cambiar_clave_de_acceso($clave,$datos){
 
-        if(strcmp($clave,$this->optener_clave())==0){
+        if(strcmp($clave,$this->obtener_clave())==0){
 
 
             $this->db->where('correo=',$this->session->userdata('correo') );

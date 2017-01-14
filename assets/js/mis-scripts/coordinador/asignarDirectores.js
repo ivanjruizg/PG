@@ -120,7 +120,9 @@ function asignarDirectores() {
         data: $("#form-asignar-directores").serialize(),
         success: function (resp) {
 
-            $('#modal-asignar-directores').modal('hide');
+            $('#mensaje-director').html(resp).show(200).delay(2000).hide(200);
+            window.setInterval("$('#modal-asignar-directores').modal('hide')",3000, "JavaScript");
+
 
 
 
