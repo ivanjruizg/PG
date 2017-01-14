@@ -7,15 +7,13 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Asignar directores</h2>
-                        <ul class="nav navbar-right panel_toolbox">
+                        <h2>Asignar Directores</h2>
 
-                        </ul>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
 
-                        <table id="datatable-asignar-directores" class="table table-striped table-bordered dt-responsive"
+                        <table id="datatable-asignar-directores" class="table table-striped table-bordered dt-responsive nowrap"
                                cellspacing="0" width="100%">
                             <thead>
                             <tr>

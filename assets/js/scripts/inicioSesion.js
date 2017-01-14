@@ -17,7 +17,8 @@ function iniciarSesion(){
 					$("#password").focus();
 					$("#email").addClass("validar");
 
-					$("#error-login").html('<span class="help-inline">  Falló la autentificación: Ingresaste un correo o contraseña incorrecto. </span>');
+
+					$("#error-login").html('<div class="alert alert-danger"> <strong>¡Fallo en la autenticación!</strong>  Ingresaste un correo o contraseña incorrecto. </div>');
 
 					$("#password").addClass("validar")
 
@@ -27,7 +28,7 @@ function iniciarSesion(){
 					$("#password").focus();
 					$("#email").addClass("validar");
 
-					$("#error-login").html('<span class="help-inline">Estiamado estudiante, debe activar su cuenta desde el correo institucional, <a target="_blank" href="http://mail.google.com/a/cecar.edu.co">Clic aquí para acceder</a></span> <br>');
+					$("#error-login").html('<div class="alert alert-info"><strong>¡Cuenta sin activar!</strong>  Estimado estudiante, debe activar su cuenta desde el correo institucional, <a target="_blank" class="alert-link" href="http://mail.google.com/a/cecar.edu.co">Clic aquí para acceder</a></div> <br>');
 
 					$("#password").addClass("validar")
 

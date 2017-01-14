@@ -31,6 +31,7 @@ class Coordinador extends CI_Controller
 
         $periodo_recepcion = $this->propuestas_model->calendario_recepcion_abierto();
 
+
         $datos['propuestas'] = $this->coordinador_model->listar_propuestas_periodo($periodo_recepcion);
         $datos['css'] = array('');
         $datos['js'] = array("mis-scripts/coordinador/coordinadorIndex.js");
@@ -51,8 +52,8 @@ class Coordinador extends CI_Controller
     }
 
 
-    function cambiar_clave_de_acceso(){
-
+    function cambiar_clave_de_acceso()
+    {
 
 
         $this->load->model('coordinador_model');
@@ -62,22 +63,20 @@ class Coordinador extends CI_Controller
         $clave_nueva_confirmada = $this->input->post('clave-nueva-confirmada');
 
 
-        if(strcmp($clave_nueva,$clave_nueva_confirmada)==0){
-
+        if (strcmp($clave_nueva, $clave_nueva_confirmada) == 0) {
 
 
             $datos = array(
 
-                "clave"=>$clave_nueva
+                "clave" => $clave_nueva
 
             );
 
-            $result= $this->coordinador_model->cambiar_clave_de_acceso($clave_antigua,$datos);
+            $result = $this->coordinador_model->cambiar_clave_de_acceso($clave_antigua, $datos);
 
             echo $result;
 
         }
-
 
 
     }
@@ -91,8 +90,8 @@ class Coordinador extends CI_Controller
 
 
         $datos['propuestas'] = $this->coordinador_model->listar_propuestas_periodo($periodo);
-        $datos['css'] = array('jquery-ui.css');
-    //   $datos['js'] = array('mis-scripts/coordinador/asignarSustentaciones.js','mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
+        $datos['css'] = array('jquery-ui.css','dataTables.bootstrap.css');
+        //   $datos['js'] = array('mis-scripts/coordinador/asignarSustentaciones.js','mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
 
         $datos['js'] = array('jquery-ui.js', 'mis-scripts/coordinador/asignarDirectores.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
@@ -105,9 +104,9 @@ class Coordinador extends CI_Controller
 
         $datos['titulo'] = "Coordinador de investigación";
         $datos['contenido'] = "propuestas/asignar_evaluadores";
-        $datos['css'] = array('jquery-ui.css');
+        $datos['css'] = array('jquery-ui.css','dataTables.bootstrap.css');
 
-        $datos['js'] = array('jquery-ui.js', 'mis-scripts/coordinador/asignarEvaluadores.js','mis-scripts/coordinador/asignarSustentaciones.js','mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
+        $datos['js'] = array('jquery-ui.js', 'mis-scripts/coordinador/asignarEvaluadores.js', 'mis-scripts/coordinador/asignarSustentaciones.js', 'mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
 
         $periodo = $this->propuestas_model->calendario_recepcion_abierto();
 
@@ -127,7 +126,6 @@ class Coordinador extends CI_Controller
         $director = $this->input->post('director');
 
         $co_director = $this->input->post('co-director');
-
 
 
         $datos1 = array(
@@ -150,18 +148,16 @@ class Coordinador extends CI_Controller
             echo "SI director";
             if (isset($co_director)) {
 
-              $op=  $this->coordinador_model->asignar_codirector($codigo_propuesta, $datos2);
+                $op = $this->coordinador_model->asignar_codirector($codigo_propuesta, $datos2);
 
 
-                    if ($op > 0) {
-                        echo "Si co-director";
-                    }
+                if ($op > 0) {
+                    echo "Si co-director";
+                }
 
             }
 
         }
-
-
 
 
     }
@@ -173,9 +169,9 @@ class Coordinador extends CI_Controller
         $datos['titulo'] = "Coordinador de investigación";
         $datos['contenido'] = "sustentaciones/asignar_sustentaciones";
         //$datos['propuestas'] = $this->propuestas_model->listar_propuestas_a_evaluar();
-        $datos['horarios']= $this->propuestas_model->horarios_de_sustentaciones2();
+        $datos['horarios'] = $this->propuestas_model->horarios_de_sustentaciones2();
         $datos['css'] = array('dataTables.bootstrap.css');
-        $datos['js'] = array('mis-scripts/coordinador/asignarSustentaciones.js','mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
+        $datos['js'] = array('mis-scripts/coordinador/asignarSustentaciones.js', 'mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
 
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
@@ -183,27 +179,21 @@ class Coordinador extends CI_Controller
     }
 
 
-    function  p(){
+    function consultar_titulo_propuesta($codigo)
+    {
 
-        echo  var_dump($this->propuestas_model->consultar_propuestas_a_sustentar());
-    }
-
-
-
-    function  consultar_titulo_propuesta($codigo){
-
-         $this->propuestas_model->consultar_titulo($codigo);
+        $this->propuestas_model->consultar_titulo($codigo);
 
     }
 
-    function quitar_propuesta_horario_sustentacion(){
+    function quitar_propuesta_horario_sustentacion()
+    {
 
 
         $codigo = $this->input->post("codigo");
 
 
         $this->coordinador_model->quitar_propuesta_horario_sustentacion($codigo);
-
 
 
     }
@@ -261,10 +251,6 @@ class Coordinador extends CI_Controller
 
 
         $propuestas = $this->input->post("propuestas");
-
-
-
-        echo var_dump($propuestas);
 
 
         foreach ($propuestas as &$propuesta) {
@@ -342,57 +328,49 @@ class Coordinador extends CI_Controller
         $fecha = $this->input->post('fecha');
         $jornada = $this->input->post('jornada');
 
-        $horasManana = array('08:00','08:30','09:00','09:30','10:00','10:30','11:00');
-        $horasTarde = array('14:00','14:30','15:00','15:30','16:00','16:30','17:00');
+        $horasManana = array('08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00');
+        $horasTarde = array('14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00');
 
 
+        if ($jornada == 1) {
 
 
-        if($jornada==1){
+            foreach ($horasManana as $hora) {
 
 
-
-            foreach ($horasManana as $hora){
-
-
-                $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula,$fecha,$hora);
+                $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula, $fecha, $hora);
 
 
             }
 
 
+        } else if ($jornada == 2) {
 
 
-        }else   if($jornada==2){
+            foreach ($horasTarde as $hora) {
 
 
-            foreach ($horasTarde as $hora){
-
-
-                $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula,$fecha,$hora);
-
+                $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula, $fecha, $hora);
 
 
             }
 
 
+        } else {
 
-        }else{
-
-            foreach ($horasManana as $hora){
-
-
-                $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula,$fecha,$hora);
-
-            }
-
-            foreach ($horasTarde as $hora){
+            foreach ($horasManana as $hora) {
 
 
-                $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula,$fecha,$hora);
+                $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula, $fecha, $hora);
 
             }
 
+            foreach ($horasTarde as $hora) {
+
+
+                $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula, $fecha, $hora);
+
+            }
 
 
         }
@@ -405,111 +383,172 @@ class Coordinador extends CI_Controller
 
 
         $periodo = $this->input->post('periodo');
-        $fecha_inicio_recepcion = $this->input->post('fecha-inicio');
         $fecha_fin_recepcion = $this->input->post('fecha-limite');
         $fecha_sustentacion = $this->input->post('fecha-sustentacion');
 
 
-        $cambios = $this->coordinador_model->cambiar_fechas_periodos($periodo, $fecha_inicio_recepcion, $fecha_fin_recepcion, $fecha_sustentacion);
+        $fr = new DateTime($fecha_fin_recepcion);
+        $fs = new DateTime($fecha_sustentacion);
 
 
-        redirect("coordinador/calendario-recepcion-propuestas");
+
+        if ($fr > $fs) {
+
+            $datos = array();
+            $datos[]=array(
+                'codigo'=>1,
+                'mensaje'=>'<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Error: Fecha de recepcion mayor! </strong> La fecha de recepcion no puede ser mayor a la fecha de sustentación, verifíque las fechas ingresadas!</strong></div>'
+                );
 
 
-    }
+
+            echo json_encode($datos);
 
 
-    function consultar_docentes()
-    {
-
-        $this->load->model('docentes_model');
-
-        if (isset($_GET['term'])) {
 
 
-            $nombres = strtolower($_GET['term']);
-            $valores = $this->docentes_model->consultar($nombres);
+        } elseif ($fr < $fs){
+
+            $this->coordinador_model->cambiar_fechas_periodos($periodo, $fecha_fin_recepcion, $fecha_sustentacion);
+
+            $datos = array();
+            $datos[]=array(
+                'codigo'=>2,
+                'mensaje'=>'<div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Registro completado con exito!</strong></div>\';
+'
+            );
 
 
-            echo json_encode($valores);
-        }
-    }
+
+            echo json_encode($datos);
 
 
-    function crear_periodo()
-    {
 
 
-        $anio = $this->input->post('anio');
-        $mes = $this->input->post('mes');
 
-        $fecha_recepcion = $this->input->post('fecha-recepcion');
-        $fecha_sustentacion = $this->input->post('fecha-sustentacion');
+        } else {
 
-
-        $this->coordinador_model->crear_periodo($anio, $mes, $fecha_recepcion, $fecha_sustentacion);
-
-
-        echo '<div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Registro completado con exito!</strong></div>';
+            $datos = array();
+            $datos[]=array(
+                'codigo'=>3,
+                'mensaje'=>'<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Error: Fechas Iguales! </strong> La fecha de recepcion no puede ser igual a la fecha de sustentación, verifíque las fechas ingresadas!</div>'
+            );
 
 
-    }
 
-    function ver_propuesta()
-    {
+            echo json_encode($datos);
 
-        $codigo = $this->input->post('codigo');
-        $result = $this->propuestas_model->listar_propuesta($codigo);
-
-        $datos = array();
-
-        foreach ($result as $propuesta) {
-
-            $datos[] = array('codigo' => $propuesta['codigo'], 'titulo' => $propuesta['titulo'], 'estudiante' => $propuesta['estudiante'], 'tipo_propuesta' => $propuesta['tipo'], 'fecha_recepcion' => substr($propuesta['fecha_hora_subida'], 0, 10), 'director' => $propuesta['correo_director'], 'co_director' => $propuesta['correo_codirector']);
 
         }
 
-
-        echo json_encode($datos);
-
     }
+        function consultar_docentes()
+        {
+
+            $this->load->model('docentes_model');
+
+            if (isset($_GET['term'])) {
 
 
-    function verCartaRemision()
-    {
+                $nombres = strtolower($_GET['term']);
+                $valores = $this->docentes_model->consultar($nombres);
 
 
-        $codigo = $this->input->post('codigo');
-        $result = $this->coordinador_model->buscarCarta($codigo);
-
-        /*        $datos=array();
-
-                foreach ($result as $propuesta){
-
-                    $datos[] = array('ruta_carta' => $propuesta['ruta_carta']);
-
-                }*/
+                echo json_encode($valores);
+            }
+        }
 
 
-        echo json_encode($result);
+        function crear_periodo()
+        {
 
 
-    }
+            $anio = $this->input->post('anio');
+            $mes = $this->input->post('mes');
+
+            $fecha_recepcion = $this->input->post('fecha-recepcion');
+            $fecha_sustentacion = $this->input->post('fecha-sustentacion');
+
+            $fr = new DateTime($fecha_recepcion);
+            $fs = new DateTime($fecha_sustentacion);
+
+            if ($fr > $fs) {
+
+                echo '<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Fecha de recepcion mayor! </strong> Las fecha de recepcion no puede ser mayor a la fecha de sustentación, verifíque las fechas ingresadas!</strong></div>';
 
 
-    function descargarArchivo($ruta_imagen)
-    {
+            } elseif ($fr < $fs) {
 
-        $this->load->helper('download');
-        //Get the file from whatever the user uploaded (NOTE: Users needs to upload first), @See http://localhost/CI/index.php/upload
-        $data = file_get_contents("./assets/docs/cartas/" . $ruta_imagen);
-        //Read the file's contents
-        $name = $ruta_imagen;
+                $this->coordinador_model->crear_periodo($anio, $mes, $fecha_recepcion, $fecha_sustentacion);
+                echo '<div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Registro completado con exito!</strong></div>';
 
-        //use this function to force the session/browser to download the file uploaded by the user
-        force_download($name, $data);
+            } else {
 
-    }
+                echo '<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Fechas Iguales! </strong> La fecha de recepcion no puede ser igual a la fecha de sustentación, verifíque las fechas ingresadas!</div>';
 
 
-}
+            }
+
+
+        }
+
+        function ver_propuesta()
+        {
+
+            $codigo = $this->input->post('codigo');
+            $result = $this->propuestas_model->listar_propuesta($codigo);
+
+            $datos = array();
+
+            foreach ($result as $propuesta) {
+
+                $datos[] = array('codigo' => $propuesta['codigo'], 'titulo' => $propuesta['titulo'], 'estudiante' => $propuesta['estudiante'], 'tipo_propuesta' => $propuesta['tipo'], 'fecha_recepcion' => substr($propuesta['fecha_hora_subida'], 0, 10), 'director' => $propuesta['correo_director'], 'co_director' => $propuesta['correo_codirector']);
+
+            }
+
+
+            echo json_encode($datos);
+
+        }
+
+
+        function verCartaRemision()
+        {
+
+
+            $codigo = $this->input->post('codigo');
+            $result = $this->coordinador_model->buscarCarta($codigo);
+
+            /*        $datos=array();
+
+                    foreach ($result as $propuesta){
+
+                        $datos[] = array('ruta_carta' => $propuesta['ruta_carta']);
+
+                    }*/
+
+
+            echo json_encode($result);
+
+
+        }
+
+
+        function descargarArchivo($ruta_imagen)
+        {
+
+            $this->load->helper('download');
+            //Get the file from whatever the user uploaded (NOTE: Users needs to upload first), @See http://localhost/CI/index.php/upload
+            $data = file_get_contents("./assets/docs/cartas/" . $ruta_imagen);
+            //Read the file's contents
+            $name = $ruta_imagen;
+
+            //use this function to force the session/browser to download the file uploaded by the user
+            force_download($name, $data);
+
+        }
+
+
+   }
+
+

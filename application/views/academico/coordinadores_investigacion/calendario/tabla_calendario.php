@@ -94,7 +94,7 @@
                     </div>
 
 
-                    <form id="cambiar-fechas" class="formulario form-horizontal" action="<?= base_url('coordinador/cambiar_fechas_periodos') ?>" method="POST">
+                    <form id="cambiar-fechas" class="formulario form-horizontal" action="<?= base_url('coordinador/cambiar_fechas_periodos') ?>" method="POST" onsubmit="return cambiarFechas();">
                         <div class="modal-body">
 
 
@@ -116,7 +116,7 @@
                                     <div class="col-md-8">
 
 
-                                        <input required  id="fecha-inicio" name="fecha-inicio" type="date"  class="form-control">
+                                        <input required  id="fecha-inicio" name="fecha-inicio" type="date"  class="form-control" disabled>
 
 
 
@@ -141,9 +141,19 @@
                                     </div>
                                 </div>
 
+                          <!--  <div class="form-group">
+                                <br>
+                            </div>
+-->
+                            <br>
+                            <div class="form-group">
+
+                                <div id="mensaje-respuesta" class="col-md-12">
 
 
+                                </div>
 
+                            </div>
                         </div>
 
 

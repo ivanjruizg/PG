@@ -25,6 +25,7 @@ class Propuestas_model extends CI_Model
         $this->db->from('calendario_trabajos_de_grado c');
         $this->db->where('CURDATE() >=c.fecha_inicio_recepcion');
         $this->db->where('CURDATE() <= c.fecha_limite_recepcion');
+        $this->db->limit('1');
         $result = $this->db->get();
 
         return $result->result_array()[0]['periodo'];

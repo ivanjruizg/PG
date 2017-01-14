@@ -80,12 +80,15 @@ class Coordinador_Model extends  CI_Model {
     }
 
 
-    function cambiar_fechas_periodos($periodo, $fecha_inicio_recepcion, $fecha_limite_recepcion, $fecha_sustentacion)
+    function cambiar_fechas_periodos($periodo, $fecha_limite_recepcion, $fecha_sustentacion)
     {
+
+        $fecha_inicio_recepcion = date_sub(date_create($fecha_limite_recepcion), date_interval_create_from_date_string("5 days"));
+
 
         $datos = array(
 
-            "fecha_inicio_recepcion" => $fecha_inicio_recepcion,
+            "fecha_inicio_recepcion" => date_format($fecha_inicio_recepcion, "Y-m-d"),
             "fecha_limite_recepcion" => $fecha_limite_recepcion,
             "fecha_sustentacion" => $fecha_sustentacion
 

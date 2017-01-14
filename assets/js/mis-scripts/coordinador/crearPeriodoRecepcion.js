@@ -1,4 +1,6 @@
-
+$( document ).ready(function() {
+    console.log( "ready!" );
+});
 function crearPeriodoRecepcion() {
 
 
@@ -9,7 +11,7 @@ function crearPeriodoRecepcion() {
         success: function (resp) {
 
 
-            $('#mensaje').html(resp).show(200).delay(5500).hide(200);
+            $('#mensaje').html(resp).show(200).delay(2000).hide(200);
 
             $("#crear-periodo-recpcion")[0].reset();
 
@@ -17,7 +19,7 @@ function crearPeriodoRecepcion() {
         }, error: function () {
 
 
-            var mensaje = '<div class="alert alert-danger"><strong>Danger!</strong>Ya existe un periodo de recepcion para ese mes</div>';
+            var mensaje = '<div class="alert alert-danger"><strong>Error-Periodo Duplicado!</strong>Ya existe un periodo de recepcion para ese mes</div>';
 
             $('#mensaje').html(mensaje).show(200).delay(2000).hide(200);
 

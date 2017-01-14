@@ -7,7 +7,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Asignar sustentaciones</h2>
+                        <h2>Asignar Sustentaciones</h2>
                         <ul class="nav navbar-right panel_toolbox">
 
                         </ul>
