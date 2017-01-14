@@ -4,4 +4,8 @@
 <link href="<?= base_url('assets/css/style-dashboard.css')?>" rel="stylesheet">
 
 
+<noscript>
 
+    <meta http-equiv="Refresh" content="0;URL=<?=base_url('error/no_script')?>">
+
+</noscript>

@@ -17,7 +17,7 @@
                         <br />
                         <i>veniam omnis</i>
                     </p>
-                    <a href="#" class="btn btn-info btn-lg da-link">
+                    <a href="#"  class="btn btn-info btn-lg da-link  ">
                         Read more
                     </a>
                     <div class="da-img">

@@ -87,6 +87,12 @@
 
 <script src="<?=base_url('assets/js/parallax-slider/jquery.cslider.js')?>"></script>
 
+<noscript>
+
+    <meta http-equiv="Refresh" content="60;URL=<?=base_url('error/no_script')?>">
+
+</noscript>
+
 <script type="text/javascript">
     $(function() {
 

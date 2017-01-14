@@ -42,6 +42,9 @@
     <!--[if lt IE 9]>
     <script src="<?php echo base_url();?>assets/js/html5shiv.js"></script>
     <script src="<?php echo base_url();?>assets/js/respond.min.js"></script>
+
+
+
     <![endif]-->
 </head>
 
