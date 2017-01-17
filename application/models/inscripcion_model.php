@@ -15,13 +15,27 @@ class Inscripcion_Model extends CI_Model
     }
 
 
+    function consultar_correo($correo){
+
+
+        $this->db->select('correo');
+        $this->db->from('estudiantes');
+        $this->db->where("correo", $correo);
+        $reslt = $this->db->get();
+
+
+        return $reslt->num_rows();
+    }
+
+
     function consultar($codigo_activacion){
 
 
 
-        $this->db->where("codigo_activacion", $codigo_activacion);
+
         $this->db->select('correo,nombres');
         $this->db->from('estudiantes');
+        $this->db->where("codigo_activacion", $codigo_activacion);
         $reslt = $this->db->get();
 
 

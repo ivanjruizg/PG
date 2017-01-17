@@ -13,7 +13,7 @@
                     </div>
                     <div class="x_content">
 
-                        <table id="datatable-asignar-directores" class="table table-striped table-bordered dt-responsive nowrap"
+                        <table id="datatable-asignar-directores" class="table table-striped table-bordered dt-responsive"
                                cellspacing="0" width="100%">
                             <thead>
                             <tr>

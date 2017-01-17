@@ -30,7 +30,7 @@
 
                             <div class="registration">
                                 ¿No tienes Cuenta Aún?
-                                <a class="registro" href="registrar-estudiante">
+                                <a class="registro" href="<?=base_url('registrar-estudiante')?>">
                                     Crea una cuenta aquí
                                 </a>
                             </div>

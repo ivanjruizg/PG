@@ -66,6 +66,10 @@ function asignarEvaluadores() {
 
 function verModalAsignarEvaluadores(codigo) {
 
+    $(".inv1").hide();
+    $(".inv2").hide();
+    $(".inv3").hide();
+
 
     $.ajax({
         url: baseUrl+"/coordinador/ver_propuesta",

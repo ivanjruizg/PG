@@ -7,7 +7,7 @@
             <div class="col-md-6 col-lg-6 col-xs-12 col-sm-6 div-login">
 
                 <div class="form-wrapper">
-                    <form id="login" class="form-inscripcion wow fadeInUp" action="<?= base_url('inscripcion_estudiante/registrar') ?>" method="POST">
+                    <form id="form-inscripcion-estudiante" class="form-inscripcion wow fadeInUp" action="<?= base_url('inscripcion_estudiante/registrar') ?>" method="POST" onsubmit="return registroEstudiante() ;">
                         <h2 class="form-signin-heading">FORMULARIO DE INSCRIPCIÓN</h2>
                         <div class="login-wrap">
 
@@ -40,7 +40,7 @@
                             </select>
 
 
-                            <select name="grupo-investigacion" id="programa" class="form-control select" required>
+                            <select name="grupo-investigacion" id="programa" class="form-control select mayus" required>
 
                                 <option value="">Seleccione  grupo de investigación :</option>
 
@@ -66,11 +66,15 @@
                             <!--pattern="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$" -->
 
                             <input type="email" required oninvalid="setCustomValidity('Introduzca su correo institucional \n' +
-                             'Ejemplo: nombre.apellido@cecar.edu.co')" name="email" id="email" class="form-control"   placeholder="Correo Electrónico Institucional">
+                             'Ejemplo: nombre.apellido@cecar.edu.co')" name="email" id="email" class="form-control mayus"   placeholder="Correo Electrónico Institucional">
 
 
                             <input type="password" required name="clave" id="contraseña" class="form-control mayus" placeholder="Contraseña">
 
+
+                            <div id="error-correo">
+
+                            </div>
 
 
                             <br>

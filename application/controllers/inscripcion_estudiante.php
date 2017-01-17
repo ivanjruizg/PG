@@ -16,51 +16,66 @@ class Inscripcion_estudiante extends CI_Controller
 
    function registrar(){
 
-       $nombres = $this->input->post("nombres");
-       $primer_apellido = $this->input->post("primer-apellido");
-       $segundo_apellido= $this->input->post("segundo-apellido");
-       $correo = $this->input->post("email");
-       $clave = $this->input->post("clave");
-       $programa= $this->input->post("programa");
-       $grupo_inv= $this->input->post("grupo-investigacion");
-
-
-       $codigo_activacion = $this->generar_codigo_activacion();
-
-
-       $datos=array(
-
-           "nombres" => $nombres,
-           "primer_apellido" => $primer_apellido,
-           "segundo_apellido" => $segundo_apellido,
-           "correo" => $correo,
-           "clave" => $clave,
-           "codigo_programa" => $programa,
-           "codigo_grupo_investigacion"=>$grupo_inv,
-           "codigo_activacion" => $codigo_activacion
-
-       );
 
 
 
 
-       //$this->load->model('inscripcion_model');
+       $nombres =mb_strtoupper($this->input->post('nombres'));
 
-       $filas= $this->inscripcion_model->registrar($datos);
-
-
-       if($filas!=-1){
-
-
-         if ($this->enviar_correo_activacion($correo,$codigo_activacion)){
-
-
-             redirect(base_url("registro-exitoso"));
-
-         }
+      $primer_apellido = mb_strtoupper($this->input->post("primer-apellido"));
+       $segundo_apellido= mb_strtoupper($this->input->post("segundo-apellido"));
+       $correo = mb_strtoupper($this->input->post("email"));
+       $clave = mb_strtoupper($this->input->post("clave"));
+       $programa= mb_strtoupper($this->input->post("programa"));
+       $grupo_inv= mb_strtoupper($this->input->post("grupo-investigacion"));
 
 
+       $existe = $this->inscripcion_model->consultar_correo($correo);
+
+       //echo var_dump($existe);
+
+       if($existe==0){
+
+
+           $codigo_activacion = $this->generar_codigo_activacion();
+
+
+           $datos=array(
+
+               "nombres" => $nombres,
+               "primer_apellido" => $primer_apellido,
+               "segundo_apellido" => $segundo_apellido,
+               "correo" => $correo,
+               "clave" => $clave,
+               "codigo_programa" => $programa,
+               "codigo_grupo_investigacion"=>$grupo_inv,
+               "codigo_activacion" => $codigo_activacion
+
+           );
+
+           $filas= $this->inscripcion_model->registrar($datos);
+
+           if($filas!=-1){
+
+
+               if ($this->enviar_correo_activacion($correo,$codigo_activacion)){
+
+
+                 //  redirect(base_url("registro-exitoso"));
+
+                   echo base_url("registro-exitoso");
+
+               }
+
+
+           }
+
+
+       }else{
+
+           echo "correo-duplicado";
        }
+
 
    }
 

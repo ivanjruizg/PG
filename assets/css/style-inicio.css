@@ -1,4 +1,8 @@
+.mayus{
 
+    text-transform: uppercase !important;
+
+}
 
 
 .chulos{
@@ -1972,6 +1976,7 @@ ul#filters > .active > span {
     border: 1px solid #eaeaea;
     box-shadow: none;
     font-size: 12px;
+    text-transform: uppercase;
 }
 
 
