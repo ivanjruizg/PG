@@ -43,7 +43,7 @@ class Coordinador extends CI_Controller
     function vista_cambiar_clave_de_acceso()
     {
 
-        $datos['titulo'] = "Estudiante";
+        $datos['titulo'] = "Cambiar Clave de Acceso";
         $datos['contenido'] = 'cambiar_clave/cambiar_clave_de_acceso';
         $datos['js'] = array("mis-scripts/cambiarClave.js");
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
