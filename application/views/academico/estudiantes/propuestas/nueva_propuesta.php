@@ -27,9 +27,9 @@
                     </div>
                     <div class="x_content">
 
-                        <form class="form-horizontal form-label-left"
-                              action="<?= base_url('estudiante/subir') ?>" method="post"
-                              enctype="multipart/form-data" novalidate>
+                        <form class="form-horizontal form-label-left" action="<?= base_url('estudiante/subir') ?>"
+                              method="post"
+                              enctype="multipart/form-data">
 
                             <h2 class="section">Digite información de la propuesta</h2>
 
@@ -45,15 +45,22 @@
 
                                 </div>
                             </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Palabras
-                                    Clave<span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <textarea id="textarea" required="required" name="palabras-clave"
-                                              class="form-control col-md-7 col-xs-12"></textarea>
+
+
+
+                            <div class="control-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Palabras claves  <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-9 col-xs-12">
+                                    <input id="tags_1" name="palabras-clave" type="text" class="tags form-control" value="" />
+                                    <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
                                 </div>
                             </div>
+
+                            <div class="clearfix">
+
+                            </div>
+
+
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Resumen<span
                                         class="required">*</span>
@@ -99,11 +106,37 @@
                                            class="form-control col-md-7 col-xs-12 mayus"
                                            name="investigador1"
                                            value="<?= $this->session->userdata('nombres') . ' ' . $this->session->userdata('apellidos') ?>"
-                                           required="required" type="text">
+                                           required type="text">
                                 </div>
+
+                                <div class="col-md-1">
+
+
+                                <div class="col-md-6">
+                                    <button type="button" onclick="añadirInvestigador()" class="btn btn-sm">
+
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+
+
+                                </div>
+
+                                    <div class="col-md-6">
+                                        <button type="button" id="quitar-investigador" onclick="quitarInvestigador()" class="btn btn-sm">
+
+                                            <i class="fa fa-minus" aria-hidden="true"></i>
+                                        </button>
+
+
+                                    </div>
+
+                                </div>
+
+
+
                             </div>
 
-                            <div class="item form-group">
+                            <div class="item form-group inv2">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Investigador 2
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -114,18 +147,17 @@
                                 </div>
                             </div>
 
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Correo Investigador 2
-                                </label>
+                            <div class="item form-group inv2">
+
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input id="correo-investigador2" class="form-control col-md-7 col-xs-12"
-                                           name="investigador2" readonly          type="email">
+                                    <input id="correo-investigador2" class="form-control col-md-7 col-xs-12"
+                                           name="investigador2" readonly type="hidden">
 
                                 </div>
                             </div>
 
 
-                            <div class="item form-group">
+                            <div class="item form-group inv3">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Investigador 3
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -139,12 +171,11 @@
                             </div>
 
 
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Correo investigador 3
-                                </label>
+                            <div class="item form-group inv3">
+
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                       <input id="correo-investigador3" class="form-control col-md-7 col-xs-12"
-                                           name="investigador3" readonly type="email">
+                                    <input id="correo-investigador3" class="form-control col-md-7 col-xs-12"
+                                           name="investigador3" readonly type="hidden">
 
                                 </div>
 

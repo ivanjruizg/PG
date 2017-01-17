@@ -2,6 +2,28 @@ $(document).ready(function () {
 
 
 
+    function onAddTag(tag) {
+        alert("Added a tag: " + tag);
+    }
+
+    function onRemoveTag(tag) {
+        alert("Removed a tag: " + tag);
+    }
+
+    function onChangeTag(input, tag) {
+        alert("Changed a tag: " + tag);
+    }
+
+    $('#tags_1').tagsInput({
+        width: 'auto'
+    });
+
+
+    $(".inv2").hide();
+    $(".inv3").hide();
+    $("#quitar-investigador").hide();
+
+
     $("#investigador2").autocomplete({
         source: baseUrl+"/estudiante/consultar",
         minLength: 1,
@@ -10,7 +32,7 @@ $(document).ready(function () {
 
 
 
-            $('#investigador2').val(ui.item.label);
+            $('#investigador2').val(ui.item.label+" ("+ui.item.value+")");
             $('#correo-investigador2').val(ui.item.value);
 
 
@@ -51,3 +73,65 @@ $(document).ready(function () {
 
 
 });
+
+
+
+var cont =1;
+
+function añadirInvestigador() {
+
+
+    if(cont==1){
+
+        $(".inv2").show();
+
+        $("#investigador2").prop("required",true);
+
+        $("#quitar-investigador").show();
+
+        cont++;
+
+    }else if(cont==2){
+
+        $("#investigador3").prop("required",true);
+        $(".inv3").show();
+        $("#quitar-investigador").show();
+
+        cont++;
+
+    }
+
+
+
+  //  cont++;
+}
+
+
+
+function quitarInvestigador() {
+
+
+ if(cont==2){
+
+        $(".inv2").hide();
+        cont--;
+
+        $("#investigador2").prop("required",false);
+        $("#investigador2").val('');
+        $("#correo-investigador2").val('');
+
+     $("#quitar-investigador").hide();
+
+    }else if(cont==3){
+        $(".inv3").hide();
+        $("#investigador3").prop("required",false);
+        $("#investigador3").val('');
+        cont--;
+        $("#correo-investigador2").val('');
+
+
+
+    }
+
+
+}

@@ -96,8 +96,8 @@ class Estudiante extends CI_Controller
 
 
             $datos['tipos'] = $this->propuestas_model->listar_tipos_propuestas();
-            $datos['css'] = array('jquery-ui.css');
-            $datos['js'] = array('jquery-ui.js','mis-scripts/estudiante/nuevaPropuesta.js');
+            $datos['css'] = array('jquery-ui.css','jquery.tagsinput.css');
+            $datos['js'] = array('jquery-ui.js','mis-scripts/estudiante/nuevaPropuesta.js','jquery.tagsinput.js');
             $datos['titulo'] = "Nueva Propuesta";
             $datos['contenido'] = 'propuestas/nueva_propuesta';
             $this->load->view("academico/estudiantes/plantilla", $datos);
@@ -303,13 +303,17 @@ class Estudiante extends CI_Controller
 
         $this->load->model('propuestas_model');
 
-        $titulo = $this->input->post('titulo');
+        $titulo = mb_strtoupper($this->input->post('titulo'));
 
-        $palabras_clave = $this->input->post('palabras-clave');
+        $palabras_claves = mb_strtoupper($this->input->post('palabras-clave'));
+
+
+        echo var_dump($palabras_claves);
+
         $resumen = $this->input->post('resumen');
 
-        $investigador2 = explode(" - ", $this->input->post('investigador2'));
-        $investigador3 = explode(" - ", $this->input->post('investigador3'));
+        $investigador2 =  $this->input->post('investigador2');
+        $investigador3 =  $this->input->post('investigador3');
 
         $tipo = $this->input->post('tipo');
 
@@ -339,6 +343,7 @@ class Estudiante extends CI_Controller
             "ruta_propuesta" => $ruta_propuesta,
             "ruta_carta" => $ruta_carta,
             "resumen" => $resumen,
+            "palabras_claves" => $palabras_claves,
             "periodo_recepcion" => $periodo_recepcion
 
         );
@@ -368,7 +373,7 @@ class Estudiante extends CI_Controller
                     $datos_investigador2 = array(
 
                         "codigo_propuesta" => $codigo_propuesta,
-                        "correo_estudiante" => $investigador2[1],
+                        "correo_estudiante" => $investigador2,
 
 
                     );
@@ -381,7 +386,7 @@ class Estudiante extends CI_Controller
                             $datos_investigador3 = array(
 
                                 "codigo_propuesta" => $codigo_propuesta,
-                                "correo_estudiante" => $investigador3[1],
+                                "correo_estudiante" => $investigador3,
 
 
                             );
@@ -414,7 +419,7 @@ class Estudiante extends CI_Controller
         }
 
 
-        redirect(base_url('estudiante'));
+     //   redirect(base_url('estudiante'));
 
 
     }
