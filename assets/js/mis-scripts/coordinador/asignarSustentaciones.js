@@ -68,7 +68,7 @@ function abrirModalPropuestasParaSustentar(pos,codigo) {
 
             //  console.log(resp);
 
-            $('#hora-susetentacion').html("Hola");
+
 
             $("#propuestas-dirigidas").html(resp);
 

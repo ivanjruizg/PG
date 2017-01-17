@@ -66,7 +66,7 @@
                             <thead>
                             <tr>
 
-                                <th id="th-codigo" class="text-center">#</th>
+
 
                                 <th id="th-hora" class="text-center">Fecha y Hora</th>
                                 <th id="th-propuesta"> Propuesta </th>
@@ -108,8 +108,6 @@
 
                                     echo '<tr>
 
-                                            <td class="text-center">'.$horario['codigo'].'</td>
-                                           
                                             <td class="text-center">'.$horario['fecha'].' '.$horario['hora'].'</td> 
                                             <td id="'.$horario['codigo'].'"  onclick="abrirModalPropuestasParaSustentar('.$horario['codigo'].','.$codigo_propuesta.')">'.$ci->propuestas_model->consultar_titulo($horario['codigo_propuesta']).'</td>
                                              <td class="text-center"><a href="javascript:quitarPropuestaDeHorarioDeSustentacion('.$horario['codigo'].');" class="fa fa-trash"></a></td> 

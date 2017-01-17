@@ -40,6 +40,13 @@ class Coordinador extends CI_Controller
     }
 
 
+    function periodo_abierto(){
+
+        echo var_dump($this->propuestas_model->calendario_recepcion_abierto());
+
+    }
+
+
     function vista_cambiar_clave_de_acceso()
     {
 
@@ -201,13 +208,10 @@ class Coordinador extends CI_Controller
     function vista_asignar_sustentaciones($fecha=null)
     {
 
-        //$fecha=$this->input->post('fecha');
 
-//        echo var_dump($fecha);
 
         $datos['titulo'] = "Coordinador de investigación";
         $datos['contenido'] = "sustentaciones/asignar_sustentaciones";
-        //$datos['propuestas'] = $this->propuestas_model->listar_propuestas_a_evaluar();
 
 
         if($fecha==null){
