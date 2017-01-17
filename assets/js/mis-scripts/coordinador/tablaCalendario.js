@@ -41,20 +41,11 @@ function cambiarFechas() {
             }
 
             else if(valores[0].codigo==2){
-                console.log(valores[0].mensaje);
+
                 $('#mensaje-respuesta').html(valores[0].mensaje).show(200).delay(2000).hide(200);
                 window.setInterval("$('#editar-periodo').modal('hide')",3000, "JavaScript");
                 setTimeout(recargar_pagina,3100);
             }
-
-            else {
-                $('#mensaje-respuesta').html(valores[0].mensaje).show(200).delay(10000).hide(200);
-
-            }
-
-
-
-
 
 
         }, error: function () {

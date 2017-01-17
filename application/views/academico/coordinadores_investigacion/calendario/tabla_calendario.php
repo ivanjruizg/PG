@@ -8,7 +8,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Calendario de trabajos de grado para el <?= date("Y")?> </h2>
+                                <h2>Crear calendario de trabajos de grado para el <?= date("Y")?> </h2>
                                 <ul class="nav navbar-right panel_toolbox">
 
                                 </ul>

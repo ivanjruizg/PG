@@ -24,15 +24,15 @@ $this->load->view("academico/inc/js");
 ?>
 
 <?php
-
 if(isset($js)) {
-
-foreach($js as $script):?>
-<script type='text/javascript' src = '<?=base_url()?>assets/js/<?php echo $script;?>'></script>
-<?php endforeach;?>
-
-<?php } ?>
-
+    foreach ($js as $script) {
+        //echo script_tag('assets/js/'.$script);
+        ?>
+        <script src="<?=base_url('assets/js').'/'.$script?>"></script>
+        <?php
+    }
+}
+?>
 
 <?php
 

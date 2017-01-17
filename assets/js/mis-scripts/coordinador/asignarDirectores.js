@@ -120,9 +120,23 @@ function asignarDirectores() {
         data: $("#form-asignar-directores").serialize(),
         success: function (resp) {
 
-            $('#mensaje-director').html(resp).show(200).delay(2000).hide(200);
-            window.setInterval("$('#modal-asignar-directores').modal('hide')",3000, "JavaScript");
 
+
+            valores = eval(resp);
+
+            if(valores[0].codigo==1){
+
+
+                $('#mensaje-director').html(valores[0].mensaje).show(200).delay(4000).hide(200);
+
+            }
+
+            else if(valores[0].codigo==2){
+                console.log(valores[0].mensaje);
+                $('#mensaje-director').html(valores[0].mensaje).show(200).delay(2000).hide(200);
+                window.setInterval("$('#modal-asignar-directores').modal('hide')",3000, "JavaScript");
+
+            }
 
 
 

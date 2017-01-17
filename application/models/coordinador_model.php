@@ -28,6 +28,36 @@ class Coordinador_Model extends  CI_Model {
     function asignar_director($codigo_propuesta, $datos)
     {
 
+        /*
+         $this->db->select('*');
+        $this->db->from('investigadores i');
+        $this->db->where('i.codigo_propuesta', $codigo_propuesta);
+        $this->db->where('i.correo_director =', null);
+        $query = $this->db->get();
+
+
+        if ($query->num_rows() > 0) {
+
+            $this->db->where("codigo_propuesta", $codigo_propuesta);
+
+            $this->db->insert("investigadores", $datos);
+
+            return $this->db->num_rows();
+
+        } else {
+
+
+            $this->db->where("codigo_propuesta", $codigo_propuesta);
+
+            $this->db->update("investigadores", $datos);
+
+            return $this->db->affected_rows();
+
+        }
+
+        */
+
+
         $this->db->where("codigo_propuesta", $codigo_propuesta);
 
         $this->db->update("investigadores", $datos);

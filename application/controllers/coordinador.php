@@ -152,16 +152,45 @@ class Coordinador extends CI_Controller
 
 
                 if ($op > 0) {
-                    echo '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Registro completado con exito!</strong></div>';
+                    $datos = array();
+                    $datos[]=array(
+                        'codigo'=>2,
+                        'mensaje'=>'<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Registro completado con exito!</strong></div>'
+                    );
+
+
+
+                    echo json_encode($datos);
+
 
                 }
+
+            }else{
+
+                $datos = array();
+                $datos[]=array(
+                    'codigo'=>2,
+                    'mensaje'=>'<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Registro completado con exito!</strong></div>'
+                );
+
+
+
+                echo json_encode($datos);
+
+
 
             }
 
         }
 
         else{
-            echo '<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Error!</strong></div>';
+            $datos = array();
+            $datos[]=array(
+                'codigo'=>1,
+                'mensaje'=>'<div class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Datos Iguales! No se afectaron los registros</strong></div>'
+            );
+
+            echo json_encode($datos);
 
         }
 
@@ -188,8 +217,8 @@ class Coordinador extends CI_Controller
 
 
         $datos['horarios'] = $this->propuestas_model->horarios_de_sustentaciones2($fecha);
-        $datos['css'] = array('dataTables.bootstrap.css','jquery-ui.css');
-        $datos['js'] = array('jquery-ui.js','mis-scripts/coordinador/asignarSustentaciones.js', 'mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
+        $datos['css'] = array('dataTables.bootstrap.css');
+        $datos['js'] = array('mis-scripts/coordinador/calendario.js','jquery-ui.js','mis-scripts/coordinador/asignarSustentaciones.js', 'mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
 
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
@@ -435,10 +464,9 @@ class Coordinador extends CI_Controller
             $datos = array();
             $datos[]=array(
                 'codigo'=>2,
-                'mensaje'=>'<div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Registro completado con exito!</strong></div>\';
-'
-            );
+                'mensaje'=>'<div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Registro completado con exito!</strong></div>'
 
+            );
 
 
             echo json_encode($datos);
