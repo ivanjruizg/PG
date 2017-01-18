@@ -63,6 +63,25 @@ class Propuestas_model extends CI_Model
     }
 
 
+    function listar_propuesta_por_evaluar($codigo)
+    {
+
+
+        $this->db->select("p.codigo, p.titulo,p.fecha_hora_subida , t.nombre AS tipo, CONCAT(e.nombres,' ',e.primer_apellido) AS estudiante,i.correo_director,i.correo_codirector", FALSE);
+        $this->db->from('propuestas p');
+        $this->db->where('p.codigo', $codigo);
+        $this->db->join('investigadores i', 'p.codigo = i.codigo_propuesta');
+        $this->db->join('tipos_propuesta t', ' p.tipo = t.codigo');
+        $this->db->join('estudiantes e', 'i.correo_estudiante = e.correo');
+
+
+        $result = $this->db->get();
+
+        return $result->result_array();
+
+
+    }
+
 
     function registrar_sustentaciones($codigo_propuesta, $codigo_sustentacion)
     {

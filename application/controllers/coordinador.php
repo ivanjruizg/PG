@@ -221,7 +221,7 @@ class Coordinador extends CI_Controller
 
 
         $datos['horarios'] = $this->propuestas_model->horarios_de_sustentaciones2($fecha);
-        $datos['css'] = array('dataTables.bootstrap.css');
+        $datos['css'] = array('dataTables.bootstrap.css','jquery-ui.css');
         $datos['js'] = array('mis-scripts/coordinador/calendario.js','jquery-ui.js','mis-scripts/coordinador/asignarSustentaciones.js', 'mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
 
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
@@ -323,19 +323,27 @@ class Coordinador extends CI_Controller
 
         $codigo_propuesta = $this->input->post('codigo');
         $evaluador1 = $this->input->post('evaluador1');
-
         $evaluador2 = $this->input->post('evaluador2');
 
 
-        $datos = array(
+        $datos1 = array(
 
-            "correo_evaluador1" => $evaluador1,
-            "correo_evaluador2" => $evaluador2
+            "codigo_propuesta" => $codigo_propuesta,
+            "correo_evaluador" => $evaluador1,
+
 
         );
 
+        $datos2 = array(
 
-        $this->coordinador_model->asignar_evaluadores($codigo_propuesta, $datos);
+            "codigo_propuesta" => $codigo_propuesta,
+            "correo_evaluador" => $evaluador2,
+
+
+        );
+
+        $this->coordinador_model->asignar_evaluadores($datos1);
+        $this->coordinador_model->asignar_evaluadores($datos2);
 
 
         echo "SI evaluador 2";

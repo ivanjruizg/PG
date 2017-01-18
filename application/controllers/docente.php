@@ -168,6 +168,14 @@ class Docente extends  CI_Controller {
     }
 
 
+    function  x(){
+
+
+        echo var_dump();
+
+    }
+
+
     function propuestas_dirigidas2()
     {
 

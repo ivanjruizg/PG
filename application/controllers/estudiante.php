@@ -78,6 +78,15 @@ class Estudiante extends CI_Controller
 
     }
 
+
+    function xx(){
+
+        echo var_dump($this->estudiantes_model->consultar_mis_propuestas($this->session->userdata('correo')));
+
+
+
+    }
+
     function vista_nueva_propuesta()
     {
 
@@ -95,12 +104,32 @@ class Estudiante extends CI_Controller
         } else {
 
 
-            $datos['tipos'] = $this->propuestas_model->listar_tipos_propuestas();
-            $datos['css'] = array('jquery-ui.css','jquery.tagsinput.css');
-            $datos['js'] = array('jquery-ui.js','mis-scripts/estudiante/nuevaPropuesta.js','jquery.tagsinput.js');
-            $datos['titulo'] = "Nueva Propuesta";
-            $datos['contenido'] = 'propuestas/nueva_propuesta';
-            $this->load->view("academico/estudiantes/plantilla", $datos);
+            $mis_propuestas = $this->estudiantes_model->consultar_mis_propuestas($this->session->userdata('correo'));
+
+
+            if(count($mis_propuestas)>0){
+
+
+
+                $datos['css'] = array();
+                $datos['js'] = array();
+                $datos['titulo_propuesta'] = $mis_propuestas;
+                $datos['titulo'] = "Nueva Propuesta";
+                $datos['contenido'] = 'propuestas/plataforma_deshalitada';
+                $this->load->view("academico/estudiantes/plantilla", $datos);
+
+
+            }else {
+
+
+                $datos['tipos'] = $this->propuestas_model->listar_tipos_propuestas();
+                $datos['css'] = array('jquery-ui.css', 'jquery.tagsinput.css');
+                $datos['js'] = array('jquery-ui.js', 'mis-scripts/estudiante/nuevaPropuesta.js', 'jquery.tagsinput.js');
+                $datos['titulo'] = "Nueva Propuesta";
+                $datos['contenido'] = 'propuestas/nueva_propuesta';
+                $this->load->view("academico/estudiantes/plantilla", $datos);
+            }
+
 
         }
 
@@ -303,7 +332,7 @@ class Estudiante extends CI_Controller
 
         $this->load->model('propuestas_model');
 
-        $titulo = mb_strtoupper($this->input->post('titulo'));
+        $titulo = utf8_decode(mb_strtoupper($this->input->post('titulo')));
 
         $palabras_claves = mb_strtoupper($this->input->post('palabras-clave'));
 
@@ -317,19 +346,11 @@ class Estudiante extends CI_Controller
 
         $tipo = $this->input->post('tipo');
 
-
-        /* $this->load->model('file');
-
-         $ruta_propuesta=$this->file->Upload_Propuesta('./assets/docs/propuestas',"No se ha podido subir la propuesta");
-
-         $ruta_carta=$this->file->Upload_Imagen('./assets/docs/cartas', "");*/
-
-
         $this->load->library("subir_documentos");
 
-        $ruta_propuesta = $this->subir_documentos->Subir_Propuesta('./assets/docs/propuestas', "No se ha podido subir la propuesta");
+        $ruta_propuesta = $this->subir_documentos->subir_propuesta('./assets/docs/propuestas',$titulo, "No se ha podido subir la propuesta");
 
-        $ruta_carta = $this->subir_documentos->Subir_Carta('./assets/docs/cartas', "");
+        $ruta_carta = $this->subir_documentos->subir_carta('./assets/docs/cartas',$titulo, "");
 
 
         $periodo_recepcion = $this->propuestas_model->calendario_recepcion_abierto();
@@ -338,10 +359,10 @@ class Estudiante extends CI_Controller
 
 
         $datos_propuesta = array(
-            "titulo" => $titulo,
+            "titulo" => utf8_encode($titulo),
             "tipo" => $tipo,
-            "ruta_propuesta" => $ruta_propuesta,
-            "ruta_carta" => $ruta_carta,
+            "ruta_propuesta" => utf8_encode($ruta_propuesta),
+            "ruta_carta" => utf8_encode($ruta_carta),
             "resumen" => $resumen,
             "palabras_claves" => $palabras_claves,
             "periodo_recepcion" => $periodo_recepcion

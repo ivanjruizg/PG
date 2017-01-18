@@ -43,7 +43,10 @@ function asignarEvaluadores() {
         data: $("#form-asignar-evaluadores").serialize(),
         success: function (resp) {
 
-            $('#asignar-directores').modal('hide');
+
+
+            cerrarModalId('modal-asignar-evaluadores');
+
 
             alert(resp);
 
@@ -93,6 +96,16 @@ function verModalAsignarEvaluadores(codigo) {
                 $("#tipo").val(valores[i].tipo_propuesta);
 
 
+                $("#directores").val(valores[i].director);
+
+                if(valores[i].co_director!=null){
+
+
+                    $("#directores").val($("#directores").val()+" - "+valores[i].co_director);
+
+                }
+
+
                 $("#investigador" + (i + 1)).val(valores[i].estudiante);
 
                 $(".inv" + (i + 1)).show();
@@ -101,10 +114,10 @@ function verModalAsignarEvaluadores(codigo) {
             }
 
 
-            $('#modal-asignar-evaluadores').modal({
-                show: true,
-                backdrop: 'static'
-            });
+            console.log(valores);
+
+            abrirModalId('modal-asignar-evaluadores');
+
 
             $('#codigo').val(codigo);
 

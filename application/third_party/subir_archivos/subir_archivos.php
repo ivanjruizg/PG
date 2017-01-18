@@ -16,9 +16,12 @@ class Subir_archivos
 
     }
 
-    public function Subir_Carta($ruta_imagen = '', $mensaje = '')
+    public function subir_carta($ruta_imagen = '', $nombre,$mensaje = '')
     {
 
+
+
+        $config2['file_name'] = "CARTA" . "-" . $nombre;
         $config2['upload_path'] = $ruta_imagen;
         $config2['allowed_types'] = 'jpg|png|jpeg';
 
@@ -51,10 +54,11 @@ class Subir_archivos
     }
 
 
-    public function Subir_Propuesta($ruta_propuesta = '', $mensaje = '')
+    public function subir_propuesta($ruta_propuesta = '',$nombre, $mensaje = '')
     {
 
 
+        $config['file_name'] = "PROPUESTA" . "-" . $nombre;
         $config['upload_path'] = $ruta_propuesta;
         $config['allowed_types'] = 'doc|docx|pdf';
 
