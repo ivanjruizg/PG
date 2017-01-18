@@ -10,11 +10,12 @@ class Login_model extends CI_Model {
      */
     function login($email, $password) {
 
-        $datos=null;
+        $this->load->library('encriptar');
+
 
         $this->db->select("correo,nombres,CONCAT(primer_apellido,' ',segundo_apellido) AS apellidos, activo",FAlSE);
         $this->db->where("correo", $email);
-        $this->db->where("clave", $password);
+        $this->db->where("clave",$password);
         $result = $this->db->get("estudiantes");
 
         $filas=$result->result();
@@ -111,4 +112,18 @@ class Login_model extends CI_Model {
 
         }
     }
+
+    function buscarClave($email){
+
+
+        $this->db->select("clave");
+        $this->db->where("correo", $email);
+        $result = $this->db->get("estudiantes");
+
+        return  $result->result_array();
+
+    }
+
+
+
 }

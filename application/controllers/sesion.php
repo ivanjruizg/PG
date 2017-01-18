@@ -8,10 +8,12 @@ class Sesion extends CI_Controller
     function iniciar() {
 
         $this->load->model('Login_model');
+        $this->load->library("encriptar",array(10,false));
 
         $email = $this->input->post("email");
         $password = $this->input->post("password");
-        $resp = $this->Login_model->login($email, $password);
+        //$resp = $this->Login_model->login($email,$this->encriptar->HashPassword($password));
+        $resp = $this->Login_model->login($email,$password);
 
         if ($resp==-1) {
 
@@ -81,5 +83,37 @@ class Sesion extends CI_Controller
         redirect(base_url());
     }
 
+/*
 
+    function  p($clave){
+
+        require_once APPPATH . "/third_party/pass_encriptadas/PasswordHash.php";
+
+        $e= new PasswordHash(8,false);
+        echo $clave;
+        $pas=$e->HashPassword($clave);
+        if($e->CheckPassword($clave,$pas)){
+
+            echo "iguales ".$pas;
+
+        }
+        else {
+            echo "no iguales";
+        }
+
+
+    }
+
+*/
+    function  p2($clave){
+
+        $this->load->library("encriptar",array(8,false));
+        $clave2=$this->encriptar->HashPassword($clave);
+
+        echo $clave2;
+        echo '<br>';
+
+        echo $this->encriptar->CheckPassword($clave,$clave2);
+
+    }
 }

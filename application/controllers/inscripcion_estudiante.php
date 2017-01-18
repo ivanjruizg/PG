@@ -17,7 +17,7 @@ class Inscripcion_estudiante extends CI_Controller
    function registrar(){
 
 
-
+       $this->load->library("encriptar",array(10,false));
 
 
        $nombres =mb_strtoupper($this->input->post('nombres'));
@@ -25,6 +25,7 @@ class Inscripcion_estudiante extends CI_Controller
       $primer_apellido = mb_strtoupper($this->input->post("primer-apellido"));
        $segundo_apellido= mb_strtoupper($this->input->post("segundo-apellido"));
        $correo = mb_strtoupper($this->input->post("email"));
+
        $clave = mb_strtoupper($this->input->post("clave"));
        $programa= mb_strtoupper($this->input->post("programa"));
        $grupo_inv= mb_strtoupper($this->input->post("grupo-investigacion"));
