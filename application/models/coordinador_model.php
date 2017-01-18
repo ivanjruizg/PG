@@ -66,16 +66,23 @@ class Coordinador_Model extends  CI_Model {
 
     }
 
-    function asignar_evaluadores($codigo_propuesta, $datos)
+    function asignar_evaluadores($datos)
     {
 
 
+        /*
         $this->db->where("codigo_propuesta", $codigo_propuesta);
 
         $this->db->update("propuestas_asignadas", $datos);
 
         return $this->db->affected_rows();
 
+        */
+
+
+        $this->db->insert("propuestas_por_evaluar",$datos);
+
+        return $this->db->affected_rows();
 
     }
 

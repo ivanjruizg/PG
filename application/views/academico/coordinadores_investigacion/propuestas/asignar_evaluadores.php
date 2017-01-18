@@ -173,6 +173,20 @@
                             </div>
                         </div>
 
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="name">Director(es):</label>
+                            <div class="col-md-10">
+
+
+                                <input disabled id="directores"  type="text"
+                                       class="form-control">
+
+
+                            </div>
+                        </div>
+
+
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="name">Evaluador 1 :</label>
                             <div class="col-md-10">

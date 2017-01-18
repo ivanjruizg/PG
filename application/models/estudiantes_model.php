@@ -21,6 +21,20 @@ class Estudiantes_Model extends  CI_Model {
 
     }
 
+
+    function consultar_mis_propuestas($correo){
+
+        $this->db->select("p.titulo,p.ruta_propuesta");
+        $this->db->from('propuestas p');
+        $this->db->join('investigadores i', 'p.codigo = i.codigo_propuesta');
+        $this->db->where("correo_estudiante",$correo);
+
+        $result = $this->db->get();
+
+        return $result->result_array();
+    }
+
+
     function cambiar_clave_de_acceso($clave,$datos){
 
         if(strcmp($clave,$this->obtener_clave())==0){
@@ -78,14 +92,19 @@ class Estudiantes_Model extends  CI_Model {
         $this->db->insert("propuestas", $datos_propuesta);
         $codigo_propuesta = $this->db->insert_id();
 
+        /*
+               $propuestas_asigandas = array(
 
-        $propuestas_asigandas = array(
+                   "codigo_propuesta" => $codigo_propuesta
 
-            "codigo_propuesta" => $codigo_propuesta
+               );
 
-        );
-        $this->db->insert("propuestas_asignadas", $propuestas_asigandas);
 
+
+
+               $this->db->insert("propuestas_por_evaluar", $propuestas_asigandas);
+               $this->db->insert("propuestas_por_evaluar", $propuestas_asigandas);
+               */
 
         return $codigo_propuesta;
     }
