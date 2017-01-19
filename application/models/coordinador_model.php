@@ -206,6 +206,11 @@ class Coordinador_Model extends  CI_Model {
     function listar_propuestas_a_evaluar($propuestas)
     {
 
+
+
+
+
+
         $this->db->select("p.titulo,p.codigo,pa.correo_evaluador", FALSE);
         $this->db->from('propuestas p');
         $this->db->join('propuestas_por_evaluar pa', 'pa.codigo_propuesta = p.codigo');

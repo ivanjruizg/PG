@@ -63,6 +63,20 @@ class Propuestas_model extends CI_Model
     }
 
 
+    function consultar_evaluadores($codigo_propuesta){
+
+        $this->db->select("p.correo_evaluador", FALSE);
+        $this->db->from('propuestas_por_evaluar p');
+        $this->db->where('p.codigo_propuesta', $codigo_propuesta);
+
+
+        $result = $this->db->get();
+
+        return $result->result_array();
+
+
+    }
+
     function listar_propuesta_por_evaluar($codigo)
     {
 
@@ -150,6 +164,29 @@ class Propuestas_model extends CI_Model
 
 
         return $result->result_array();
+
+    }
+
+
+    function mostrar_horario_sustentaciones($fecha){
+
+
+        $sql ="SELECT s.* FROM sustentaciones s, propuestas consulrarHorarioDeSustentacion
+                WHERE consulrarHorarioDeSustentacion.codigo = s.codigo_propuesta AND fecha='$fecha'
+                UNION
+                SELECT * FROM sustentaciones WHERE fecha='$fecha' 
+                ORDER BY fecha,hora
+                      ";
+
+        $result= $this->db->query($sql);
+
+
+
+
+
+        return $result->result_array();
+
+
 
     }
 
