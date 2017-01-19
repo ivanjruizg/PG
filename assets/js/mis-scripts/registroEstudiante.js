@@ -10,6 +10,8 @@ function registroEstudiante(){
         success:function(resp){
 
 
+            alert(resp);
+
             if(resp=="correo-duplicado") {
 
 
@@ -17,7 +19,7 @@ function registroEstudiante(){
                 $("#email").addClass("validar");
 
 
-                $("#mensaje").html('<div class="alert alert-danger"> <strong>¡Correo duplicado!</strong>  Ingresaste un correo </div>');
+                $("#error-correo").html('<div class="alert alert-danger"> <strong>¡Correo duplicado!</strong>  Ingresaste un correo </div>');
 
 
 
@@ -28,45 +30,6 @@ function registroEstudiante(){
         }
     });
 
-
-    return false;
-}
-
-function comprobarClavesRegistro() {
-
-    var clave = $('#clave').val();
-    var claveConfirmada = $('#clave-confirmada').val();
-
-    if (claveConfirmada != clave && claveConfirmada!="") {
-
-        $("#clave").addClass("validar");
-        $("#clave-confirmada").addClass("validar");
-        var mensaje = '<div class="alert alert-danger"><strong>Error!</strong> Las claves de acceso no coinciden </div>';
-
-        $('#mensaje').html(mensaje);
-
-        $('input[type="submit"]').attr('disabled', 'disabled');
-
-
-
-
-
-
-
-    } else if(claveConfirmada==clave) {
-
-
-
-        $("#clave").removeClass("validar");
-        $("#clave-confirmada").removeClass("validar");
-
-        $('#mensaje').html("");
-
-        $('input[type="submit"]').removeAttr('disabled');
-    }
-
-
-    console.log("Yaa");
 
     return false;
 }

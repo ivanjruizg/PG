@@ -66,14 +66,13 @@
                             <!--pattern="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$" -->
 
                             <input type="email" required oninvalid="setCustomValidity('Introduzca su correo institucional \n' +
-                             'Ejemplo: nombre.apellido@cecar.edu.co')" name="email" id="email" class="form-control mayus"   placeholder="Correo Electrónico Institucional" >
+                             'Ejemplo: nombre.apellido@cecar.edu.co')" name="email" id="email" class="form-control mayus"   placeholder="Correo Electrónico Institucional">
 
 
-                            <input type="password" required name="clave" id="clave" class="form-control mayus" placeholder="Contraseña" onkeyup="comprobarClavesRegistro()">
-                            <input type="password" required name="clave-confirmada" id="clave-confirmada" class="form-control mayus" placeholder="confirmar contraseña" onkeyup="comprobarClavesRegistro()">
+                            <input type="password" required name="clave" id="contraseña" class="form-control mayus" placeholder="Contraseña">
 
 
-                            <div id="mensaje">
+                            <div id="error-correo">
 
                             </div>
 

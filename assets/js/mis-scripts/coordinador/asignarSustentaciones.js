@@ -2,27 +2,9 @@
 
 $(document).ready(function () {
 
-
+    $('#datatable-horarios-sustentaciones').DataTable();
+    $('#datatable-asignar-sustentaciones').DataTable();
     $('#datatable-listado-sustentaciones-disponibles').DataTable();
-
-
-
-
-    $("#titulo-fecha-sustentacion").html("Asignar sustentaciones para el "+fechaActual());
-
-    $("#datepicker").datepicker({
-        firstDay: 1,
-        onSelect: function (date) {
-
-            consultarHorarioDeSustentaciones(date);
-
-            $("#titulo-fecha-sustentacion").html("Asignar sustentaciones para "+fechaEnEspañol(date));
-
-
-        },
-    });
-
-
 
 });
 
@@ -33,42 +15,20 @@ propuestasSeleccionadas=[];
 
 
 
-function quitarPropuestaDeHorarioDeSustentacion(codigoHorario) {
+function quitarPropuestaDeHorarioDeSustentacion(codigo) {
 
 
     var url =  baseUrl+"/coordinador/quitar_propuesta_horario_sustentacion";
     var pregunta = confirm('¿Esta seguro?');
     if(pregunta==true){
         $.ajax({
-
             type:'POST',
             url:url,
-            data:'codigo='+codigoHorario,
-            success: function(resp){
+            data:'codigo='+codigo,
+            success: function(registro){
 
 
-                for (var i = 0 ; i<propuestas.length; i++){
-
-
-                    var valor = propuestas[i];
-
-                    valores = valor.split(",");
-
-                    if (codigoHorario==valores[1]){
-
-                               delete propuestasSeleccionadas[i];
-
-                    }
-
-
-                }
-
-
-
-                console.log(propuestasSeleccionadas.toString());
-
-
-                $("#"+codigoHorario).html("");
+                $("#"+codigo).html("");
             }
         });
         return false;
@@ -81,44 +41,16 @@ function quitarPropuestaDeHorarioDeSustentacion(codigoHorario) {
 
 
 
-function selecionarPropuestaParaAsignarSustentacion(codigoHorario,codigoPropuesta,tituloPropuesta) {
+function selecionarPropuestaParaAsignarSustentacion(pos,codigo,propuesta) {
 
-    propuestas.push(codigoPropuesta+","+codigoHorario);
+    propuestas.push(codigo+","+pos);
 
-    propuestasSeleccionadas.push(codigoPropuesta);
+    propuestasSeleccionadas.push(codigo);
 
-    $("#"+codigoHorario).html(tituloPropuesta);
+    $("#"+pos).html(propuesta);
 
     cerrarModalId('modal-asignar-sustentaciones');
 
-
-
-
-}
-
-function consultarHorarioDeSustentaciones(date) {
-
-
-
-    $.ajax({
-        url:baseUrl+"/coordinador/consultar_horario_de_sustentacion",
-        type:"GET",
-        data:{date:date},
-        success: function (resp) {
-
-
-                $("#horario").html(resp);
-
-
-        }, error: function () {
-
-            alert("Error");
-
-        }
-    });
-
-
-    return false;
 }
 
 
@@ -142,8 +74,12 @@ function abrirModalPropuestasParaSustentar(pos,codigo) {
 
 
 
-            abrirModalId('modal-asignar-sustentaciones');
-            $('#datatable-asignar-sustentaciones').DataTable();
+            $('#modal-asignar-sustentaciones').modal({
+                show: true,
+                backdrop: 'static'
+            });
+
+
 
         },error: function () {
 
@@ -157,49 +93,27 @@ function abrirModalPropuestasParaSustentar(pos,codigo) {
 
 
 
-
-function cancelar() {
-
-
-
-    location.reload();
-
-
-}
-
 function asignarSustentaciones(){
 
     var fecha = $("#fecha").val();
     var aula = $("#aula").val();
 
 
+    $.ajax({
 
-    if(propuestas.length>0) {
+        type: "POST",
+        data: {propuestas: propuestas},
+        // data: {cdp_detalles: cdp_detalles, cdps: cdps},
+        url: baseUrl+"/coordinador/crear_sustentaciones",
+        success: function (msg) {
 
-        $.ajax({
-
-            type: "POST",
-            data: {propuestas: propuestas},
-            // data: {cdp_detalles: cdp_detalles, cdps: cdps},
-            url: baseUrl + "/coordinador/crear_sustentaciones",
-            success: function (resp) {
-
-                // location.reload(true);
-
-                alert(resp);
+            // location.reload(true);
 
 
-            }, error: function () {
+        }
+    });
 
 
-                alert("Error");
-
-
-            }
-        });
-
-
-    }
     return  false;
 }
 
