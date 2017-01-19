@@ -66,7 +66,28 @@ function comprobarClavesRegistro() {
     }
 
 
-    console.log("Yaa");
 
     return false;
+
+
+
+}
+
+
+function validarCorreo() {
+
+    correo=$('#email').val();
+
+    separado= correo.split("@");
+
+
+    if (separado[1] == "cecar.edu.co") {
+
+        $('#email').addClass("chulo-correcto");
+        $('input[type="submit"]').removeAttr('disabled');
+    } else {
+        $('#email').addClass("validar");
+        $('input[type="submit"]').attr('disabled', 'disabled');
+    }
+
 }
