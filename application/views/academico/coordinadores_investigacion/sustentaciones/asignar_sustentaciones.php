@@ -2,57 +2,11 @@
 <div class="right_col" role="main">
     <div class="">
 
-
-        <style>
-
-            #th-hora{
-
-                width: 130px !important;
-
-            }
-
-            #th-fecha{
-
-                width: 50px !important;
-
-            }
-
-
-            #th-quitar{
-
-                width: 2px !important;
-
-            }
-
-            #th-codigo{
-
-                width: 2px !important;
-
-            }
-
-            /*
-            #th-codigo,#th-quitar{
-
-                width: 10px !important;
-
-            }
-
-            #th-propuesta{
-
-                width: 500px !important;
-
-            }
-
-            /*
-
-        </style>
-
-
         <div class="row">
             <div class="col-md-9 col-sm-9 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Asignar sustentaciones</h2>
+                        <h2 id="titulo-fecha-sustentacion">Asignar sustentaciones   </h2>
                         <ul class="nav navbar-right panel_toolbox">
 
                         </ul>
@@ -68,19 +22,18 @@
 
 
 
-                                <th id="th-hora" class="text-center">Fecha y Hora</th>
-                                <th id="th-propuesta"> Propuesta </th>
-                                <th id="th-quitar"> Quitar </th>
+                                <th  class="text-center width60px">Hora</th>
+                                <th> Propuesta </th>
+                                <th  class="with2px"> Quitar </th>
 
 
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="horario">
 
 
 
 
-                            <a ></a>
 
 
                             <?php
@@ -108,7 +61,7 @@
 
                                     echo '<tr>
 
-                                            <td class="text-center">'.$horario['fecha'].' '.$horario['hora'].'</td> 
+                                            <td class="text-center">'.$horario['hora'].'</td> 
                                             <td id="'.$horario['codigo'].'"  onclick="abrirModalPropuestasParaSustentar('.$horario['codigo'].','.$codigo_propuesta.')">'.$ci->propuestas_model->consultar_titulo($horario['codigo_propuesta']).'</td>
                                              <td class="text-center"><a href="javascript:quitarPropuestaDeHorarioDeSustentacion('.$horario['codigo'].');" class="fa fa-trash"></a></td> 
                                           </tr>';
@@ -140,23 +93,21 @@
                                 <div class="item form-group">
 
 
-                                    <button type="submit" class="btn btn-primary">Cancel</button>
+                                    <div class="col-md-offset-8 col-md-4">
 
-                                    <input type="submit" class="btn btn-success" value="Subir">
+                                        <button type="button" onclick="cancelar()" class="btn btn-primary">Cancelar</button>
 
-
-                                </div>
-
-
-<!--                                <div class="form-group">
-                                    <div class="col-md-6 col-md-offset-3">
-                                        <button type="submit" class="btn btn-primary">Cancel</button>
-
-                                        <input type="submit" class="btn btn-success" value="Subir">
+                                        <input type="submit" class="btn btn-success" value="Guardar cambios">
 
                                     </div>
+
+
+
+
+
                                 </div>
--->
+
+
 
                             </form>
 
@@ -172,7 +123,7 @@
 
 
 
-            <div class="col-md-3 col-sm-3 col-xs-12">
+            <div class="col-md-2 col-sm-3 col-xs-12">
 
 
                 <div id="datepicker">
@@ -201,11 +152,12 @@
 
     <div class="modal fade modal-wide2" id="modal-asignar-sustentaciones" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
+
             <div class="modal-content">
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel"><b>Propuestas disponibles para sustentar  <div id="hora-susetentacion"></div>  </b></h4>
+                    <h4 class="modal-title" id="myModalLabel"><b>Propuestas disponibles para sustentar  </b></h4>
                 </div>
 
 
@@ -230,12 +182,7 @@
 
                         </tr>
                         </thead>
-                        <tbody id="propuestas-dirigidas">
-
-
-
-
-                        </tbody>
+                        <tbody id="propuestas-dirigidas"></tbody>
                     </table>
 
                 </div>

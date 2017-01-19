@@ -66,21 +66,18 @@ class Coordinador_Model extends  CI_Model {
 
     }
 
-    function asignar_evaluadores($datos)
+    function asignar_evaluadores($codigo_propuesta,$datos1,$datos2)
     {
 
 
-        /*
+
         $this->db->where("codigo_propuesta", $codigo_propuesta);
 
-        $this->db->update("propuestas_asignadas", $datos);
-
-        return $this->db->affected_rows();
-
-        */
+        $this->db->delete("propuestas_por_evaluar");
 
 
-        $this->db->insert("propuestas_por_evaluar",$datos);
+        $this->db->insert("propuestas_por_evaluar",$datos1);
+        $this->db->insert("propuestas_por_evaluar",$datos2);
 
         return $this->db->affected_rows();
 
@@ -209,12 +206,14 @@ class Coordinador_Model extends  CI_Model {
     function listar_propuestas_a_evaluar($propuestas)
     {
 
-        $this->db->select("p.titulo,p.codigo,pa.correo_evaluador1,pa.correo_evaluador2", FALSE);
+        $this->db->select("p.titulo,p.codigo,pa.correo_evaluador", FALSE);
         $this->db->from('propuestas p');
-        $this->db->join('propuestas_asignadas pa', 'pa.codigo_propuesta = p.codigo');
-        $this->db->where('pa.correo_evaluador1 !=', null);
+        $this->db->join('propuestas_por_evaluar pa', 'pa.codigo_propuesta = p.codigo');
+
         $this->db->where_not_in('p.codigo', $propuestas);
         $this->db->where_not_in('p.codigo', $this->consultar_propuestas_a_sustentar());
+
+        $this->db->group_by('p.codigo');
 
         $result = $this->db->get();
         return $result->result_array();

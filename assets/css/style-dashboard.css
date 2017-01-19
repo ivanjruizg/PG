@@ -22,7 +22,18 @@
 
 }
 
+.width60px{
 
+  width: 60px !important;
+
+}
+
+
+.with2px{
+
+  width: 2px !important;
+
+}
 
 
 textarea {

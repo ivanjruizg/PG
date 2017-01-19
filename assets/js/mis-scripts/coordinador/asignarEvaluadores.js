@@ -75,7 +75,7 @@ function verModalAsignarEvaluadores(codigo) {
 
 
     $.ajax({
-        url: baseUrl+"/coordinador/ver_propuesta",
+        url: baseUrl+"/coordinador/ver_propuesta_con_evaluadores",
         type: "POST",
         data: {codigo: codigo},
         success: function (resp) {
@@ -105,6 +105,8 @@ function verModalAsignarEvaluadores(codigo) {
 
                 }
 
+                $("#evaluador1").val(valores[i].evaluador1);
+                $("#evaluador2").val(valores[i].evaluador2);
 
                 $("#investigador" + (i + 1)).val(valores[i].estudiante);
 
