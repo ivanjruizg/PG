@@ -63,6 +63,18 @@ class Propuestas_model extends CI_Model
     }
 
 
+    function consultar_evaluadores($codigo_propuesta){
+
+        $this->db->select("p.correo_evaluador", FALSE);
+        $this->db->from('propuestas_por_evaluar p');
+        $this->db->where('p.codigo_propuesta', $codigo_propuesta);
+        $result = $this->db->get();
+
+        return $result->result_array();
+
+
+    }
+
     function listar_propuesta_por_evaluar($codigo)
     {
 
@@ -153,6 +165,52 @@ class Propuestas_model extends CI_Model
 
     }
 
+
+    function mostrar_horario_sustentaciones($fecha){
+
+
+        $sql ="SELECT s.* FROM sustentaciones s, propuestas p
+                WHERE p.codigo = s.codigo_propuesta AND fecha='$fecha'
+                UNION
+                SELECT * FROM sustentaciones WHERE fecha='$fecha' 
+                ORDER BY fecha,hora
+                      ";
+
+        $result= $this->db->query($sql);
+
+
+
+
+        $ci = &get_instance();
+        $ci->load->model("propuestas_model");
+
+        foreach ($result->result_array() as $horario){
+
+            $hora2= "'".$horario['hora']."'";
+
+            $codigo_propuesta =-1;
+
+            if(isset($horario['codigo_propuesta'])){
+
+                $codigo_propuesta=$horario['codigo_propuesta'];
+
+
+            }
+
+            echo '<tr> 
+
+                    <td class="text-center">'.$horario['fecha'].' '.$horario['hora'].'</td> 
+                    <td id="'.$horario['codigo'].'"  onclick="abrirModalPropuestasParaSustentar('.$horario['codigo'].','.$codigo_propuesta.')">'.$ci->propuestas_model->consultar_titulo($horario['codigo_propuesta']).'</td>
+                    <td class="text-center"><a href="javascript:quitarPropuestaDeHorarioDeSustentacion('.$horario['codigo'].');" class="fa fa-trash"></a></td> 
+                                         
+
+                  </tr>';
+
+        }
+
+
+
+    }
 
     function consultar_titulo($codigo)
     {

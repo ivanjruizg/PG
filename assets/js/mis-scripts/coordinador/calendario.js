@@ -41,7 +41,8 @@ function p(date) {
         data:{date:date},
         success: function (resp) {
 
-            alert(resp);
+
+            $("#horario").html(resp);
 
 
         }, error: function () {

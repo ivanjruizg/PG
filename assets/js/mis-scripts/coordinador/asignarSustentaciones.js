@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
 
-    $('#datatable-horarios-sustentaciones').DataTable();
+   // $('#datatable-horarios-sustentaciones').DataTable();
     $('#datatable-asignar-sustentaciones').DataTable();
     $('#datatable-listado-sustentaciones-disponibles').DataTable();
 
