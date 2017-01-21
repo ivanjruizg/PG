@@ -17,7 +17,7 @@ $(document).ready(function () {
 
 
 
-    $("#titulo-fecha-sustentacion").html("Asignar sustentaciones para el "+fechaActual());
+  //  $("#titulo-fecha-sustentacion").html("Asignar sustentaciones para el "+fechaActual());
 
     $("#datepicker").datepicker({
         firstDay: 1,
@@ -45,39 +45,49 @@ propuestasSeleccionadas= [];
 function quitarPropuestaDeHorarioDeSustentacion(codigoHorario) {
 
 
-    var url =  baseUrl+"/coordinador/quitar_propuesta_horario_sustentacion";
-    var pregunta = confirm('¿Esta seguro?');
-    if(pregunta==true){
-        $.ajax({
 
-            type:'POST',
-            url:url,
-            data:'codigo='+codigoHorario,
-            success: function(resp){
+    var x = $("#codigoHorario").html();
+
+    if(x==""){
 
 
-                for (var i = 0 ; i<propuestas.length; i++){
+        var url =  baseUrl+"/coordinador/quitar_propuesta_horario_sustentacion";
+        var pregunta = confirm('¿Esta seguro?');
+        if(pregunta==true){
+            $.ajax({
 
-                    var valor = propuestas[i];
+                type:'POST',
+                url:url,
+                data:'codigo='+codigoHorario,
+                success: function(resp){
 
-                    valores = valor.split(",");
 
-                    if (codigoHorario==valores[1]){
+                    for (var i = 0 ; i<propuestas.length; i++){
 
-                        delete propuestasSeleccionadas[i];
+                        var valor = propuestas[i];
+
+                        valores = valor.split(",");
+
+                        if (codigoHorario==valores[1]){
+
+                            delete propuestasSeleccionadas[i];
+
+                        }
+
 
                     }
 
-
+                    $("#"+codigoHorario).html("");
                 }
+            });
+            return false;
+        }else{
+            return false;
+        }
 
-                $("#"+codigoHorario).html("");
-            }
-        });
-        return false;
-    }else{
-        return false;
+
     }
+
 
 }
 
@@ -110,6 +120,8 @@ function consultarHorarioDeSustentaciones(date) {
         success: function (resp) {
 
 
+
+
             $("#horario").html(resp);
 
 
@@ -128,26 +140,9 @@ function consultarHorarioDeSustentaciones(date) {
 
 function abrirModalPropuestasParaSustentar(codigoHorario,codigo) {
 
+   var x = $("#"+codigoHorario);
 
-        for (var i = 0 ; i<propuestas.length; i++){
-
-            var valor = propuestas[i];
-            valores = valor.split(",");
-
-            var asiganda = false;
-
-            if (codigoHorario==valores[1]){
-
-                asiganda=true;
-                break
-            }
-
-
-        }
-
-        var indice = propuestasSeleccionadas
-
-        if (!asiganda) {
+    if(x.html()==""){
 
             $.ajax({
                 url: baseUrl+"/coordinador/asignar_sustentaciones",

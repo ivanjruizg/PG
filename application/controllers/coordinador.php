@@ -207,6 +207,13 @@ class Coordinador extends CI_Controller
     }
 
 
+    function fechas($fecha){
+
+
+        echo $fecha;
+
+    }
+
     function vista_asignar_sustentaciones($fecha = null)
     {
 
@@ -221,11 +228,15 @@ class Coordinador extends CI_Controller
         }
 
 
+
+
         $datos['horarios'] = $this->propuestas_model->horarios_de_sustentaciones2($fecha);
+        $datos['fecha']=$fecha;
         $datos['css'] = array('dataTables.bootstrap.css', 'jquery-ui.css');
         $datos['js'] = array('mis-scripts/formatoFechas.js','jquery-ui.js','mis-scripts/modalBootstrap.js', 'mis-scripts/coordinador/asignarSustentaciones.js', 'mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
 
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
+
 
 
     }
@@ -257,7 +268,7 @@ class Coordinador extends CI_Controller
         $datos['contenido'] = "sustentaciones/crear_fechas_sustentaciones";
         $datos['periodo'] = $this->propuestas_model->calendario_recepcion_abierto();
         //  $datos['css']= array('jquery-ui.css');
-        $datos['js'] = array('mis-scripts/modalBootstrap.js','mis-scripts/crearFechaDeSustentacion.js');
+        $datos['js'] = array('mis-scripts/modalBootstrap.js','mis-scripts/coordinador/crearFechaDeSustentacion.js');
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
 
@@ -269,13 +280,24 @@ class Coordinador extends CI_Controller
     {
 
 
+
+        /*
+
+        $fecha_sustentacion = new DateTime($fecha);
+        // $fecha_sustentacion->setTime(23,59,59);
+        $ahora= new DateTime("now");
+
+        if($fecha_sustentacion>$ahora){
+
+        if(){
+
+
+        }
+
+        */
         $codigosPropuesta = $this->input->post("propuestasSeleccionadas");
-
-
         $arrays = explode(",", $codigosPropuesta);
-
         $codigo_horario = $this->input->post("codigoHorario");
-
 
         $propuestas = $this->coordinador_model->listar_propuestas_a_evaluar($arrays);
 
@@ -731,40 +753,57 @@ class Coordinador extends CI_Controller
 
 
         $fecha = $this->input->get('date');
-        $fecha1 = date($fecha);
 
 
-        $ci = &get_instance();
-        $ci->load->model("propuestas_model");
+       // $ci = &get_instance();
+        //$ci->load->model("propuestas_model");
+        $fecha_sustentacion = new DateTime($fecha);
+        $ahora= new DateTime("now");
 
 
-        $result = $this->propuestas_model->mostrar_horario_sustentaciones($fecha1);
+        $result = $this->propuestas_model->mostrar_horario_sustentaciones($fecha);
 
 
         if(count($result)>0){
 
-            foreach ($result as $horario){
+            foreach ($result as $horario) {
 
-                $hora2= "'".$horario['hora']."'";
+                $hora2 = "'" . $horario['hora'] . "'";
 
-                $codigo_propuesta =-1;
+                $codigo_propuesta = -1;
 
-                if(isset($horario['codigo_propuesta'])){
+                if (isset($horario['codigo_propuesta'])) {
 
-                    $codigo_propuesta=$horario['codigo_propuesta'];
+                    $codigo_propuesta = $horario['codigo_propuesta'];
 
 
                 }
 
-                echo '<tr> 
 
-                    <td class="text-center">'.$horario['hora'].'</td> 
-                    <td id="'.$horario['codigo'].'"  onclick="abrirModalPropuestasParaSustentar('.$horario['codigo'].','.$codigo_propuesta.')">'.$ci->propuestas_model->consultar_titulo($horario['codigo_propuesta']).'</td>
-                    <td class="text-center"><a href="javascript:quitarPropuestaDeHorarioDeSustentacion('.$horario['codigo'].');" class="fa fa-trash"></a></td> 
+                if ($fecha_sustentacion > $ahora) {
+
+
+                    echo '<tr> 
+
+                    <td class="text-center">' . $horario['hora'] . '</td> 
+                    <td id="' . $horario['codigo'] . '"  onclick="abrirModalPropuestasParaSustentar(' . $horario['codigo'] . ',' . $codigo_propuesta . ')">' . $this->propuestas_model->consultar_titulo($horario['codigo_propuesta']) . '</td>
+                    <td class="text-center"><a href="javascript:quitarPropuestaDeHorarioDeSustentacion(' . $horario['codigo'] . ');" class="fa fa-trash"></a></td> 
                                          
 
                   </tr>';
 
+                }else{
+
+                    echo '<tr> 
+
+                    <td class="text-center">' . $horario['hora'] . '</td> 
+                    <td id="' . $horario['codigo'] . '">' . $this->propuestas_model->consultar_titulo($horario['codigo_propuesta']) . '</td>
+                    <td class="text-center"></td> 
+                                         
+
+                  </tr>';
+
+                }
             }
 
         }else{
@@ -779,6 +818,27 @@ class Coordinador extends CI_Controller
 
 
     }
+
+
+
+    function hoy(){
+
+        /*
+
+        $hoy = new DateTime('now');
+        $hoy->add()
+
+        echo var_dump($hoy->format('Y-m-d'));
+
+        */
+
+
+        $fecha = new DateTime('now');
+        $fecha->add(new DateInterval('P1D'));
+        echo $fecha->format('Y-m-d');
+
+    }
+
 
 }
 

@@ -1,3 +1,11 @@
+<?php
+
+$ci= &get_instance();
+$ci->load->library('formateador_fechas');
+
+
+?>
+
 <!-- page content -->
 <div class="right_col" role="main">
     <div class="">
@@ -6,7 +14,7 @@
             <div class="col-md-9 col-sm-9 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2 id="titulo-fecha-sustentacion">Asignar sustentaciones   </h2>
+                        <h2 id="titulo-fecha-sustentacion">Asignar sustentaciones para <?= $ci->formateador_fechas->formatear_fecha($fecha);?>  </h2>
                         <ul class="nav navbar-right panel_toolbox">
 
                         </ul>
@@ -18,13 +26,14 @@
                         <table id="datatable-horarios-sustentaciones" class="table table-striped table-bordered dt-responsive"
                                cellspacing="0" width="100%">
                             <thead>
-                            <tr>
+                            <tr >
 
 
 
                                 <th  class="text-center width60px">Hora</th>
                                 <th> Propuesta </th>
-                                <th  class="with2px"> Quitar </th>
+                                <th class="width2px"> Quitar </th>
+
 
 
                             </tr>
@@ -39,11 +48,12 @@
                             <?php
 
 
-                            $ci = &get_instance();
+
                             $ci->load->model("propuestas_model");
 
 
-
+                            $fecha_sustentacion = new DateTime($fecha);
+                            $ahora= new DateTime("now");
 
 
                             foreach ($horarios as $horario){
@@ -59,12 +69,27 @@
 
                                     }
 
-                                    echo '<tr>
+
+                            if ($fecha_sustentacion > $ahora) {
+
+                                echo '<tr>
 
                                             <td class="text-center">'.$horario['hora'].'</td> 
                                             <td id="'.$horario['codigo'].'"  onclick="abrirModalPropuestasParaSustentar('.$horario['codigo'].','.$codigo_propuesta.')">'.$ci->propuestas_model->consultar_titulo($horario['codigo_propuesta']).'</td>
                                              <td class="text-center"><a href="javascript:quitarPropuestaDeHorarioDeSustentacion('.$horario['codigo'].');" class="fa fa-trash"></a></td> 
                                           </tr>';
+
+                            }else{
+
+                                echo '<tr>
+
+                                            <td class="text-center">'.$horario['hora'].'</td> 
+                                            <td id="'.$horario['codigo'].'" >'.$ci->propuestas_model->consultar_titulo($horario['codigo_propuesta']).'</td>
+                                           <td class="text-center"></td> 
+                                          </tr>';
+                            }
+
+
 
 
                                 }
@@ -157,7 +182,13 @@
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel"><b>Propuestas disponibles para sustentar  </b></h4>
+                    <h4 class="modal-title" id="myModalLabel">
+
+                        <i class="fa fa-bars"></i>
+                        <b>Propuestas disponibles para sustentar  </b>
+
+
+                    </h4>
                 </div>
 
 

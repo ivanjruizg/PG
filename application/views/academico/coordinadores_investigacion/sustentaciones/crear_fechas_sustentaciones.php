@@ -37,7 +37,10 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
 
 
-                                    <input  class="form-control col-md-7 col-xs-12" name="fecha" required="required" type="date" value="<?php echo date('Y-m-d'); ?>">
+                                    <input  class="form-control col-md-7 col-xs-12" name="fecha" required="required" type="date" min="<?php         $fecha = new DateTime('tomorrow');
+
+                                    echo $fecha->format('Y-m-d'); ?>" value="<?php         $fecha = new DateTime('tomorrow');
+                                    echo $fecha->format('Y-m-d'); ?>" >
 
 
                                 </div>
