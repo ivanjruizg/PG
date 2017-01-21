@@ -114,6 +114,7 @@ class Docente extends  CI_Controller {
 
     function evaluar_propuesta(){
 
+
         $codigo_propuesta = $this->input->post('codigo-propuesta');
         $observaciones = $this->input->post('observaciones');
         $preguntas=array();
@@ -133,19 +134,21 @@ class Docente extends  CI_Controller {
 
         foreach ($preguntas as $pregunta){
 
-            $this->propuestas_model->crear_detalle_evaluacion($correo_docente,$codigo_propuesta,$pregunta['pregunta'],$pregunta['nota']);
+            $this->docentes_model->crear_detalle_evaluacion($correo_docente,$codigo_propuesta,$pregunta['pregunta'],$pregunta['nota']);
         }
 
 
 
        $nota = $this->calcular_nota_fina_docente($codigo_propuesta);
 
-
-        $this->propuestas_model->crear_evaluacion($correo_docente,$codigo_propuesta,$nota,$observaciones);
+        $this->docentes_model->crear_evaluacion($correo_docente,$codigo_propuesta,$nota,$observaciones);
 
 
 
         redirect(base_url('docente/propuestas-por-evaluar'));
+
+
+
 
     }
 
@@ -259,13 +262,14 @@ class Docente extends  CI_Controller {
     }
 
 
-
     function calcular_nota_fina_docente($codigo_propuesta){
 
-        $x = $this->propuestas_model->consultar_evaluacion($codigo_propuesta);
+        $correo_docente=$this->session->userdata('correo');
+
+        $evaluaciones = $this->docentes_model->consultar_evaluacion($codigo_propuesta,$correo_docente);
         $nota =0;
 
-        foreach ($x as $evaluacion){
+        foreach ($evaluaciones as $evaluacion){
 
             $nota+=$evaluacion['valor_pregunta']*$evaluacion['nota'];
 

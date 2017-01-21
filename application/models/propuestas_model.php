@@ -39,9 +39,48 @@ class Propuestas_model extends CI_Model
 
 
 
+    function evaluacion_propuesta($codigo_propuesta)
+    {
+
+        $this->db->select("p.codigo, p.titulo,p.fecha_hora_subida,tp.convencion AS tipo,e.nota, CONCAT( d.nombres,' ',d.primer_apellido,d.segundo_apellido) AS evaluador",FALSE);
+        $this->db->from('propuestas p');
+
+        $this->db->join('propuestas_evaluadas e', 'e.codigo_propuesta = p.codigo');
+        $this->db->join('tipos_propuesta tp', 'p.tipo = tp.codigo');
+        $this->db->join('docentes d', 'd.correo = e.correo_evaluador');
+
+        $this->db->where("p.codigo",$codigo_propuesta);
+
+        $result = $this->db->get();
+
+        return $result->result_array();
+
+    }
 
 
+    function publicar_nota_final($codigo_propuesta){
 
+
+        $this->db->select("AVG(e.nota) AS nota_definitiva",FALSE);
+        $this->db->from('propuestas p');
+        $this->db->join('propuestas_evaluadas e', 'e.codigo_propuesta = p.codigo');
+        $this->db->where("p.codigo",$codigo_propuesta);
+        $result = $this->db->get();
+
+        $nota_definitiva= $result->result_array()[0]['nota_definitiva'];
+
+
+        $datos=array(
+
+            "codigo_propuesta"=>$codigo_propuesta,
+            "nota"=>$nota_definitiva
+
+        );
+
+        $this->db->insert("notas_finales_evaluacion_propuestas",$datos);
+
+
+    }
 
     function listar_propuesta($codigo)
     {

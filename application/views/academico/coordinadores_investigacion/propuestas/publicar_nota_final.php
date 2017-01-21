@@ -7,7 +7,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Asignar Directores</h2>
+                        <h2>Nota final</h2>
 
                         <div class="clearfix"></div>
                     </div>
@@ -20,9 +20,7 @@
 
                                 <th>Título</th>
                                 <th width="50">Tipo</th>
-                                <th width="50">Estado</th>
-                                <th width="50">Asignar</th>
-
+                                <th width="50">Ver</th>
 
                             </tr>
                             </thead>
@@ -39,8 +37,7 @@
                                                
                                                 <td>' . $propuesta['titulo'] . '</td>
                                                 <td>' . $propuesta['tipo'] . '</td>
-                                                <td ><span class="label label-success pull-left">'.$propuesta['estado'].'</span></td>
-                                                <td class="text-center"><a href="javascript:verModalAsignarDirectores(' . $propuesta['codigo'] . ');" class="fa fa-edit"></a></td>
+                                                <td class="text-center"><a href="javascript:verModalEvaluacion(' . $propuesta['codigo'] . ');" class="fa fa-edit"></a></td>
                                                 
 
                                             </tr>';
@@ -79,14 +76,14 @@
 
                         <i class="fa fa-bars"></i>
 
-                        <b>Propuesta</b></h4>
+                        <b>Evaluación de la propuesta </b></h4>
                 </div>
 
                 <!--onsubmit="return asignarDirectores();"
 
 -->
-                <form id="form-asignar-directores" class="formulario form-horizontal" method="POST"
-                      action="<?= base_url('coordinador/asignar_director') ?>" >
+                <form id="form-publicar-nota-final" class="formulario form-horizontal" method="POST"
+                      action="<?= base_url('coordinador/publicar_nota_final') ?>" >
                     <div class="modal-body">
 
 
@@ -95,7 +92,7 @@
                             <div class="col-md-2">
 
 
-                                <input readonly id="codigo" name="codigo" type="text" class="form-control">
+                                <input readonly id="codigo" name="codigo-propuesta" type="text" class="form-control">
 
 
                             </div>
@@ -137,80 +134,60 @@
 
                         <hr>
 
-                        <div class="form-group inv1">
-                            <label class="col-md-2 control-label" for="name">Investigador 1:</label>
-                            <div class="col-md-10">
 
 
-                                <input disabled id="investigador1" type="text" class="form-control">
+                        <div class="form-group  inv1">
+                            <label class="col-md-2 control-label" for="name">Evaluador 1 : </label>
+                            <div class="col-md-7">
 
 
-                            </div>
-                        </div>
-
-
-                        <div class="form-group  inv2">
-                            <label class="col-md-2 control-label" for="name">Investigador 2 : </label>
-                            <div class="col-md-10">
-
-
-                                <input disabled id="investigador2" type="text" class="form-control">
-
-
-                            </div>
-                        </div>
-
-
-                        <div class="form-group inv3">
-                            <label class="col-md-2 control-label" for="name">Investigador 3:</label>
-                            <div class="col-md-10">
-
-
-                                <input disabled id="investigador3" type="text" class="form-control">
-
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="name">Director :</label>
-                            <div class="col-md-10">
-
-
-                                <input required id="director" name="director" type="text" class="form-control">
-
-
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="name">Codirector :</label>
-                            <div class="col-md-10">
-
-
-                                <input id="co-director" name="co-director" type="text" class="form-control">
-
-
-                            </div>
-                        </div>
-
-                        <div class="form-group ">
-
-                            <div id="mensaje-director" class="col-md-offset-3 col-md-6">
+                                <input disabled id="evaluador1" type="text" class="form-control">
 
 
                             </div>
 
+                            <label class="col-md-1 control-label" for="name">Nota : </label>
+
+                            <div class="col-md-2">
+
+
+                                <input readonly required id="nota-evaluador1" name="nota-evaluador1" type="text" class="form-control">
+
+
+                            </div>
 
                         </div>
+
+
+                        <div class="form-group inv2">
+                            <label class="col-md-2 control-label" for="name">Evaluador 2:</label>
+                            <div class="col-md-7">
+
+
+                                <input disabled id="evaluador2" type="text" class="form-control">
+
+
+                            </div>
+
+                            <label class="col-md-1 control-label" for="name">Nota : </label>
+                            <div class="col-md-2">
+
+
+                                <input readonly required id="nota-evaluador2" name="nota-evaluador2" type="text" class="form-control">
+
+
+                            </div>
+
+                        </div>
+
+
 
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-8">
 <!--                                <button class="btn btn-danger" onclick="cerrarModalId('modal-asignar-directores')">Cerrar</button>-->
 
-                                <input  type="submit" class="btn btn-success pull-right" value="Asignar directores">
+                                <input  type="submit" class="btn btn-success pull-right" value="Publicar nota">
                                 <button type="button" onclick="cerrarModalId('modal-asignar-directores')" class="btn btn-primary pull-right">Cancelar</button>
 
 
@@ -225,3 +202,67 @@
     </div>
 </fieldset>
 
+
+<script>
+
+    function verModalEvaluacion(codigo) {
+
+
+
+        $("#form-publicar-nota-final")[0].reset();
+
+
+        $.ajax({
+
+            url: baseUrl+"/coordinador/ver_evaluacion_propuesta",
+            type: "POST",
+            data: {codigo: codigo},
+            appendTo: "#form-asignar-directores",
+            success: function (resp) {
+
+
+
+
+
+                valores = eval(resp);
+
+                for (var i = 0; i < valores.length; i++) {
+
+
+                    $("#codigo").val(codigo);
+                    $("#titulo-propuesta").val(valores[i].titulo);
+                    $("#fecha").val(valores[i].fecha_recepcion);
+                    $("#tipo").val(valores[i].tipo_propuesta);
+
+                    $("#evaluador1").val(valores[i].evaluador1);
+                    $("#evaluador2").val(valores[i].evaluador2);
+
+                    $("#nota-evaluador1").val(valores[i].nota1);
+                    $("#nota-evaluador2").val(valores[i].nota2);
+
+
+
+
+
+                }
+
+                abrirModalId('modal-asignar-directores');
+
+                $('#codigo').val(codigo);
+
+
+
+                console.log(valores);
+
+            }, error: function () {
+
+                alert("Error");
+
+            }
+        });
+        return false;
+
+    }
+
+
+</script>

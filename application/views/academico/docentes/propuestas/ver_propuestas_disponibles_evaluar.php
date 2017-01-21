@@ -116,7 +116,7 @@
 
 
 
-                <form  class="form-horizontal" method="post" action="<?=base_url('docente/evaluar_propuesta')?>">
+                <form id="formu" class="form-horizontal" method="post" action="<?=base_url('docente/evaluar_propuesta')?>">
 
 
                     <input type="hidden" name="codigo-propuesta" id="codigo-propuesta">
@@ -127,7 +127,7 @@
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
 
-                                    <textarea rows="1" disabled id="titulo" required="required" name="titulo"
+                                    <textarea  disabled id="titulo" required="required" name="titulo"
                                               class="form-control col-md-7 col-xs-12 mayus"></textarea>
 
                         </div>
@@ -183,7 +183,7 @@
                         <h2 class="text-center">Observaciones y comentarios</h2>
                             <div class="col-md-10 col-sm-6 col-xs-12 col-lg-offset-1">
 
-                                    <textarea rows="10" cols="3"  required="required" name="observaciones"
+                                    <textarea rows="10" cols="3"   name="observaciones"
                                               class="form-control mayus"></textarea>
 
                             </div>
@@ -202,10 +202,10 @@
 
 
 
+                <input type="button" value="Cerrar" class="btn btn-primary" onclick="cerrarModalId('modal-formato-evaluacion')" id="reg"/>
 
 
                 <input type="submit" class="btn btn-success" value="Evaluar">
-                <input type="button" value="Cerrar" class="btn btn-primary" onclick="cerrarModalId('modal-formato-evaluacion')" id="reg"/>
 
             </div>
 
@@ -218,6 +218,9 @@
 <script !src="">
     
     function abrirModalFormatoDeEvaluacion(codigo,titulo) {
+
+
+       // $('#formu')[0].reset();
 
         abrirModalId("modal-formato-evaluacion");
 

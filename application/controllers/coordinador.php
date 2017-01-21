@@ -33,8 +33,8 @@ class Coordinador extends CI_Controller
 
 
         $datos['propuestas'] = $this->coordinador_model->listar_propuestas_periodo($periodo_recepcion);
-        $datos['css'] = array('');
-        $datos['js'] = array("mis-scripts/coordinador/coordinadorIndex.js");
+        $datos['css'] = array('dataTables.bootstrap.css');
+        $datos['js'] = array('mis-scripts/coordinador/coordinadorIndex.js','mis-scripts/modalBootstrap.js','datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
     }
@@ -96,15 +96,47 @@ class Coordinador extends CI_Controller
         $datos['contenido'] = "propuestas/asignar_directores";
         $periodo = $this->propuestas_model->calendario_recepcion_abierto();
 
-
-        $datos['propuestas'] = $this->coordinador_model->listar_propuestas_periodo($periodo);
+        $datos['propuestas'] = $this->coordinador_model->listar_propuestas_para_asignar_directores($periodo);
         $datos['css'] = array('jquery-ui.css', 'dataTables.bootstrap.css');
-        //   $datos['js'] = array('mis-scripts/coordinador/asignarSustentaciones.js','mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
-
-        $datos['js'] = array('jquery-ui.js', 'mis-scripts/coordinador/asignarDirectores.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
+        $datos['js'] = array('jquery-ui.js', 'mis-scripts/coordinador/asignarDirectores.js','mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
+
+
     }
+    function vista_publicar_nota_final()
+    {
+
+        $datos['titulo'] = "Coordinador de investigación";
+        $datos['contenido'] = "propuestas/publicar_nota_final";
+        $periodo = $this->propuestas_model->calendario_recepcion_abierto();
+
+        $datos['propuestas'] = $this->coordinador_model->listar_propuestas_evaluadas($periodo);
+        $datos['css'] = array('jquery-ui.css', 'dataTables.bootstrap.css');
+        $datos['js'] = array('jquery-ui.js', 'mis-scripts/coordinador/asignarDirectores.js','mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
+        $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
+
+
+
+    }
+
+    function publicar_nota_final()
+    {
+
+
+        $codigo_propuesta = $this->input->post('codigo-propuesta');
+
+
+        $periodo = $this->propuestas_model->publicar_nota_final($codigo_propuesta);
+
+        echo var_dump($periodo);
+
+
+    }
+
+
+
+
 
     function vista_asignar_evaluadores()
     {
@@ -119,7 +151,7 @@ class Coordinador extends CI_Controller
         $periodo = $this->propuestas_model->calendario_recepcion_abierto();
 
 
-        $datos['propuestas'] = $this->coordinador_model->listar_propuestas_periodo($periodo);
+        $datos['propuestas'] = $this->coordinador_model->listar_propuestas_para_asignar_evaluadores($periodo);
 
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
@@ -132,7 +164,6 @@ class Coordinador extends CI_Controller
 
         $codigo_propuesta = $this->input->post('codigo');
         $director = $this->input->post('director');
-
         $co_director = $this->input->post('co-director');
 
 
@@ -142,61 +173,36 @@ class Coordinador extends CI_Controller
 
         );
 
-        $datos2 = array(
-
-            "correo_codirector" => $co_director
-
-        );
 
         $op = $this->coordinador_model->asignar_director($codigo_propuesta, $datos1);
 
 
-        if ($op > 0) {
+        if($op>0){
 
+            if (!empty($co_director)) {
 
-            if (isset($co_director)) {
+                $datos2 = array(
+                    "correo_codirector" => $co_director
+                );
 
                 $op = $this->coordinador_model->asignar_codirector($codigo_propuesta, $datos2);
 
+                if($op>0){
 
-                if ($op > 0) {
-                    $datos = array();
-                    $datos[] = array(
-                        'codigo' => 2,
-                        'mensaje' => '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Registro completado con exito!</strong></div>'
-                    );
+                }else{
 
-
-                    echo json_encode($datos);
-
-
+                    echo  "Error al asignar el codirector";
                 }
-
-            } else {
-
-                $datos = array();
-                $datos[] = array(
-                    'codigo' => 2,
-                    'mensaje' => '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Registro completado con exito!</strong></div>'
-                );
-
-
-                echo json_encode($datos);
-
 
             }
 
-        } else {
-            $datos = array();
-            $datos[] = array(
-                'codigo' => 1,
-                'mensaje' => '<div class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Datos Iguales! No se afectaron los registros</strong></div>'
-            );
+            redirect(base_url('coordinador/vista_asignar_directores'));
 
-            echo json_encode($datos);
+        }else{
+
+            echo  "Error al asignar el director";
 
         }
-
 
     }
 
@@ -217,7 +223,7 @@ class Coordinador extends CI_Controller
 
         $datos['horarios'] = $this->propuestas_model->horarios_de_sustentaciones2($fecha);
         $datos['css'] = array('dataTables.bootstrap.css', 'jquery-ui.css');
-        $datos['js'] = array('mis-scripts/formatoFechas.js','jquery-ui.js', 'mis-scripts/coordinador/asignarSustentaciones.js', 'mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
+        $datos['js'] = array('mis-scripts/formatoFechas.js','jquery-ui.js','mis-scripts/modalBootstrap.js', 'mis-scripts/coordinador/asignarSustentaciones.js', 'mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
 
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
@@ -251,19 +257,12 @@ class Coordinador extends CI_Controller
         $datos['contenido'] = "sustentaciones/crear_fechas_sustentaciones";
         $datos['periodo'] = $this->propuestas_model->calendario_recepcion_abierto();
         //  $datos['css']= array('jquery-ui.css');
-        $datos['js'] = array('mis-scripts/modalBootstrap.js');
+        $datos['js'] = array('mis-scripts/modalBootstrap.js','mis-scripts/crearFechaDeSustentacion.js');
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
 
     }
 
-
-    function hola(){
-
-
-        //listar_propuestas_a_evaluar
-
-    }
 
 
     function asignar_sustentaciones()
@@ -275,7 +274,7 @@ class Coordinador extends CI_Controller
 
         $arrays = explode(",", $codigosPropuesta);
 
-        $pos = $this->input->post("pos");
+        $codigo_horario = $this->input->post("codigoHorario");
 
 
         $propuestas = $this->coordinador_model->listar_propuestas_a_evaluar($arrays);
@@ -291,7 +290,7 @@ class Coordinador extends CI_Controller
                     <td>' . $propuesta['codigo'] . '</td>
                     <td>' . $propuesta['titulo'] . '</td>
                     <td>' . $propuesta['correo_evaluador'] .'</td>
-                    <td class="text-center"><a href="javascript:selecionarPropuestaParaAsignarSustentacion(' . $pos . ',' . $propuesta['codigo'] . ',' . $titulo . ');" class="fa fa-check fa-2x"></a></td>
+                    <td class="text-center"><a href="javascript:selecionarPropuestaParaAsignarSustentacion(' . $codigo_horario . ',' . $propuesta['codigo'] . ',' . $titulo . ');" class="fa fa-check fa-2x"></a></td>
                 </tr>';
 
         }
@@ -307,6 +306,8 @@ class Coordinador extends CI_Controller
         $propuestas = $this->input->post("propuestas");
 
 
+        $cont=0;
+
         foreach ($propuestas as &$propuesta) {
 
             list($codigo_propuestas, $codigo_sustentacion) = explode(",", $propuesta);
@@ -314,13 +315,15 @@ class Coordinador extends CI_Controller
             $this->propuestas_model->registrar_sustentaciones($codigo_propuestas, $codigo_sustentacion);
 
 
+            $cont++;
         }
 
 
+        echo $cont;
     }
 
 
-    function asignar_evaluador()
+    function asignar_evaluadores()
     {
 
 
@@ -349,7 +352,8 @@ class Coordinador extends CI_Controller
 
 
 
-        echo "SI evaluador 2";
+
+        redirect(base_url('coordinador/vista_asignar_evaluadores'));
 
     }
 
@@ -390,55 +394,76 @@ class Coordinador extends CI_Controller
         $fecha = $this->input->post('fecha');
         $jornada = $this->input->post('jornada');
 
-        $horasManana = array('08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00');
-        $horasTarde = array('14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00');
 
 
-        if ($jornada == 1) {
+
+        $fecha_sustentacion = new DateTime($fecha);
+       // $fecha_sustentacion->setTime(23,59,59);
+        $ahora= new DateTime("now");
+
+        if($fecha_sustentacion>$ahora){
 
 
-            foreach ($horasManana as $hora) {
 
 
-                $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula, $fecha, $hora);
+            $horasManana = array('08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00');
+            $horasTarde = array('14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00');
+
+
+            if ($jornada == 1) {
+
+
+                foreach ($horasManana as $hora) {
+
+
+                    $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula, $fecha, $hora);
+
+
+                }
+
+
+            } else if ($jornada == 2) {
+
+
+                foreach ($horasTarde as $hora) {
+
+
+                    $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula, $fecha, $hora);
+
+
+                }
+
+
+            } else {
+
+                foreach ($horasManana as $hora) {
+
+
+                    $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula, $fecha, $hora);
+
+                }
+
+                foreach ($horasTarde as $hora) {
+
+
+                    $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula, $fecha, $hora);
+
+                }
 
 
             }
 
+            redirect('coordinador/vista_asignar_sustentaciones/' . $fecha);
 
-        } else if ($jornada == 2) {
-
-
-            foreach ($horasTarde as $hora) {
+        }else{
 
 
-                $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula, $fecha, $hora);
-
-
-            }
-
-
-        } else {
-
-            foreach ($horasManana as $hora) {
-
-
-                $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula, $fecha, $hora);
-
-            }
-
-            foreach ($horasTarde as $hora) {
-
-
-                $this->propuestas_model->crear_horario_sustentaciones($periodo, $aula, $fecha, $hora);
-
-            }
-
+            echo "la fecha de sustentación debe ser mayor que el dia de creación";
 
         }
 
 
-        redirect('coordinador/vista_asignar_sustentaciones/' . $fecha);
+
 
     }
 
@@ -568,18 +593,62 @@ class Coordinador extends CI_Controller
 
     }
 
-
-    function xxx()
+    function ver_evaluacion_propuesta()
     {
+        $codigo = $this->input->post('codigo');
+
+        $result = $this->propuestas_model->evaluacion_propuesta($codigo);
 
 
-        $a =[];
 
-        $x= $this->docentes_model->listar_propuestas_a_evaluar($a);
 
-        echo  var_dump($x);
+        $codigo = "";
+        $i =0;
+
+        $nota2=null;
+        $evaluador2=null;
+
+        foreach ($result as $propuesta) {
+
+
+
+            if ($i==0){
+
+                $codigo=$propuesta['codigo'];
+                $titulo=$propuesta['titulo'];
+                $tipo_propuesta=$propuesta['tipo'];
+
+                $fecha_recepcion = substr($propuesta['fecha_hora_subida'], 0, 10);
+
+                $nota1=$propuesta['nota'];
+                $evaluador1=$propuesta['evaluador'];
+
+
+            }else{
+
+
+                $nota2=$propuesta['nota'];
+                $evaluador2=$propuesta['evaluador'];
+
+            }
+
+            $i++;
+
+
+        }
+
+
+
+        $datos[]= array('codigo' => $codigo, 'titulo' => $titulo,  'tipo_propuesta' => $tipo_propuesta,'fecha_recepcion' => $fecha_recepcion,'evaluador1' => $evaluador1,'nota1' => $nota1,'evaluador2' => $evaluador2,'nota2' => $nota2);
+
+
+
+
+        echo json_encode($datos);
+
 
     }
+
 
 
     function ver_propuesta_con_evaluadores()

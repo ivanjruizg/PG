@@ -189,7 +189,7 @@
 
 
                 <div class="modal-footer">
-                    <input type="submit" value="Cerrar" class="btn btn-primary" onclick="cerrarModalId('modal-busca-propuesta')" id="reg"/>
+                    <input type="submit" value="Cerrar" class="btn btn-primary" onclick="cerrarModalId('modal-asignar-sustentaciones')" id="reg"/>
 
                 </div>
 

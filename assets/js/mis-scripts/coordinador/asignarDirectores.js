@@ -91,11 +91,7 @@ function verModalAsignarDirectores(codigo) {
 
             }
 
-
-            $('#modal-asignar-directores').modal({
-                show: true,
-                backdrop: 'static'
-            });
+            abrirModalId('modal-asignar-directores');
 
             $('#codigo').val(codigo);
 
@@ -109,6 +105,9 @@ function verModalAsignarDirectores(codigo) {
     return false;
 
 }
+
+
+
 
 
 function asignarDirectores() {
@@ -151,4 +150,5 @@ function asignarDirectores() {
     return false;
 
 }
+
 

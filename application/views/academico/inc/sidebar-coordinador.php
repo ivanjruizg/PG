@@ -10,6 +10,7 @@
                 <ul class="nav child_menu">
                     <li><a href="<?=base_url('coordinador/asignar-directores')?>">Asignar directores</a></li>
                     <li><a href="<?=base_url('coordinador/asignar-evaluadores')?>">Asignar evaluadores</a></li>
+                    <li><a href="<?=base_url('coordinador/publicar-nota-final')?>">Publicar nota final</a></li>
 
                 </ul>
             </li>
@@ -33,12 +34,25 @@
                 </ul>
             </li>
 
+            <li><a><i class="fa fa-users"></i>Sustentaciones<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+
+                    <li><a href="<?=base_url('coordinador/crear-fechas-sustentaciones')?>">Crear fechas</a></li>
+                    <li><a href="<?=base_url('coordinador/asignar-sustentaciones')?>">Asignar horario</a></li>
+                    <li><a href="fixed_footer.html">Fixed Footer</a></li>
+                </ul>
+            </li>
+
+
             <li><a><i class="fa fa-file-pdf-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="tables.html">Peridos de repeción</a></li>
                     <li><a href="tables_dynamic.html">Horarios de sustentaciones</a></li>
                 </ul>
             </li>
+
+
+
 
             <li><a><i class="fa fa-bar-chart-o"></i> Estadísticas <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
@@ -49,14 +63,7 @@
                     <li><a href="other_charts.html">Other Charts</a></li>
                 </ul>
             </li>
-            <li><a><i class="fa fa-users"></i>Sustentaciones<span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
 
-                    <li><a href="<?=base_url('coordinador/crear-fechas-sustentaciones')?>">Crear fechas</a></li>
-                    <li><a href="<?=base_url('coordinador/asignar-sustentaciones')?>">Asignar horario</a></li>
-                    <li><a href="fixed_footer.html">Fixed Footer</a></li>
-                </ul>
-            </li>
         </ul>
     </div>
 

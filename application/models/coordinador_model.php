@@ -185,9 +185,10 @@ class Coordinador_Model extends  CI_Model {
     function listar_propuestas_periodo($periodo_recepcion=null)
     {
 
-        $this->db->select("p.codigo, p.titulo, p.ruta_carta, tp.convencion AS tipo,   DATE_FORMAT( p.fecha_hora_subida,'%d %b %y') AS fecha");
+        $this->db->select("p.codigo, p.titulo, p.ruta_carta, tp.convencion AS tipo,e.descripcion AS estado");
         $this->db->from('propuestas p');
         $this->db->join('tipos_propuesta tp', 'p.tipo = tp.codigo');
+        $this->db->join('estado_propuesta e', 'p.estado = e.codigo');
 
 
         if($periodo_recepcion!=null){
@@ -196,12 +197,101 @@ class Coordinador_Model extends  CI_Model {
         }
 
 
+      //  $this->db->order_by('p.estado','DESC');
 
         $result = $this->db->get();
 
         return $result->result_array();
 
     }
+
+    function listar_propuestas_para_asignar_directores($periodo_recepcion=null)
+    {
+
+        $this->db->select('p.codigo, p.titulo, p.ruta_carta, tp.convencion AS tipo,e.descripcion AS estado');
+        $this->db->from('propuestas p');
+        $this->db->join('tipos_propuesta tp', 'p.tipo = tp.codigo');
+        $this->db->join('estado_propuesta e', 'p.estado = e.codigo');
+        $this->db->where('estado',1);
+        $this->db->or_where('estado',2);
+
+
+
+        if($periodo_recepcion!=null){
+
+            $this->db->where("periodo_recepcion",$periodo_recepcion);
+        }
+
+        $result = $this->db->get();
+
+        return $result->result_array();
+
+    }
+    function listar_propuestas_evaluadas($periodo_recepcion=null)
+    {
+
+
+
+        $this->db->select('p.codigo_propuesta');
+        $this->db->from('propuestas_evaluadas p');
+
+        $result = $this->db->get();
+
+        $num= $result->num_rows();
+
+        if($num>1){
+
+            $this->db->select('p.codigo, p.titulo,tp.convencion AS tipo');
+            $this->db->from('propuestas p');
+
+            $this->db->join('propuestas_evaluadas e', 'e.codigo_propuesta = p.codigo');
+            $this->db->join('tipos_propuesta tp', 'p.tipo = tp.codigo');
+
+            $this->db->where("p.estado",4);
+
+            if($periodo_recepcion!=null){
+
+                $this->db->where("periodo_recepcion",$periodo_recepcion);
+            }
+
+
+            $this->db->group_by('p.codigo');
+
+            $result = $this->db->get();
+
+            return $result->result_array();
+
+        }
+
+
+        return array();
+    }
+
+
+
+    function listar_propuestas_para_asignar_evaluadores($periodo_recepcion=null)
+    {
+
+        $this->db->select('p.codigo, p.titulo, p.ruta_carta, tp.convencion AS tipo,e.descripcion AS estado');
+        $this->db->from('propuestas p');
+        $this->db->join('tipos_propuesta tp', 'p.tipo = tp.codigo');
+        $this->db->join('estado_propuesta e', 'p.estado = e.codigo');
+        $this->db->where('estado',2);
+        $this->db->or_where('estado',3);
+
+
+
+        if($periodo_recepcion!=null){
+
+            $this->db->where("periodo_recepcion",$periodo_recepcion);
+        }
+
+        $result = $this->db->get();
+
+        return $result->result_array();
+
+    }
+
 
     function listar_propuestas_a_evaluar($propuestas)
     {

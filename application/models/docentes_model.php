@@ -222,13 +222,14 @@ class Docentes_Model extends  CI_Model
 
       }
 
-     function  consultar_evaluacion($codigo_propuesta){
+     function  consultar_evaluacion($codigo_propuesta,$correo_docente){
 
 
             $this->db->select("pe.nota,r.valor_pregunta");
             $this->db->from("propuestas_evaluadas_detalle pe");
             $this->db->join("rubrica_evaluacion_propuesta r","r.codigo = pe.codigo_pregunta");
             $this->db->where("pe.codigo_propuesta",$codigo_propuesta);
+            $this->db->where("pe.correo_evaluador",$correo_docente);
 
 
             $result =$this->db->get();

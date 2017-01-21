@@ -1,4 +1,14 @@
 
+
+
+$(document).ready(function () {
+
+
+    $('#datatable-propuestas-recibidas-periodo-actual').DataTable();
+
+});
+
+
 function verPropuesta(codigo) {
 
     $(".inv1").hide();

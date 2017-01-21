@@ -8,7 +8,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Propuestas subidas</h2>
+                                <h2>Propuestas presentadas en el periodo de recepción actual</h2>
                                 <ul class="nav navbar-right panel_toolbox">
 
                                 </ul>
@@ -21,12 +21,13 @@
                                                                     Responsive is an extension for DataTables that resolves that problem by optimising the table's layout for different screen sizes through the dynamic insertion and removal of columns from the table.
                                                                 </p>
                                                                 -->
-                                <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%"  >
+                                <table id="datatable-propuestas-recibidas-periodo-actual" class="table table-striped table-bordered dt-responsive" cellspacing="0" width="100%"  >
                                     <thead>
                                     <tr>
 
                                         <th>Título</th>
                                         <th width="50">Tipo</th>
+                                        <th width="50">Estado</th>
                                         <th width="50">Carta de remisión</th>
                                         <th width="50">Ver</th>
 
@@ -46,9 +47,10 @@
                                                
                                                 <td>'.$propuesta['titulo'].'</td>
                                                 <td>'.$propuesta['tipo'].'</td>
-                                                <td class="text-center"><a href="' . base_url('assets/docs/cartas') . '/' . $ruta_carta . '" download="" class="fa fa-download">Descargar</a>
-                                                <a href="javascript:verCartaRemision(' . $propuesta['codigo'] . ');" class="fa fa-eye">Ver</a></td>
-                                                <td><a href="javascript:verPropuesta('.$propuesta['codigo'].');" class="fa fa-eye"></a></td>
+                                                 <td ><span class="label label-success pull-left">'.$propuesta['estado'].'</span></td>
+                                                <td class="text-center"><a href="' . base_url('assets/docs/cartas') . '/' . $ruta_carta . '" download="" class="fa fa-download"></a>
+                                                <a href="javascript:verCartaRemision(' . $propuesta['codigo'] . ');" class="fa fa-eye"></a></td>
+                                                <td class="text-center"><a href="javascript:verPropuesta('.$propuesta['codigo'].');" class="fa fa-eye"></a></td>
                                                 
 
                                             </tr>';

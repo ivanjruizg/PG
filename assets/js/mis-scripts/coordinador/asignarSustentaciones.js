@@ -5,6 +5,15 @@ $(document).ready(function () {
 
     $('#datatable-listado-sustentaciones-disponibles').DataTable();
 
+/*
+    $.post("http://localhost/pg/coordinador/s", function( data ) {
+
+
+        propuestasSeleccionadas= eval(data);
+
+
+    });
+*/
 
 
 
@@ -29,8 +38,8 @@ $(document).ready(function () {
 
 
 propuestas = [];
-propuestasSeleccionadas=[];
 
+propuestasSeleccionadas= [];
 
 
 function quitarPropuestaDeHorarioDeSustentacion(codigoHorario) {
@@ -49,7 +58,6 @@ function quitarPropuestaDeHorarioDeSustentacion(codigoHorario) {
 
                 for (var i = 0 ; i<propuestas.length; i++){
 
-
                     var valor = propuestas[i];
 
                     valores = valor.split(",");
@@ -62,11 +70,6 @@ function quitarPropuestaDeHorarioDeSustentacion(codigoHorario) {
 
 
                 }
-
-
-
-                console.log(propuestasSeleccionadas.toString());
-
 
                 $("#"+codigoHorario).html("");
             }
@@ -123,35 +126,52 @@ function consultarHorarioDeSustentaciones(date) {
 
 
 
-function abrirModalPropuestasParaSustentar(pos,codigo) {
+function abrirModalPropuestasParaSustentar(codigoHorario,codigo) {
 
 
+        for (var i = 0 ; i<propuestas.length; i++){
 
+            var valor = propuestas[i];
+            valores = valor.split(",");
 
-    $.ajax({
-        url: baseUrl+"/coordinador/asignar_sustentaciones",
-        data: {pos:pos,propuestasSeleccionadas:propuestasSeleccionadas.toString()},
-        type: "POST",
-        success: function (resp) {
+            var asiganda = false;
 
-            //  console.log(resp);
+            if (codigoHorario==valores[1]){
 
+                asiganda=true;
+                break
+            }
 
-
-            $("#propuestas-dirigidas").html(resp);
-
-
-
-            abrirModalId('modal-asignar-sustentaciones');
-            $('#datatable-asignar-sustentaciones').DataTable();
-
-        },error: function () {
-
-            alert("Error");
 
         }
-    });
-    return false;
+
+        var indice = propuestasSeleccionadas
+
+        if (!asiganda) {
+
+            $.ajax({
+                url: baseUrl+"/coordinador/asignar_sustentaciones",
+                data: {codigoHorario:codigoHorario,propuestasSeleccionadas:propuestasSeleccionadas.toString()},
+                type: "POST",
+                success: function (resp) {
+
+                    $("#propuestas-dirigidas").html(resp);
+
+                    abrirModalId('modal-asignar-sustentaciones');
+                    $('#datatable-asignar-sustentaciones').DataTable();
+
+                },error: function () {
+
+                    alert("Error");
+
+                }
+            });
+            return false;
+
+        }else {
+
+            alert("Ocupado");
+        }
 
 }
 
@@ -176,6 +196,10 @@ function asignarSustentaciones(){
 
     if(propuestas.length>0) {
 
+
+
+
+
         $.ajax({
 
             type: "POST",
@@ -186,7 +210,10 @@ function asignarSustentaciones(){
 
                 // location.reload(true);
 
-                alert(resp);
+                alert("Se asiganarón "+resp+" sustentación(es)");
+
+                propuestas = [];
+                propuestasSeleccionadas=[];
 
 
             }, error: function () {

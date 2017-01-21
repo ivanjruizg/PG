@@ -23,6 +23,7 @@
 
                                 <th>Título</th>
                                 <th width="50">Tipo</th>
+                                <th width="50">Estado</th>
                                 <th width="50">Asignar</th>
 
 
@@ -41,6 +42,7 @@
                                                
                                                 <td>'.$propuesta['titulo'].'</td>
                                                 <td>'.$propuesta['tipo'].'</td>
+                                                 <td ><span class="label label-success pull-left">'.$propuesta['estado'].'</span></td>
                                                 <td class="text-center"><a href="javascript:verModalAsignarEvaluadores(' . $propuesta['codigo'] . ');" class="fa fa-edit"></a></td>
                                                 
 
@@ -78,13 +80,18 @@
                     <h4 class="modal-title" id="myModalLabel">
 
 
-                        <i class="fa fa-eye"></i>
+                        <i class="fa fa-bars"></i>
 
                         <b>Propuesta</b></h4>
                 </div>
 
+                <!--
+
+                onsubmit="return asignarEvaluadores();"
+                -->
+
                 <form id="form-asignar-evaluadores" class="formulario form-horizontal" method="POST"
-                      action="<?= base_url('coordinador/asignar_evaluador') ?>" onsubmit="return asignarEvaluadores();">
+                      action="<?= base_url('coordinador/asignar_evaluadores') ?>" >
                     <div class="modal-body">
 
 
@@ -92,9 +99,7 @@
                             <label class="col-md-2 control-label" for="name">Código:</label>
                             <div class="col-md-2">
 
-
                                 <input readonly id="codigo" name="codigo" type="text" class="form-control">
-
 
                             </div>
 
@@ -214,9 +219,14 @@
 
                         <div class="ln_solid"></div>
                         <div class="form-group">
-                            <div class="col-md-4 col-md-offset-5">
-                                <button type="reset" class="btn btn-primary">Cancelar</button>
-                                <input type="submit" class="btn btn-success">
+                            <div class="col-md-4 col-md-offset-8">
+
+
+                                <input  type="submit" class="btn btn-success pull-right" value="Asignar evaluadores">
+                                <button type="button" onclick="cerrarModalId('modal-asignar-evaluadores')" class="btn btn-primary pull-right">Cancelar</button>
+
+
+
                             </div>
                         </div>
 
