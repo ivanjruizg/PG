@@ -85,10 +85,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="registrar-estudiante">ESTUDIANTES</a>
+                            <a href="<?= base_url('registrar-estudiante') ?>">ESTUDIANTES</a>
                         </li>
                         <li>
-                            <a href="button.html">DOCENTES</a>
+                            <a href="<?=base_url('registrar-docente')?>">DOCENTES</a>
                         </li>
                         <li>
 

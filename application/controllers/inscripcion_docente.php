@@ -14,71 +14,7 @@ class Inscripcion_estudiante extends CI_Controller
 
     }
 
-
-    function registrar_docente(){
-
-
-        $this->load->library("encriptar",array(10,false));
-
-
-        $nombres =mb_strtoupper($this->input->post('nombres'));
-
-        $primer_apellido = mb_strtoupper($this->input->post("primer-apellido"));
-        $segundo_apellido= mb_strtoupper($this->input->post("segundo-apellido"));
-        $correo = mb_strtoupper($this->input->post("email"));
-
-        $clave = mb_strtoupper($this->input->post("clave"));
-
-
-        $existe = $this->inscripcion_model->consultar_correo_docente($correo);
-
-        //echo var_dump($existe);
-
-        if($existe==0){
-
-
-            $codigo_activacion = $this->generar_codigo_activacion();
-
-
-            $datos=array(
-
-                "nombres" => $nombres,
-                "primer_apellido" => $primer_apellido,
-                "segundo_apellido" => $segundo_apellido,
-                "correo" => $correo,
-                "clave" => $clave,
-                "codigo_activacion" => $codigo_activacion
-
-            );
-
-            $filas= $this->inscripcion_model->registrar_docente($datos);
-
-            if($filas!=-1){
-
-
-                if ($this->enviar_correo_activacion_docente($correo,$codigo_activacion)){
-
-
-                    //  redirect(base_url("registro-exitoso"));
-
-                    echo base_url("registro-exitoso");
-
-                }
-
-
-            }
-
-
-        }else{
-
-            echo "correo-duplicado";
-        }
-
-
-    }
-
-
-    function registrar(){
+   function registrar_docente(){
 
 
        $this->load->library("encriptar",array(10,false));
@@ -86,16 +22,14 @@ class Inscripcion_estudiante extends CI_Controller
 
        $nombres =mb_strtoupper($this->input->post('nombres'));
 
-      $primer_apellido = mb_strtoupper($this->input->post("primer-apellido"));
+       $primer_apellido = mb_strtoupper($this->input->post("primer-apellido"));
        $segundo_apellido= mb_strtoupper($this->input->post("segundo-apellido"));
        $correo = mb_strtoupper($this->input->post("email"));
 
        $clave = mb_strtoupper($this->input->post("clave"));
-       $programa= mb_strtoupper($this->input->post("programa"));
-       $grupo_inv= mb_strtoupper($this->input->post("grupo-investigacion"));
 
 
-       $existe = $this->inscripcion_model->consultar_correo($correo);
+       $existe = $this->inscripcion_model->consultar_correo_docente($correo);
 
        //echo var_dump($existe);
 
@@ -112,18 +46,16 @@ class Inscripcion_estudiante extends CI_Controller
                "segundo_apellido" => $segundo_apellido,
                "correo" => $correo,
                "clave" => $clave,
-               "codigo_programa" => $programa,
-               "codigo_grupo_investigacion"=>$grupo_inv,
                "codigo_activacion" => $codigo_activacion
 
            );
 
-           $filas= $this->inscripcion_model->registrar($datos);
+           $filas= $this->inscripcion_model->registrar_docente($datos);
 
            if($filas!=-1){
 
 
-               if ($this->enviar_correo_activacion($correo,$codigo_activacion)){
+               if ($this->enviar_correo_activacion_docente($correo,$codigo_activacion)){
 
 
                  //  redirect(base_url("registro-exitoso"));
@@ -151,51 +83,6 @@ class Inscripcion_estudiante extends CI_Controller
         $datos['contenido'] = "inscripcion_estudiantes/registro_exitoso";
 
         $this->load->view('inicio/plantilla', $datos);
-
-    }
-
-
-
-    function  activar_docente($codigo_activacion=""){
-
-        $datos=null;
-
-        $filas= $this->inscripcion_model->consultar_docentes($codigo_activacion);
-
-
-
-
-
-        if (count($filas)>0) {
-
-            foreach ($filas as $fila) {
-
-                $datos = array(
-                    "tipo" => 3,
-                    "correo" => $fila['correo'],
-                    "nombres" => $fila['nombres'],
-                    "login" => TRUE
-                );
-
-                $resp= $this->inscripcion_model->activar($fila['correo']);
-
-                if($resp>0){
-
-                    $this->session->set_userdata($datos);
-
-                    redirect('docente');
-
-                }else{
-
-                    redirect(base_url());
-
-                }
-
-            }
-
-        }
-
-
 
     }
 
@@ -242,6 +129,50 @@ class Inscripcion_estudiante extends CI_Controller
 
    }
 
+    function  activar_docente($codigo_activacion=""){
+
+        $datos=null;
+
+        $filas= $this->inscripcion_model->consultar_correo_docente($codigo_activacion);
+
+
+
+
+
+        if (count($filas)>0) {
+
+            foreach ($filas as $fila) {
+
+                $datos = array(
+                    "tipo" => 3,
+                    "correo" => $fila['correo'],
+                    "nombres" => $fila['nombres'],
+                    "login" => TRUE
+                );
+
+                $resp= $this->inscripcion_model->activar($fila['correo']);
+
+                if($resp>0){
+
+                    $this->session->set_userdata($datos);
+
+                    redirect('docente');
+
+                }else{
+
+                    redirect(base_url());
+
+                }
+
+            }
+
+        }
+
+
+
+    }
+
+
     function generar_codigo_activacion(){
 
         $this->load->library("generadorclave");
@@ -250,6 +181,7 @@ class Inscripcion_estudiante extends CI_Controller
         return $clave;
 
     }
+
 
     function enviar_correo_activacion($correo, $codigo_activacion){
 
@@ -577,6 +509,10 @@ class Inscripcion_estudiante extends CI_Controller
 
 
     }
+
+
+
+
 
 
 

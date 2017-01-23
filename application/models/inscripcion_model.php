@@ -15,11 +15,30 @@ class Inscripcion_Model extends CI_Model
     }
 
 
+    function registrar_docente($datos){
+
+        $this->db->insert("docentes",$datos);
+
+        return $this->db->affected_rows();
+    }
+
     function consultar_correo($correo){
 
 
         $this->db->select('correo');
         $this->db->from('estudiantes');
+        $this->db->where("correo", $correo);
+        $reslt = $this->db->get();
+
+
+        return $reslt->num_rows();
+    }
+
+    function consultar_correo_docente($correo){
+
+
+        $this->db->select('correo');
+        $this->db->from('docentes');
         $this->db->where("correo", $correo);
         $reslt = $this->db->get();
 
@@ -41,6 +60,21 @@ class Inscripcion_Model extends CI_Model
 
         return $reslt->result_array();
     }
+
+    function consultar_docentes($codigo_activacion){
+
+
+
+
+        $this->db->select('correo,nombres');
+        $this->db->from('docentes');
+        $this->db->where("codigo_activacion", $codigo_activacion);
+        $reslt = $this->db->get();
+
+
+        return $reslt->result_array();
+    }
+
 
     function listar_carreras(){
 
@@ -80,6 +114,21 @@ class Inscripcion_Model extends CI_Model
 
     }
 
+    function activar_docente($correo){
+
+        $datos = array(
+
+            "activo" =>1
+
+
+        );
+
+        $this->db->where('correo', $correo);
+        $this->db->update('docentes',$datos);
+
+        return $this->db->affected_rows();
+
+    }
 
 
 }
