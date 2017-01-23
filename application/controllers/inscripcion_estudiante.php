@@ -171,13 +171,13 @@ class Inscripcion_estudiante extends CI_Controller
             foreach ($filas as $fila) {
 
                 $datos = array(
-                    "tipo" => 3,
+                    "tipo" => DOCENTES,
                     "correo" => $fila['correo'],
                     "nombres" => $fila['nombres'],
                     "login" => TRUE
                 );
 
-                $resp= $this->inscripcion_model->activar($fila['correo']);
+                $resp= $this->inscripcion_model->activar_docente($fila['correo']);
 
                 if($resp>0){
 
@@ -214,7 +214,7 @@ class Inscripcion_estudiante extends CI_Controller
            foreach ($filas as $fila) {
 
                $datos = array(
-                   "tipo" => 2,
+                   "tipo" => ESTUDIANTES,
                    "correo" => $fila['correo'],
                    "nombres" => $fila['nombres'],
                    "login" => TRUE
@@ -346,7 +346,7 @@ class Inscripcion_estudiante extends CI_Controller
                             </tr>
                             <tr>
                               <td class="bodycopy">
-                                    Te has registrado exitosamente... Da clic en el siguiente botón para activar tu cuenta:
+                                    Te has registrado exitosamente... Haz clic en el siguiente botón para activar tu cuenta:
                               </td>
                             </tr>
                             <tr>
@@ -355,7 +355,7 @@ class Inscripcion_estudiante extends CI_Controller
                                   <table class="buttonwrapper" bgcolor="#e05443" border="0" cellspacing="0" cellpadding="0">
                                     <tr>
                                       <td class="button" height="45">
-                                       <a target="_blank" href="http://localhost/pg/inscripcion_estudiante/activar/'.$codigo_activacion.'">ACTIVA TU CUENTA!</a> 
+                                       <a target="_blank" href='.base_url('inscripcion_estudiante/activar/'.$codigo_activacion.'').'>ACTIVA TU CUENTA!</a> 
                                       </td>
                                     </tr>
                                   </table>
@@ -510,7 +510,7 @@ class Inscripcion_estudiante extends CI_Controller
                             </tr>
                             <tr>
                               <td class="bodycopy">
-                                    Te has registrado exitosamente... Da clic en el siguiente botón para activar tu cuenta:
+                                    Te has registrado exitosamente... Haz clic en el siguiente botón para activar tu cuenta:
                               </td>
                             </tr>
                             <tr>
@@ -519,7 +519,7 @@ class Inscripcion_estudiante extends CI_Controller
                                   <table class="buttonwrapper" bgcolor="#e05443" border="0" cellspacing="0" cellpadding="0">
                                     <tr>
                                       <td class="button" height="45">
-                                       <a target="_blank" href="http://localhost/pg/inscripcion_estudiante/activar_docente/'.$codigo_activacion.'">ACTIVA TU CUENTA!</a> 
+                                       <a target="_blank" href='.base_url('inscripcion_estudiante/activar_docente/'.$codigo_activacion.'').'>ACTIVA TU CUENTA!</a> 
                                       </td>
                                     </tr>
                                   </table>
