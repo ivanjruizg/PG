@@ -46,8 +46,8 @@
 
             <li><a><i class="fa fa-file-pdf-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="tables.html">Peridos de repeción</a></li>
-                    <li><a href="tables_dynamic.html">Horarios de sustentaciones</a></li>
+                    <li><a target="_blank" href="<?=base_url('reportes/calendario_de_trabajos_de_grado')?>">Peridos de repeción</a></li>
+                    <li><a href="<?= base_url('coordinador/reportes-horario-sustentacion')?>">Horarios de sustentaciones</a></li>
                 </ul>
             </li>
 

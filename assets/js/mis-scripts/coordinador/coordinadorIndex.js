@@ -38,16 +38,14 @@ function verPropuesta(codigo) {
 
 
                 $("#investigador" + (i + 1)).val(valores[i].estudiante);
+                console.log(valores[i].estudiante);
 
                 $(".inv" + (i + 1)).show();
 
 
             }
 
-            $('#modal-ver-propuesta').modal({
-                show: true,
-                backdrop: 'static'
-            });
+            abrirModalId('modal-ver-propuesta');
 
 
 

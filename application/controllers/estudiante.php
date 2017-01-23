@@ -337,7 +337,7 @@ class Estudiante extends CI_Controller
         $palabras_claves = mb_strtoupper($this->input->post('palabras-clave'));
 
 
-        echo var_dump($palabras_claves);
+
 
         $resumen = $this->input->post('resumen');
 
@@ -412,7 +412,7 @@ class Estudiante extends CI_Controller
 
                             );
 
-                            if ($this->propuestas_model->registrar_investigadores($datos_investigador3) > 0) {
+                            if ($this->estudiantes_model->registrar_investigadores($datos_investigador3) > 0) {
 
 
                             }
@@ -440,7 +440,7 @@ class Estudiante extends CI_Controller
         }
 
 
-     //   redirect(base_url('estudiante'));
+        redirect(base_url('estudiante/nueva-propuesta'));
 
 
     }

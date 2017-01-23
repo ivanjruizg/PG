@@ -15,22 +15,11 @@ class Reportes extends CI_Controller
         parent::__construct();
         $this->load->model('reportes_model', 'pdfs_model');
 
-        $this->ruta_logo = 'logo_cecar_reportes.png';
-        $this->titulo_pagina = "CORPORACION UNIVERSITARIA DEL CARIBE – CECAR";
     }
 
-    public function index()
+
+    public function calendario_de_trabajos_de_grado()
     {
-        //$data['provincias'] llena el select con las provincias españolas
-        $data['provincias'] = $this->pdfs_model->calendario_propuestas('2016-05');
-
-        //cargamos la vista y pasamos el array $data['provincias'] para su uso
-        $this->load->view('pdfs_view', $data);
-    }
-
-    public function generar()
-    {
-
 
 
         $this->load->library('tcppdf');
@@ -80,7 +69,7 @@ class Reportes extends CI_Controller
 
 // Establecemos el contenido para imprimir
 
-        $provincias = $this->pdfs_model->calendario_propuestas('2016');
+        $provincias = $this->pdfs_model->calendario_propuestas(date('Y'));
 
         $this->load->library("formateador_fechas");
 
@@ -88,18 +77,31 @@ class Reportes extends CI_Controller
         $html = '';
         $html .= "<style type=text/css>
 
-                   th{
+                     th{
                         color: #fff; font-weight: bold; 
-                        background-color: gray;
+                       
                         text-align: center;
-                        font-size: 14px;
+                        font-size: 12px;
+                         background-color: #469B49;
+                         
+                        
                    
                    }
-  
+                   
+                   .text-center{
+                        
+                        text-align: center;
+                   }
 
                 </style>";
 
-        $html .= '<h2 >Sincelejo  ' .$this->formateador_fechas->formateador( date("Y-m-d")) . '</h2><h3>Estudiantes: <br>Ingeniería Industrial<br>Ingeniería de sistemas <br>Arquitectura</br> </h4>';
+        $html .= '<h4 >Sincelejo  ' .$this->formateador_fechas->formateador( date("Y-m-d")) . '</h4>
+        
+        <h3>Estudiantes: </h3>
+        <h5>Ingeniería Industrial </h5>
+        <h5>Ingeniería de sistemas </h5>
+         <h5>Arquitectura</h4>
+       ';
 
         $html .= '<h2 >Calendario de trabajos de grado</h2>';
         $html .= '<p>electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas \"Letraset\", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</p>';
@@ -117,8 +119,8 @@ class Reportes extends CI_Controller
             $localidad = $this->formateador_fechas->formateador($fila['fecha_sustentacion']);
 
             $html .= '<tr>
-                        <td>'.$id.'</td>
-                        <td>'.$localidad.'</td>
+                        <td class="text-center">'.$id.'</td>
+                        <td class="text-center">'.$localidad.'</td>
                         </tr>';
         }
         $html .= '</table>';
@@ -146,7 +148,18 @@ class Reportes extends CI_Controller
                        <td></td>
                        <td></td>
                    </tr>
-             
+
+                          
+                   <tr>
+                       <td></td>
+                       <td></td>
+                   </tr>
+                   
+                                
+                   <tr>
+                       <td></td>
+                       <td></td>
+                   </tr>
 
                   <tr>
                   
@@ -177,8 +190,19 @@ class Reportes extends CI_Controller
     }
 
 
-    function hola()
+    function horario_de_sustentaciones()
     {
+
+
+        $this->load->model('propuestas_model');
+
+
+            $fecha = $this->input->post("fecha");
+
+
+
+
+
         $this->load->library('tcppdf');
 
         $pdf = new Tcppdf(PDF_PAGE_ORIENTATION, 'mm', 'letter', true, 'UTF-8', false);
@@ -215,12 +239,12 @@ class Reportes extends CI_Controller
 // ---------------------------------------------------------
 
 // set font
-        $pdf->SetFont('helvetica', 'B', 20);
+        $pdf->SetFont('helvetica', 'B', 14);
 
 // add a page
         $pdf->AddPage();
 
-        $pdf->Write(0, 'SUSTENTACIÓN PROPUESTAS DE TRABAJOS DE GRADO', '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'SUSTENTACIÓN PROPUESTAS DE TRABAJOS DE GRADO', '', 0, 'C', true, 0, false, false, 0);
 
         $pdf->SetFont('helvetica', '', 8);
 
@@ -234,8 +258,9 @@ class Reportes extends CI_Controller
                         color: #fff; font-weight: bold; 
                        
                         text-align: center;
-                        font-size: 14px;
-                         background-color: gray;
+                        font-size: 12px;
+                         background-color: #469B49;
+                         
                         
                    
                    }
@@ -245,9 +270,26 @@ class Reportes extends CI_Controller
                         width: 30px;
                    }
                    
-                   .w50{
+                   .w20{
+                        
+                        width: 30px;
+                   }
+                   
+                   .w30{
                         
                         width: 60px;
+                   }
+                   
+                   .w130{
+                        
+                        width: 130px;
+                   }
+                   
+                   
+                   .opaco{
+                   
+                  
+                   
                    }
                    
                    
@@ -263,26 +305,28 @@ class Reportes extends CI_Controller
                 <table border="1">
                  
                  <tr>
-                    <th class="tg-ecrz" colspan="7">SUSTENTACIÓN PROPUESTAS DE TRABAJOS DE GRADO</th>
+                    <th  class="tg-ecrz" colspan="5">SUSTENTACIÓN PROPUESTAS DE TRABAJOS DE GRADO</th>
+                    <th class="tg-ecrz" colspan="1">Fecha '.$fecha.'</th>
                   </tr>
+                 
 
                  
                  <tr>
-                    <th class="w30 text-center">#</th>
-                    <th  class="text-center">PROPUESTAS</th>
+                 
+                    <th class="w20 text-center">#</th>
+                    <th  width="253"  class="text-center">PROPUESTAS</th>
                     <th class="text-center">ESTUDIANTES</th>
                     <th class="text-center">DIRECTORES Y CODIRECTORES</th>
                     <th class="text-center">EVALUADORES</th>
-                    <th class="text-center">FECHA</th>
-                    <th class="text-center w50">HORA</th>
-                    <th class="text-center">AULA</th>
+                    <th class="text-center w30">HORA</th>
+                    <th class="text-center w130">AULA</th>
                     
                   </tr>
 ';
 
 
 
-        $calendario=$this->pdfs_model->calendario_sustentaciones();
+        $calendario=$this->pdfs_model->calendario_sustentaciones($fecha);
 
     //    $x= $result->result_array();
 
@@ -294,15 +338,22 @@ class Reportes extends CI_Controller
 
 
 
+            $evaluadores = $this->propuestas_model->consultar_evaluadores($horario['codigo']);
+            $estudiantes = $this->propuestas_model->consultar_estudiantes($horario['codigo']);
+            $co_director = $this->propuestas_model->consultar_codirector($horario['codigo']);
+            $director = $this->propuestas_model->consultar_director($horario['codigo']);
+
+
+
 
             $tbl.=' 
                   <tr>
                     <td class="text-center">'.$i.'</td>
                     <td class="text-center">'.$horario['titulo'].'</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">'.$horario['correo_director'].'<br>'.$horario['correo_codirector'].'</td>
-                    <td class="text-center"></td>
-                    <td class="text-center">'.$horario['fecha'].'</td>
+                    <td class="text-center">'.$estudiantes[0]['nombre'].'<hr>'.$estudiantes[1]['nombre'].'<br>'.$estudiantes[2]['nombre'].'</td>
+                    <td class="text-center">'.$director[0]['nombre'].'<br>'.$co_director[0]['nombre'].'</td>
+                    <td class="text-center">'.$evaluadores[0]['nombre'].'<br>'.$evaluadores[1]['nombre'].'</td>
+
                     <td class="text-center">'.$horario['hora'].'</td>
                     <td class="text-center">'.$horario['aula'].'</td>
                   </tr>

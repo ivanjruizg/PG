@@ -9,17 +9,6 @@ class Propuestas_model extends CI_Model
     {
 
 
-        /*
-         *
-         *  Select fecha_inicio_recepcion
-            from calendario_trabajos_de_grado
-            where CURDATE() >= fecha_inicio_recepcion and CURDATE() <= fecha_limite_recepcion
-         *
-         *
-         *
-         *
-         */
-
 
         $this->db->select('c.fecha_inicio_recepcion AS calendario_abierto,periodo');
         $this->db->from('calendario_trabajos_de_grado c');
@@ -104,9 +93,58 @@ class Propuestas_model extends CI_Model
 
     function consultar_evaluadores($codigo_propuesta){
 
-        $this->db->select("p.correo_evaluador", FALSE);
+        $this->db->select("p.correo_evaluador,CONCAT(d.nombres,' ',d.primer_apellido) AS nombre", FALSE);
         $this->db->from('propuestas_por_evaluar p');
+        $this->db->join('docentes d', 'p.correo_evaluador = d.correo');
         $this->db->where('p.codigo_propuesta', $codigo_propuesta);
+
+
+        $result = $this->db->get();
+
+        return $result->result_array();
+
+
+    }
+
+
+    function consultar_estudiantes($codigo_propuesta){
+
+        $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido) AS nombre", FALSE);
+        $this->db->from('investigadores i');
+        $this->db->join('estudiantes e', 'i.correo_estudiante = e.correo');
+        $this->db->where('i.codigo_propuesta', $codigo_propuesta);
+
+
+        $result = $this->db->get();
+
+        return $result->result_array();
+
+
+    }
+
+
+    function consultar_director($codigo_propuesta){
+
+        $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido) AS nombre", FALSE);
+        $this->db->from('investigadores i');
+        $this->db->join('docentes e', 'i.correo_director = e.correo');
+        $this->db->where('i.codigo_propuesta', $codigo_propuesta);
+
+
+        $result = $this->db->get();
+
+        return $result->result_array();
+
+
+    }
+
+
+    function consultar_codirector($codigo_propuesta){
+
+        $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido) AS nombre", FALSE);
+        $this->db->from('investigadores i');
+        $this->db->join('docentes e', 'i.correo_codirector = e.correo');
+        $this->db->where('i.codigo_propuesta', $codigo_propuesta);
 
 
         $result = $this->db->get();
@@ -245,6 +283,8 @@ class Propuestas_model extends CI_Model
         return "";
 
     }
+
+
 
 
     function ver_calendario_de_trabajos_de_grado()

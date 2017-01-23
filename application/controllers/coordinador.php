@@ -167,6 +167,8 @@ class Coordinador extends CI_Controller
         $co_director = $this->input->post('co-director');
 
 
+
+
         $datos1 = array(
 
             "correo_director" => $director
@@ -174,10 +176,8 @@ class Coordinador extends CI_Controller
         );
 
 
-        $op = $this->coordinador_model->asignar_director($codigo_propuesta, $datos1);
+         $this->coordinador_model->asignar_director($codigo_propuesta, $datos1);
 
-
-        if($op>0){
 
             if (!empty($co_director)) {
 
@@ -185,24 +185,16 @@ class Coordinador extends CI_Controller
                     "correo_codirector" => $co_director
                 );
 
-                $op = $this->coordinador_model->asignar_codirector($codigo_propuesta, $datos2);
+            }else{
 
-                if($op>0){
-
-                }else{
-
-                    echo  "Error al asignar el codirector";
-                }
-
+                $datos2 = array(
+                    "correo_codirector" => null
+                );
             }
 
+            $this->coordinador_model->asignar_codirector($codigo_propuesta, $datos2);
             redirect(base_url('coordinador/vista_asignar_directores'));
 
-        }else{
-
-            echo  "Error al asignar el director";
-
-        }
 
     }
 
@@ -274,6 +266,20 @@ class Coordinador extends CI_Controller
 
     }
 
+    function vista_reportes_horarios_de_sustentacion()
+    {
+
+
+        $datos['titulo'] = "Coordinador de investigación";
+        $datos['contenido'] = "reportes/reportes_sustentacion";
+        $datos['fechas'] = $this->coordinador_model->listar_fechas_de_sustentacion();
+        //  $datos['css']= array('jquery-ui.css');
+        $datos['js'] = array('mis-scripts/modalBootstrap.js','mis-scripts/coordinador/crearFechaDeSustentacion.js');
+        $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
+
+
+    }
+
 
 
     function asignar_sustentaciones()
@@ -281,20 +287,6 @@ class Coordinador extends CI_Controller
 
 
 
-        /*
-
-        $fecha_sustentacion = new DateTime($fecha);
-        // $fecha_sustentacion->setTime(23,59,59);
-        $ahora= new DateTime("now");
-
-        if($fecha_sustentacion>$ahora){
-
-        if(){
-
-
-        }
-
-        */
         $codigosPropuesta = $this->input->post("propuestasSeleccionadas");
         $arrays = explode(",", $codigosPropuesta);
         $codigo_horario = $this->input->post("codigoHorario");

@@ -122,7 +122,7 @@ $ci->load->library('formateador_fechas');
 
                                         <button type="button" onclick="cancelar()" class="btn btn-primary">Cancelar</button>
 
-                                        <input type="submit" class="btn btn-success" value="Guardar cambios">
+                                        <input type="submit" class="btn btn-success" value="Guardar">
 
                                     </div>
 

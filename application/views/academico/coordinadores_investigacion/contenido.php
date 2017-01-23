@@ -184,7 +184,7 @@
                                     <div class="col-md-10">
 
 
-                                        <input disabled id="investigador2" name="investigador3" type="text"  class="form-control">
+                                        <input disabled id="investigador3" name="investigador3" type="text"  class="form-control">
 
 
                                     </div>

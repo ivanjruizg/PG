@@ -227,6 +227,33 @@ class Coordinador_Model extends  CI_Model {
         return $result->result_array();
 
     }
+
+
+    function listar_fechas_de_sustentacion(){
+
+
+        /*
+
+                     $this->db->select('periodo AS fecha');
+             $this->db->from('calendario_trabajos_de_grado');
+             $result = $this->db->get();
+
+
+             */
+             $this->db->distinct();
+
+
+             $this->db->select('fecha');
+             $this->db->from('sustentaciones');
+             $result = $this->db->get();
+
+
+
+
+        return $result->result_array();
+
+    }
+
     function listar_propuestas_evaluadas($periodo_recepcion=null)
     {
 

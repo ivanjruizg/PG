@@ -22,7 +22,7 @@ class Tcppdf extends TCPDF
 
 
 
-        $this->SetY(10);
+        $this->SetY(11);
         $this->SetX(40);
         $this->Cell(0, 0, 'CORPORACION UNIVERSITARIA DEL CARIBE – CECAR', 0, false, 'C', 0, '', 0, false, 'M', 'M');
         $this->SetY(15);
@@ -31,7 +31,7 @@ class Tcppdf extends TCPDF
         $this->Cell(0, 0, 'Facultad de Ciencias básicas, Ingeniería y Aquitectura', 0, false, 'C', 0, '', 0, false, 'M', 'M');
         $this->SetY(20);
         $this->SetX(25);
-        $this->SetFont('helvetica', '', 9);
+        $this->SetFont('helvetica', 'b', 9);
         $this->Cell(0, 0, 'Coordinación investigación', 0, false, 'C', 0, '', 0, false, 'M', 'M');
 
 
