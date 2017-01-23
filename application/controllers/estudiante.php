@@ -10,7 +10,7 @@ class Estudiante extends CI_Controller
         parent::__construct();
 
         $this->load->model('estudiantes_model');
-
+        $this->load->model('propuestas_model');
         if ($this->session->userdata('tipo') != ESTUDIANTES) {
 
             redirect(base_url());
@@ -31,11 +31,22 @@ class Estudiante extends CI_Controller
     }
 
     function vista_consultar_propuesta()
+
     {
+
+
+        $result=$this->estudiantes_model->descripcion_propuesta();
+
+
 
         $datos['titulo'] = "Estudiante";
         $datos['contenido'] = 'propuestas/ver_estado_propuesta';
         $datos['js'] = array("jquery.smartWizard.js");
+        $datos['propuestas']=$result;
+
+        $datos['investigadores']=$this->propuestas_model->consultar_estudiantes($result[0]['codigo']);
+
+
         $this->load->view("academico/estudiantes/plantilla", $datos);
 
 
@@ -52,7 +63,8 @@ class Estudiante extends CI_Controller
 
     }
 
-    function cambiar_clave_de_acceso(){
+    function cambiar_clave_de_acceso()
+    {
 
 
         $clave_antigua = $this->input->post('clave-actual');
@@ -60,29 +72,28 @@ class Estudiante extends CI_Controller
         $clave_nueva_confirmada = $this->input->post('clave-nueva-confirmada');
 
 
-        if(strcmp($clave_nueva,$clave_nueva_confirmada)==0){
+        if (strcmp($clave_nueva, $clave_nueva_confirmada) == 0) {
 
             $datos = array(
 
-                "clave"=>$clave_nueva
+                "clave" => $clave_nueva
 
             );
 
-            $result= $this->estudiantes_model->cambiar_clave_de_acceso($clave_antigua,$datos);
+            $result = $this->estudiantes_model->cambiar_clave_de_acceso($clave_antigua, $datos);
 
             echo $result;
 
         }
 
 
-
     }
 
 
-    function xx(){
+    function xx()
+    {
 
         echo var_dump($this->estudiantes_model->consultar_mis_propuestas($this->session->userdata('correo')));
-
 
 
     }
@@ -93,10 +104,10 @@ class Estudiante extends CI_Controller
         $this->load->model('propuestas_model');
         $result = $this->propuestas_model->calendario_recepcion_abierto();
 
-        if (count($result) != 1) {
+        if (is_null($result)) {
 
             $datos['css'] = array('flipclock.css');
-            $datos['js'] = array('temporizador/flipclock.min.js','temporizador/temporizador.js');
+            $datos['js'] = array('temporizador/flipclock.min.js', 'temporizador/temporizador.js');
             $datos['titulo'] = "Plataforma cerrada!";
             $datos['contenido'] = 'propuestas/plataforma_cerrada';
             $this->load->view("academico/estudiantes/plantilla", $datos);
@@ -107,8 +118,7 @@ class Estudiante extends CI_Controller
             $mis_propuestas = $this->estudiantes_model->consultar_mis_propuestas($this->session->userdata('correo'));
 
 
-            if(count($mis_propuestas)>0){
-
+            if (count($mis_propuestas) > 0) {
 
 
                 $datos['css'] = array();
@@ -119,7 +129,7 @@ class Estudiante extends CI_Controller
                 $this->load->view("academico/estudiantes/plantilla", $datos);
 
 
-            }else {
+            } else {
 
 
                 $datos['tipos'] = $this->propuestas_model->listar_tipos_propuestas();
@@ -137,7 +147,6 @@ class Estudiante extends CI_Controller
 
     function consultar()
     {
-
 
 
         if (isset($_GET['term'])) {
@@ -227,10 +236,7 @@ class Estudiante extends CI_Controller
         $this->load->model('propuestas_model');
 
 
-        $periodo_recepcion = $this->propuestas_model-> calendario_recepcion_abierto();
-
-
-
+        $periodo_recepcion = $this->propuestas_model->calendario_recepcion_abierto();
 
 
         foreach ($periodo_recepcion as $p) {
@@ -337,25 +343,21 @@ class Estudiante extends CI_Controller
         $palabras_claves = mb_strtoupper($this->input->post('palabras-clave'));
 
 
-
-
         $resumen = $this->input->post('resumen');
 
-        $investigador2 =  $this->input->post('investigador2');
-        $investigador3 =  $this->input->post('investigador3');
+        $investigador2 = $this->input->post('investigador2');
+        $investigador3 = $this->input->post('investigador3');
 
         $tipo = $this->input->post('tipo');
 
         $this->load->library("subir_documentos");
 
-        $ruta_propuesta = $this->subir_documentos->subir_propuesta('./assets/docs/propuestas',$titulo, "No se ha podido subir la propuesta");
+        $ruta_propuesta = $this->subir_documentos->subir_propuesta('./assets/docs/propuestas', $titulo, "No se ha podido subir la propuesta");
 
-        $ruta_carta = $this->subir_documentos->subir_carta('./assets/docs/cartas',$titulo, "");
+        $ruta_carta = $this->subir_documentos->subir_carta('./assets/docs/cartas', $titulo, "");
 
 
         $periodo_recepcion = $this->propuestas_model->calendario_recepcion_abierto();
-
-
 
 
         $datos_propuesta = array(

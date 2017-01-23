@@ -9,17 +9,51 @@ class Estudiantes_Model extends  CI_Model {
 
     function consultar($nombres){
 
+
+
+
+
         $this->db->select("correo AS value, CONCAT(nombres, ' ', primer_apellido,' ',segundo_apellido) AS label", FALSE);
-        $this->db->where('correo!=',$this->session->userdata('correo') );
+        $this->db->from('estudiantes');
+        //$this->db->join('investigadores i','i.correo_estudiante= e.correo');
+
+       // $this->db->where('e.correo!=',$this->session->userdata('correo') );
+        $this->db->where_not_in("correo",$this->consultar_estudiantes_con_propuestas_presentadas());
         $this->db->like('nombres', $nombres);
         $this->db->or_like('primer_apellido', $nombres);
         $this->db->or_like('segundo_apellido', $nombres);
 
-        $this->db->from('estudiantes');
         $reslt = $this->db->get();
         return $reslt->result_array();
 
     }
+
+
+    function consultar_estudiantes_con_propuestas_presentadas(){
+
+       $result =  $this->db->query("SELECT i.correo_estudiante FROM investigadores i");
+
+        /*
+        $this->db->select("correo_estudiante");
+        $this->db->from("investigadores");
+        $result= $this->db->get();
+*/
+
+        $est = array($this->session->userdata('correo'));
+
+        foreach ($result->result_array() as $a){
+
+            array_push($est,$a['correo_estudiante']);
+
+        }
+
+
+        return $est;
+
+
+    }
+
+
 
 
     function consultar_mis_propuestas($correo){
@@ -50,6 +84,8 @@ class Estudiantes_Model extends  CI_Model {
         return 0;
 
     }
+
+
 
     function fecha_recepcion_abierta()
     {
@@ -154,6 +190,24 @@ class Estudiantes_Model extends  CI_Model {
         }
 
     }
+
+
+    function descripcion_propuesta(){
+
+
+            $this->db->select("p.codigo,p.titulo,p.fecha_hora_subida,ep.descripcion");
+            $this->db->from('propuestas p');
+            $this->db->join('investigadores i', 'p.codigo = i.codigo_propuesta');
+            $this->db->join('estado_propuesta ep', 'p.estado = ep.codigo');
+            $this->db->where("correo_estudiante",$this->session->userdata('correo'));
+
+            $result = $this->db->get();
+
+            return $result->result_array();
+
+
+    }
+
 
 
 }

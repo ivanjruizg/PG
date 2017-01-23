@@ -24,6 +24,7 @@ class Subir_archivos
         $config2['file_name'] = "CARTA" . "-" . $nombre;
         $config2['upload_path'] = $ruta_imagen;
         $config2['allowed_types'] = 'jpg|png|jpeg';
+        $config2['max_size'] = "25600";
 
         $CI =& get_instance();
 
@@ -61,6 +62,7 @@ class Subir_archivos
         $config['file_name'] = "PROPUESTA" . "-" . $nombre;
         $config['upload_path'] = $ruta_propuesta;
         $config['allowed_types'] = 'doc|docx|pdf';
+        $config['max_size'] = "25600";
 
         $CI =& get_instance();
 

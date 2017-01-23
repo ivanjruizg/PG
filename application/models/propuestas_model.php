@@ -8,16 +8,24 @@ class Propuestas_model extends CI_Model
     function calendario_recepcion_abierto()
     {
 
+        //$this->db->select('c.fecha_inicio_recepcion AS calendario_abierto,periodo');
 
-
-        $this->db->select('c.fecha_inicio_recepcion AS calendario_abierto,periodo');
+        $this->db->select('periodo');
         $this->db->from('calendario_trabajos_de_grado c');
         $this->db->where('CURDATE() >=c.fecha_inicio_recepcion');
         $this->db->where('CURDATE() <= c.fecha_limite_recepcion');
         $this->db->limit('1');
         $result = $this->db->get();
 
-        return $result->result_array()[0]['periodo'];
+        if ($result->num_rows()>0) {
+
+            return $result->result_array()[0]['periodo'];
+
+        }
+        else {
+
+            return null;
+        }
 
     }
 

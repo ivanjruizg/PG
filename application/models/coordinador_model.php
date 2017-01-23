@@ -157,27 +157,7 @@ class Coordinador_Model extends  CI_Model {
     }
 
 
-    function consultar_propuestas_a_sustentar(){
 
-        $result =  $this->db->query("SELECT s.codigo_propuesta FROM sustentaciones s
-                                        WHERE s.codigo_propuesta  IS NOT NULL");
-
-
-
-        $codigos = array("-1");
-
-        foreach ($result->result_array() as $a){
-
-            array_push($codigos,$a['codigo_propuesta']);
-
-        }
-
-
-        return $codigos;
-
-
-
-    }
 
 
 
@@ -343,6 +323,28 @@ class Coordinador_Model extends  CI_Model {
 
     }
 
+
+    function consultar_propuestas_a_sustentar(){
+
+        $result =  $this->db->query("SELECT s.codigo_propuesta FROM sustentaciones s
+                                        WHERE s.codigo_propuesta  IS NOT NULL");
+
+
+
+        $codigos = array("-1");
+
+        foreach ($result->result_array() as $a){
+
+            array_push($codigos,$a['codigo_propuesta']);
+
+        }
+
+
+        return $codigos;
+
+
+
+    }
 
     function quitar_propuesta_horario_sustentacion($codigo){
 
