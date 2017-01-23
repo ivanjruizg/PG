@@ -82,6 +82,7 @@
 <script src="<?= base_url('assets/js/jquery-1.11.3.min.js');?>"></script>
 <script src="<?= base_url('assets/js/mis-scripts/inicioSesion.js');?>"></script>
 <script src="<?= base_url('assets/js/mis-scripts/registroEstudiante.js');?>"></script>
+<script src="<?= base_url('assets/js/mis-scripts/registroDocentes.js');?>"></script>
 <script src="<?= base_url('assets/js/bootstrap.min.js');?>"></script>
 
 <script  src="<?=base_url('assets/js/jquery.parallax-1.1.3.js')?>"></script>

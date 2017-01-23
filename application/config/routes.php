@@ -57,6 +57,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['documentacion'] = 'inicio/vista_documentacion';
 $route['iniciar-sesion'] = 'inicio/vista_iniciar_sesion';
 $route['registrar-estudiante'] = 'inicio/vista_registro_estudiante';
+$route['registrar-docente'] = 'inicio/vista_registro_docente';
 $route['registro-exitoso'] = 'inscripcion_estudiante/vista_registro_exitoso';
 
 $route['coordinador/nuevo-periodo-recepcion'] = 'coordinador/vista_crear_periodo_recepcion';

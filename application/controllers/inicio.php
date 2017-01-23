@@ -88,4 +88,18 @@ class Inicio extends CI_Controller
 
     }
 
+
+    function vista_registro_docente()
+    {
+
+        $datos['titulo'] = "REGISTRO DE DOCENTES";
+
+        $datos['contenido'] = "inscripcion_docentes/inscripcion_docente";
+        $this->load->model('inscripcion_model');
+
+        $this->load->view('inicio/plantilla', $datos);
+
+
+    }
+
 }
