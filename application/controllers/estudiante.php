@@ -35,16 +35,16 @@ class Estudiante extends CI_Controller
     {
 
 
-        $result=$this->estudiantes_model->descripcion_propuesta();
+        $propuesta=$this->estudiantes_model->descripcion_propuesta();
 
 
 
         $datos['titulo'] = "Estudiante";
         $datos['contenido'] = 'propuestas/ver_estado_propuesta';
         $datos['js'] = array("jquery.smartWizard.js");
-        $datos['propuestas']=$result;
+        $datos['propuestas']=$propuesta;
 
-        $datos['investigadores']=$this->propuestas_model->consultar_estudiantes($result[0]['codigo']);
+        $datos['investigadores']=$this->propuestas_model->consultar_estudiantes($propuesta[0]['codigo']);
 
 
         $this->load->view("academico/estudiantes/plantilla", $datos);
@@ -473,5 +473,37 @@ class Estudiante extends CI_Controller
 
     }
 
+
+    function vista_ver_nota_final($codigo_propuesta){
+
+
+
+
+        $observaciones=$this->propuestas_model->observaciones_propuestas_evaluadas($codigo_propuesta);
+        $nota=$this->propuestas_model->nota_final_propuesta($codigo_propuesta);
+
+
+        $datos['titulo'] = "Estudiante-Nota Final";
+        $datos['contenido'] = 'propuestas/ver_nota_final';
+        $datos['observaciones']=$observaciones;
+        $datos['nota']=$nota;
+
+
+        $this->load->view("academico/estudiantes/plantilla", $datos);
+
+
+
+
+
+    }
+
+
+    function ver($codigo_propuesta){
+
+        $result=$this->propuestas_model->nota_final_propuesta($codigo_propuesta);
+
+            echo var_dump($result);
+
+    }
 
 }

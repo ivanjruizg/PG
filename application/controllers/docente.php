@@ -99,7 +99,7 @@ class Docente extends  CI_Controller {
         $datos['titulo'] = "Docentes";
         $datos['contenido'] = 'propuestas/ver_propuestas_disponibles_evaluar';
 
-        $datos['js'] = array('mis-scripts/modalBootstrap.js');
+        $datos['js'] = array('mis-scripts/modalBootstrap.js','jquery.numeric.js','mis-scripts/docente/evaluacionPropuesta.js');
 
         $correo_docente=$this->session->userdata('correo');
 

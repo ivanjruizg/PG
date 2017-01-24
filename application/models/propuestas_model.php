@@ -321,4 +321,51 @@ class Propuestas_model extends CI_Model
     }
 
 
+    function observaciones_propuestas_evaluadas($codigo_propuesta){
+
+        /*SELECT Propuestas.codigo,
+propuestas_evaluadas.correo_evaluador,
+propuestas_evaluadas.observaciones,
+propuestas_evaluadas.codigo_propuesta,
+docentes.correo,
+docentes.nombres,
+docentes.primer_apellido,
+docentes.segundo_apellido
+FROM
+propuestas
+INNER JOIN propuestas_evaluadas ON propuestas_evaluadas.codigo_propuesta = propuestas.codigo
+INNER JOIN docentes ON propuestas_evaluadas.correo_evaluador = docentes.correo*/
+
+        $this->db->select("p.titulo,pe.observaciones,CONCAT( d.nombres,' ',d.primer_apellido,' ',d.segundo_apellido) AS evaluador",false);
+        $this->db->from('propuestas p');
+        $this->db->where('p.codigo',$codigo_propuesta);
+        $this->db->join('propuestas_evaluadas pe','p.codigo=pe.codigo_propuesta');
+        $this->db->join('docentes d','d.correo=pe.correo_evaluador');
+        $result = $this->db->get();
+
+        return $result->result_array();
+
+
+
+
+
+    }
+
+
+
+
+    function nota_final_propuesta($codigo_propuesta){
+
+
+        $this->db->select("nf.nota,nf.descripcion_nota");
+        $this->db->from('notas_finales_evaluacion_propuestas nf');
+        $this->db->join('propuestas p','nf.codigo_propuesta=p.codigo');
+        $this->db->where('p.codigo',$codigo_propuesta);
+        $result = $this->db->get();
+
+        return $result->result_array();
+
+
+
+    }
 }

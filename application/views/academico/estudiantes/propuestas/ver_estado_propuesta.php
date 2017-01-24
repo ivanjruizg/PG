@@ -71,7 +71,7 @@
 
                             foreach ($propuestas as $propuesta) {
                                 echo '<td>
-                                    <button type="button" class="btn btn-success btn-xs">'.$propuesta['descripcion'].'</button>
+                                    <a type="button" class="btn btn-success btn-xs" onclick="" href='.base_url('estudiante/vista_ver_nota_final/'.$propuesta['codigo'].'').'>'.$propuesta['descripcion'].'</a>
                                 </td>
                                 <td>
                                     <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>

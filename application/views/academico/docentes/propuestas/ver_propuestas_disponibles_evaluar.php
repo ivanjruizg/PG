@@ -9,7 +9,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Propuestas por calificar</h2>
+                        <h2>Propuestas por calificar 2</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </ul>
@@ -104,8 +104,10 @@
                 <h4 class="modal-title" id="myModalLabel">
 
 
-                    <i class="fa fa-eye"></i>
-                    <b>Evaluación de la propuesta de trabajo grado</b>
+                    <i class="fa fa-bars"></i>
+                    <b class="text-center ">Evaluación de la propuesta de trabajo grado: </b>
+                    <br>
+
                 </h4>
             </div>
 
@@ -113,30 +115,43 @@
 
             <div class="modal-body">
 
-
-
-
                 <form id="formu" class="form-horizontal" method="post" action="<?=base_url('docente/evaluar_propuesta')?>">
 
 
                     <input type="hidden" name="codigo-propuesta" id="codigo-propuesta">
 
-                    <div class="item form-group">
-                        <label  class="control-label col-md-2 col-sm-3 col-xs-12" for="name">Título de la
-                            propuesta <span class="required">*</span>
-                        </label>
-                        <div class="col-md-10 col-sm-6 col-xs-12">
 
-                                    <textarea  disabled id="titulo" required="required" name="titulo"
-                                              class="form-control col-md-7 col-xs-12 mayus"></textarea>
 
-                        </div>
+                    <table id="datatable-propuestas-recibidas-periodo-actual" class="table table-striped table-bordered dt-responsive" cellspacing="0" width="100%"  >
+                        <thead>
+                        <tr>
 
 
 
-                    </div>
 
-                    <div class="ln_solid"></div>
+                            <th colspan="4" class="text-center"><h4><strong id="titulo"></strong></h4> </th>
+
+                        </tr>
+                        <tr>
+
+
+                            <th>EVALUACIÓN CUANTITATIVA</th>
+                            <th width="50" class="text-center">Valor</th>
+                            <th width="70" class="text-center">0-5</th>
+
+
+
+                        </tr>
+                        </thead>
+
+
+                        <tbody>
+
+
+
+
+
+
 
 
 
@@ -147,25 +162,38 @@
                         foreach ($preguntas as $pregunta){
 
 
-
-                        echo '<div id="" class="item form-group">
-
+                        echo '<tr>
 
 
-                        <label class="col-md-11 col-sm-10 col-xs-12" for="name">'.$pregunta['pregunta'].' (VALOR : '.($pregunta['valor_pregunta']*100).'%)'.'<span class="required">*</span>
-                        </label>
+
+                            <td><label class="col-md-11 col-sm-10 col-xs-12" for="name">'.$pregunta['pregunta'].'<span class="required">*</span>
+                        </label><input type="hidden" name="p'.$pregunta['codigo'].'" value="'.$pregunta['codigo'].'"></td>
+                            
+                            <td>'.($pregunta['valor_pregunta']*100).'%'.'</td>
+                            <td ><input name="nota-p'.$pregunta['codigo'].'"
+                                   class=" item form-control col-md-7 col-xs-12 decimal-2-places-positive numberBox" max="5" min="0" required="required" type="text"></td>
+                            
+
+
+                        </tr>';
+
+                       /* echo '<div id="" class="item form-group">
+
+
+
+
                         <div class="col-md-1 col-sm-6 col-xs-12">
 
 
-                            <input type="hidden" name="p'.$pregunta['codigo'].'" value="'.$pregunta['codigo'].'">
+
 
 
                             <input name="nota-p'.$pregunta['codigo'].'"
-                                   class=" item form-control col-md-7 col-xs-12 mayus" min="0" max="5" required="required" type="number">
+                                   class=" item form-control col-md-7 col-xs-12 decimal-2-places-positive numberBox" max="5" min="0" required="required" type="text">
 
 
                         </div>
-                    </div>';
+                    </div>';*/
 
 
 
@@ -174,14 +202,16 @@
 
                     ?>
 
+                        </tbody>
 
+                    </table>
 
                     <div class="item form-group">
 
                         <div class="ln_solid"></div>
 
-                        <h2 class="text-center">Observaciones y comentarios</h2>
-                            <div class="col-md-10 col-sm-6 col-xs-12 col-lg-offset-1">
+                        <h2 class="text-center mayus">Observaciones y comentarios</h2>
+                            <div class="col-md-12 col-sm-6 col-xs-12">
 
                                     <textarea rows="10" cols="3"   name="observaciones"
                                               class="form-control mayus"></textarea>
@@ -215,21 +245,12 @@
 </div>
 
 
+
+
 <script !src="">
     
-    function abrirModalFormatoDeEvaluacion(codigo,titulo) {
 
 
-       // $('#formu')[0].reset();
-
-        abrirModalId("modal-formato-evaluacion");
-
-        $('#codigo-propuesta').val(codigo);
-        $('#titulo').val(titulo);
-
-    }
-
-    
 </script>
 
 <!-- /page content -->

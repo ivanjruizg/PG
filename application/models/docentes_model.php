@@ -159,6 +159,7 @@ class Docentes_Model extends  CI_Model
             $this->db->join("sustentaciones s","p.codigo = s.codigo_propuesta");
             $this->db->where("s.fecha = CURDATE()");
             $this->db->where("pa.correo_evaluador",$correo_evaluador);
+            $this->db->where("pa.evaluada",0);
 
             $this->db->where("CURTIME() >= s.hora");
             $this->db->where("CURTIME()<=ADDTIME(s.hora,'1:00:00')");
