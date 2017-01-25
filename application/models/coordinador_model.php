@@ -234,44 +234,70 @@ class Coordinador_Model extends  CI_Model {
 
     }
 
+
+
+    function consultar_propuestas_con_notas_finales(){
+
+
+
+        $result =  $this->db->query("SELECT s.codigo_propuesta FROM notas_finales_evaluacion_propuestas s
+                                       ");
+
+        /*
+
+        $this->db->select("codigo_propuesta AS pc");
+        $this->db->from("notas_finales_evaluacion_propuestas");
+        $result = $this->db->get();
+
+        */
+
+
+        $est=array(-1);
+
+
+
+        foreach ($result->result_array() as $a){
+
+            array_push($est,$a['codigo_propuesta']);
+
+        }
+
+
+        return $est;
+
+    }
+
+
     function listar_propuestas_evaluadas($periodo_recepcion=null)
     {
 
 
 
-        $this->db->select('p.codigo_propuesta');
-        $this->db->from('propuestas_evaluadas p');
-
-        $result = $this->db->get();
-
-        $num= $result->num_rows();
-
-        if($num>1){
 
             $this->db->select('p.codigo, p.titulo,tp.convencion AS tipo');
             $this->db->from('propuestas p');
 
+
             $this->db->join('propuestas_evaluadas e', 'e.codigo_propuesta = p.codigo');
             $this->db->join('tipos_propuesta tp', 'p.tipo = tp.codigo');
 
-            $this->db->where("p.estado",4);
 
-            if($periodo_recepcion!=null){
+
+        $this->db->where("p.estado",4);
+
+        //$this->db->where_not_in('p.codigo',$this->consultar_propuestas_con_notas_finales());
+
+
+        if($periodo_recepcion!=null){
 
                 $this->db->where("periodo_recepcion",$periodo_recepcion);
             }
 
 
             $this->db->group_by('p.codigo');
-
             $result = $this->db->get();
-
             return $result->result_array();
 
-        }
-
-
-        return array();
     }
 
 

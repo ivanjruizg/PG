@@ -15,9 +15,6 @@ class Estudiantes_Model extends  CI_Model {
 
         $this->db->select("correo AS value, CONCAT(nombres, ' ', primer_apellido,' ',segundo_apellido) AS label", FALSE);
         $this->db->from('estudiantes');
-        //$this->db->join('investigadores i','i.correo_estudiante= e.correo');
-
-       // $this->db->where('e.correo!=',$this->session->userdata('correo') );
         $this->db->where_not_in("correo",$this->consultar_estudiantes_con_propuestas_presentadas());
         $this->db->like('nombres', $nombres);
         $this->db->or_like('primer_apellido', $nombres);
@@ -32,12 +29,6 @@ class Estudiantes_Model extends  CI_Model {
     function consultar_estudiantes_con_propuestas_presentadas(){
 
        $result =  $this->db->query("SELECT i.correo_estudiante FROM investigadores i");
-
-        /*
-        $this->db->select("correo_estudiante");
-        $this->db->from("investigadores");
-        $result= $this->db->get();
-*/
 
         $est = array($this->session->userdata('correo'));
 
@@ -128,19 +119,7 @@ class Estudiantes_Model extends  CI_Model {
         $this->db->insert("propuestas", $datos_propuesta);
         $codigo_propuesta = $this->db->insert_id();
 
-        /*
-               $propuestas_asigandas = array(
 
-                   "codigo_propuesta" => $codigo_propuesta
-
-               );
-
-
-
-
-               $this->db->insert("propuestas_por_evaluar", $propuestas_asigandas);
-               $this->db->insert("propuestas_por_evaluar", $propuestas_asigandas);
-               */
 
         return $codigo_propuesta;
     }
