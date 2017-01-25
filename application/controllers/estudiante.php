@@ -25,10 +25,23 @@ class Estudiante extends CI_Controller
     {
 
 
-        $this->vista_consultar_propuesta();
+        //$this->vista_consultar_propuesta();
+        $this->vista_inicio();
 
 
     }
+
+
+    function vista_inicio(){
+
+
+        $datos['titulo'] = "Bienvenido!!!";
+        $datos['contenido'] = 'propuestas/inicio_estudiante';
+        $this->load->view("academico/estudiantes/plantilla", $datos);
+
+    }
+
+
 
     function vista_consultar_propuesta()
 
@@ -37,20 +50,29 @@ class Estudiante extends CI_Controller
 
         $propuesta=$this->estudiantes_model->descripcion_propuesta();
 
+        if(count($propuesta)>0) {
+
+            $datos['titulo'] = "Estudiante";
+            $datos['contenido'] = 'propuestas/ver_estado_propuesta';
+           // $datos['js'] = array("jquery.smartWizard.js");
+            $datos['propuestas'] = $propuesta;
+            $datos['investigadores'] = $this->propuestas_model->consultar_estudiantes($propuesta[0]['codigo']);
+            $this->load->view("academico/estudiantes/plantilla", $datos);
+        }
+
+        else{
+
+            $datos['titulo'] = "Bienvenido!!!";
+            $datos['contenido'] = 'propuestas/no_propuesta';
+            $this->load->view("academico/estudiantes/plantilla", $datos);
 
 
-        $datos['titulo'] = "Estudiante";
-        $datos['contenido'] = 'propuestas/ver_estado_propuesta';
-        $datos['js'] = array("jquery.smartWizard.js");
-        $datos['propuestas']=$propuesta;
-
-        $datos['investigadores']=$this->propuestas_model->consultar_estudiantes($propuesta[0]['codigo']);
-
-
-        $this->load->view("academico/estudiantes/plantilla", $datos);
-
+        }
 
     }
+
+
+
 
     function vista_cambiar_clave_de_acceso()
     {
@@ -480,12 +502,16 @@ class Estudiante extends CI_Controller
 
 
         $observaciones=$this->propuestas_model->observaciones_propuestas_evaluadas($codigo_propuesta);
+
+
         $nota=$this->propuestas_model->nota_final_propuesta($codigo_propuesta);
 
 
         $datos['titulo'] = "Estudiante-Nota Final";
         $datos['contenido'] = 'propuestas/ver_nota_final';
+
         $datos['observaciones']=$observaciones;
+
         $datos['nota']=$nota;
 
 
@@ -505,5 +531,17 @@ class Estudiante extends CI_Controller
             echo var_dump($result);
 
     }
+
+
+    function estado_propuesta($codigo_propuesta){
+
+
+
+
+
+    }
+
+
+
 
 }

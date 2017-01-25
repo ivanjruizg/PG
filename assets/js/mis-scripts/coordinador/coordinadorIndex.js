@@ -83,10 +83,8 @@ function verCartaRemision(codigo) {
 //                        $("#carta-remision").attr("src","assets/docs/cartas/"+valores.ruta_carta);
 
 
-            $('#ver-carta').modal({
-                show: true,
-                backdrop: 'static'
-            });
+            abrirModalId('ver-carta');
+
 
         }, error: function () {
 
@@ -95,5 +93,25 @@ function verCartaRemision(codigo) {
         }
     });
     return false;
+
+}
+
+
+function descargarCarta() {
+
+     var ruta=$('#carta-remision').attr("src");
+
+    var enlace = document.createElement('a');
+
+    enlace.href = ruta;
+
+    enlace.download ="";
+
+    document.body.appendChild(enlace);
+
+    enlace.click();
+
+//Borrrar el elemento
+    enlace.parentNode.removeChild(enlace);
 
 }

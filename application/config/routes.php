@@ -83,6 +83,7 @@ $route['docente/cambiar-clave-de-acceso'] = 'docente/vista_cambiar_clave_de_acce
 
 
 $route['estudiante/nueva-propuesta'] = 'estudiante/vista_nueva_propuesta';
+//$route['estudiante'] = 'estudiante/vista_inicio';
 $route['estudiante/consultar-estado-propuesta'] = 'estudiante/vista_consultar_propuesta';
 $route['estudiante/cambiar-clave-de-acceso'] = 'estudiante/vista_cambiar_clave_de_acceso';
 

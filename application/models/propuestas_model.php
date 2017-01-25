@@ -371,7 +371,7 @@ propuestas
 INNER JOIN propuestas_evaluadas ON propuestas_evaluadas.codigo_propuesta = propuestas.codigo
 INNER JOIN docentes ON propuestas_evaluadas.correo_evaluador = docentes.correo*/
 
-        $this->db->select("p.titulo,pe.observaciones,CONCAT( d.nombres,' ',d.primer_apellido,' ',d.segundo_apellido) AS evaluador",false);
+        $this->db->select("p.titulo,p.estado,pe.observaciones,CONCAT( d.nombres,' ',d.primer_apellido,' ',d.segundo_apellido) AS evaluador",false);
         $this->db->from('propuestas p');
         $this->db->where('p.codigo',$codigo_propuesta);
         $this->db->join('propuestas_evaluadas pe','p.codigo=pe.codigo_propuesta');

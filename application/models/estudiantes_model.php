@@ -174,7 +174,7 @@ class Estudiantes_Model extends  CI_Model {
     function descripcion_propuesta(){
 
 
-            $this->db->select("p.codigo,p.titulo,p.fecha_hora_subida,ep.descripcion");
+            $this->db->select("p.codigo,p.estado,p.titulo,p.fecha_hora_subida,ep.descripcion");
             $this->db->from('propuestas p');
             $this->db->join('investigadores i', 'p.codigo = i.codigo_propuesta');
             $this->db->join('estado_propuesta ep', 'p.estado = ep.codigo');
