@@ -70,15 +70,41 @@
                                 </td>';
 
                             foreach ($propuestas as $propuesta) {
-                                echo '<td>
-                                    <a type="button" class="btn btn-success btn-xs" onclick="" href='.base_url('estudiante/vista_ver_nota_final/'.$propuesta['codigo'].'').'>'.$propuesta['descripcion'].'</a>
+                                if ($propuesta['estado'] == 1) {
+                                    echo '<td>
+                                    <a type="button" class="btn btn-success btn-xs" onclick="">' . $propuesta['descripcion'] . '</a>
                                 </td>
-                                <td>
-                                    <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                                    <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                    <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                             </tr>';
+
+                                }
+                                if ($propuesta['estado'] == 2) {
+                                    echo '<td>
+                                    <a type="button" class="btn btn-success btn-xs" onclick="">' . $propuesta['descripcion'] . '</a>
                                 </td>
-                            </tr>';
+                             </tr>';
+
+                                }
+                                if ($propuesta['estado'] == 3) {
+                                    echo '<td>
+                                    <a type="button" class="btn btn-success btn-xs" onclick="">' . $propuesta['descripcion'] . '</a>
+                                </td>
+                             </tr>';
+
+                                }
+                                if ($propuesta['estado'] == 4) {
+                                    echo '<td>
+                                    <a type="button" class="btn btn-success btn-xs" onclick="">' . $propuesta['descripcion'] . '</a>
+                                </td>
+                             </tr>';
+
+                                }
+                                if ($propuesta['estado'] == 5) {
+                                    echo '<td>
+                                    <a type="button" class="btn btn-success btn-xs" onclick="" href=' . base_url('estudiante/vista_ver_nota_final/' . $propuesta['codigo']) . '>' . $propuesta['descripcion'] . '</a>
+                                </td>
+                             </tr>';
+
+                                }
                             }
 
 ?>
@@ -93,5 +119,175 @@
         </div>
     </div>
 </div>
-<!-- /page content -->
 
+<fieldset>
+
+    <div class="modal fade modal-wide2" id="modal-ver-propuesta-directores" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">
+
+
+                        <i class="fa fa-eye"></i>
+
+                        <b>Propuesta</b></h4>
+                </div>
+
+
+                <form id="form-mostrar-propuesta" class="formulario form-horizontal"  method="POST" action="<?=base_url('coordinador/ver_propuesta')?>">
+                    <div class="modal-body">
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="name">Código:</label>
+                            <div class="col-md-1">
+
+
+                                <input   readonly id="codigo" name="codigo" type="text"  class="form-control">
+
+
+
+                            </div>
+
+                            <label class="col-md-1 control-label" for="name">Fecha:</label>
+                            <div class="col-md-3">
+
+
+                                <input  disabled id="fecha" name="fecha" type="text"  class="form-control">
+
+
+
+                            </div>
+
+
+                            <label class="col-md-1 control-label" for="name">Tipo:</label>
+                            <div class="col-md-4">
+
+
+                                <input  disabled id="tipo" name="tipo" type="text"  class="form-control">
+
+
+
+                            </div>
+
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="name">Título:</label>
+                            <div class="col-md-10">
+
+
+                                <textarea disabled class="form-control" name="" id="titulo-propuesta" cols="20" rows="5"></textarea>
+
+
+                            </div>
+                        </div>
+
+
+                        <hr>
+
+                        <div class="form-group inv1">
+                            <label class="col-md-2 control-label" for="name">Investigador 1:</label>
+                            <div class="col-md-10">
+
+
+                                <input disabled id="investigador1" name="investigador1" type="text"  class="form-control">
+
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group  inv2">
+                            <label class="col-md-2 control-label" for="name">Investigador 2:</label>
+                            <div class="col-md-10">
+
+
+                                <input disabled id="investigador2" name="investigador2" type="text"  class="form-control">
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group inv3">
+                            <label class="col-md-2 control-label" for="name">Investigador 3:</label>
+                            <div class="col-md-10">
+
+
+                                <input disabled id="investigador3" name="investigador3" type="text"  class="form-control">
+
+
+                            </div>
+                        </div>
+
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</fieldset>
+
+
+<!-- /page content -->
+<!--
+<script>
+
+
+    function verInformacionPropuesta() {
+
+
+        $.ajax({
+
+
+            url: baseUrl+"/estudiante/",
+            type: $("#cambiar-clave").attr("method"),
+            data: $("#cambiar-clave").serialize(),
+
+            success: function (resp) {
+
+                var resps= parseInt(resp);
+
+                if(resps==0){
+
+                    var mensaje = '<div class="alert alert-danger"><strong>Error!</strong> Debe escribir la clave de acceso actual correctamente</div>';
+
+                    $('#mensaje').html(mensaje).show(200).delay(4000).hide(200);
+                    //    $('#mensaje').html(mensaje).show(200).delay(2000).hide(200);
+
+
+                }else {
+
+                    var mensaje = '<div class="alert alert-info"><strong>Exito!</strong> Se ha cambiado su clave de acceso correctamente</div>';
+
+                    $("#cambiar-clave")[0].reset();
+                    $('#mensaje').html(mensaje).show(200).delay(4000).hide(200);
+
+                }
+
+
+            }, error: function () {
+
+                alert("Error");
+            }
+        });
+
+        return false;
+
+    }
+
+
+
+
+</script>-->

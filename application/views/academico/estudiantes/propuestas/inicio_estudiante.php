@@ -3,7 +3,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Inicio</h3>
+                <h3></h3>
             </div>
 
 
@@ -15,7 +15,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Plataforma deshabilitada</h2>
+                        <h2><?= $titulo ?></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -36,31 +36,22 @@
                     </div>
                     <div class="x_content">
 
-
-
-
                         <div>
+                            <h4 class="text-center">En este espacio, podrá inscribir y obtener informacion acerca del estado de su propuesta de trabajo de grado.  </h4>
                             <br>
                         </div>
 
 
 
-
-                <h4 class="text-center">
-
-                            Estimado <?php echo $this->session->userdata('nombres') ?>, ya se ha inscrito una propuesta en la que usted participa titulada:
+                        <div class="col-md-8 col-md-offset-2">
 
 
-                        </h4>
+                            <div id="mi-reloj" class="">
+
+                            </div>
 
 
-
-
-                        <h4>
-
-                            <?= $titulo_propuesta[0]['titulo']?>      <a class="btn btn-success" href="<?=base_url('assets/docs/propuestas/'.$titulo_propuesta[0]['ruta_propuesta'])?>">Descargar aquí</a>
-
-                        </h4>
+                        </div>
 
 
                     </div>

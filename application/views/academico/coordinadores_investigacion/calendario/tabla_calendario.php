@@ -37,6 +37,7 @@
                                     $ci  = &get_instance();
                                     $ci->load->library("formateador_fechas");
 
+
                                         foreach ($calendario as $periodo) {
 
 

@@ -48,8 +48,8 @@
                                                 <td>'.$propuesta['titulo'].'</td>
                                                 <td>'.$propuesta['tipo'].'</td>
                                                  <td ><span class="label label-success pull-left">'.$propuesta['estado'].'</span></td>
-                                                <td class="text-center"><a href="' . base_url('assets/docs/cartas') . '/' . $ruta_carta . '" download="" class="fa fa-download"></a>
-                                                <a href="javascript:verCartaRemision(' . $propuesta['codigo'] . ');" class="fa fa-eye"></a></td>
+                                                <td class="text-center"><a href="' . base_url('assets/docs/cartas') . '/' . $ruta_carta . '" download="" class="btn btn-primary btn-xs"><i class="fa fa-download">Descargar</i></a>
+                                                <a href="javascript:verCartaRemision(' . $propuesta['codigo'] . ');" class="btn btn-success btn-xs"><i class="fa fa-eye">Ver</i></a></td>
                                                 <td class="text-center"><a href="javascript:verPropuesta('.$propuesta['codigo'].');" class="fa fa-eye"></a></td>
                                                 
 
@@ -63,6 +63,7 @@
                                     ?>
 
 
+
                                     </tbody>
 
                                 </table>
@@ -72,7 +73,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="<?= base_url('assets/docs/cartas/') ?>"></a>
+   <!--             <a href="<?/*= base_url('assets/docs/cartas/') */?>"></a>-->
 
 
             </div>
@@ -231,11 +232,11 @@
 
                             <div class="modal-footer">
 
-                                <button class="btn btn-primary">
+                                <button class="btn btn-primary" onclick="cerrarModalId('ver-carta')">
                                     <i class="fa fa-close">Cerrar</i>
                                 </button>
 
-                                <button class="btn btn-success">
+                                <button class="btn btn-success" onclick="descargarCarta()">
                                     <i class="fa fa-download"> Descargar</i>
                                 </button>
 
