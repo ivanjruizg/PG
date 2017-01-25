@@ -1,5 +1,3 @@
-
-
 <?php
 
 if (!defined('BASEPATH'))
@@ -13,7 +11,9 @@ class Reportes extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('reportes_model', 'pdfs_model');
+
+        $this->load->model('propuestas_model');
+
 
     }
 
@@ -69,7 +69,7 @@ class Reportes extends CI_Controller
 
 // Establecemos el contenido para imprimir
 
-        $provincias = $this->pdfs_model->calendario_propuestas(date('Y'));
+        $provincias = $this->propuestas_model->calendario_propuestas(date('Y'));
 
         $this->load->library("formateador_fechas");
 
@@ -95,7 +95,7 @@ class Reportes extends CI_Controller
 
                 </style>";
 
-        $html .= '<h4 >Sincelejo  ' .$this->formateador_fechas->formateador( date("Y-m-d")) . '</h4>
+        $html .= '<h4 >Sincelejo  ' . $this->formateador_fechas->formateador(date("Y-m-d")) . '</h4>
         
         <h3>Estudiantes: </h3>
         <h5>Ingeniería Industrial </h5>
@@ -110,8 +110,6 @@ class Reportes extends CI_Controller
         $html .= '<tr ><th>Fecha límite de recepción </th><th>Fecha de sustentación</th></tr>';
 
 
-
-
         //provincias es la respuesta de la función getProvinciasSeleccionadas($provincia) del modelo
         foreach ($provincias as $fila) {
 
@@ -119,8 +117,8 @@ class Reportes extends CI_Controller
             $localidad = $this->formateador_fechas->formateador($fila['fecha_sustentacion']);
 
             $html .= '<tr>
-                        <td class="text-center">'.$id.'</td>
-                        <td class="text-center">'.$localidad.'</td>
+                        <td class="text-center">' . $id . '</td>
+                        <td class="text-center">' . $localidad . '</td>
                         </tr>';
         }
         $html .= '</table>';
@@ -172,7 +170,7 @@ class Reportes extends CI_Controller
                 
             </table>';
 
-   
+
 // Imprimimos el texto con writeHTMLCell()
         $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 
@@ -194,13 +192,7 @@ class Reportes extends CI_Controller
     {
 
 
-        $this->load->model('propuestas_model');
-
-
-            $fecha = $this->input->post("fecha");
-
-
-
+        $fecha = $this->input->post("fecha");
 
 
         $this->load->library('tcppdf');
@@ -233,7 +225,7 @@ class Reportes extends CI_Controller
 // set some language-dependent strings (optional)
         if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
             require_once(dirname(__FILE__) . '/lang/eng.php');
-          //  $pdf->setLanguageArray($l);
+            //  $pdf->setLanguageArray($l);
         }
 
 // ---------------------------------------------------------
@@ -247,7 +239,6 @@ class Reportes extends CI_Controller
         $pdf->Write(0, 'SUSTENTACIÓN PROPUESTAS DE TRABAJOS DE GRADO', '', 0, 'C', true, 0, false, false, 0);
 
         $pdf->SetFont('helvetica', '', 8);
-
 
 
         $tbl = '
@@ -306,7 +297,7 @@ class Reportes extends CI_Controller
                  
                  <tr>
                     <th  class="tg-ecrz" colspan="5">SUSTENTACIÓN PROPUESTAS DE TRABAJOS DE GRADO</th>
-                    <th class="tg-ecrz" colspan="1">Fecha '.$fecha.'</th>
+                    <th class="tg-ecrz" colspan="1">Fecha ' . $fecha . '</th>
                   </tr>
                  
 
@@ -325,17 +316,14 @@ class Reportes extends CI_Controller
 ';
 
 
+        $calendario = $this->pdfs_model->calendario_sustentaciones($fecha);
 
-        $calendario=$this->pdfs_model->calendario_sustentaciones($fecha);
-
-    //    $x= $result->result_array();
-
+        //    $x= $result->result_array();
 
 
-        $i =1;
+        $i = 1;
 
-        foreach ($calendario as $horario){
-
+        foreach ($calendario as $horario) {
 
 
             $evaluadores = $this->propuestas_model->consultar_evaluadores($horario['codigo']);
@@ -344,18 +332,16 @@ class Reportes extends CI_Controller
             $director = $this->propuestas_model->consultar_director($horario['codigo']);
 
 
-
-
-            $tbl.=' 
+            $tbl .= ' 
                   <tr>
-                    <td class="text-center">'.$i.'</td>
-                    <td class="text-center">'.$horario['titulo'].'</td>
-                    <td class="text-center">'.$estudiantes[0]['nombre'].'<hr>'.$estudiantes[1]['nombre'].'<br>'.$estudiantes[2]['nombre'].'</td>
-                    <td class="text-center">'.$director[0]['nombre'].'<br>'.$co_director[0]['nombre'].'</td>
-                    <td class="text-center">'.$evaluadores[0]['nombre'].'<br>'.$evaluadores[1]['nombre'].'</td>
+                    <td class="text-center">' . $i . '</td>
+                    <td class="text-center">' . $horario['titulo'] . '</td>
+                    <td class="text-center">' . $estudiantes[0]['nombre'] . '<hr>' . $estudiantes[1]['nombre'] . '<br>' . $estudiantes[2]['nombre'] . '</td>
+                    <td class="text-center">' . $director[0]['nombre'] . '<br>' . $co_director[0]['nombre'] . '</td>
+                    <td class="text-center">' . $evaluadores[0]['nombre'] . '<br>' . $evaluadores[1]['nombre'] . '</td>
 
-                    <td class="text-center">'.$horario['hora'].'</td>
-                    <td class="text-center">'.$horario['aula'].'</td>
+                    <td class="text-center">' . $horario['hora'] . '</td>
+                    <td class="text-center">' . $horario['aula'] . '</td>
                   </tr>
              
 ';
@@ -364,12 +350,12 @@ class Reportes extends CI_Controller
 
         }
 
-        $tbl.= '</table>';
+        $tbl .= '</table>';
 
 //        }
         $pdf->writeHTML($tbl, true, false, false, false, '');
 
-       // $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $tbl, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+        // $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $tbl, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 
 
 // -----------------------------------------------------------------------------
@@ -386,6 +372,291 @@ class Reportes extends CI_Controller
 //============================================================+
     }
 
+
+    function acta_evaluacion_de_propuestas_de_grado()
+    {
+
+
+        $this->load->library('tcppdf');
+
+        $pdf = new Tcppdf(PDF_PAGE_ORIENTATION, 'mm', 'letter', true, 'UTF-8', false);
+
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Nicola Asuni');
+        $pdf->SetTitle('TCPDF Example 048');
+        $pdf->SetSubject('TCPDF Tutorial');
+        $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+
+
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+// set default monospaced font
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+// set margins
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+// set auto page breaks
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+// set image scale factor
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+// set some language-dependent strings (optional)
+        if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
+            require_once(dirname(__FILE__) . '/lang/eng.php');
+            //  $pdf->setLanguageArray($l);
+        }
+
+// ---------------------------------------------------------
+
+// set font
+        $pdf->SetFont('helvetica', 'B', 12);
+
+// add a page
+        $pdf->AddPage("P");
+
+        $pdf->writeBR(1);
+
+        $pdf->Write(0, 'ACTA DE EVALUACIÓN DE LA PROPUESTA DE TRABAJO DE GRADO', '', 0, 'C', true, 0, false, false, 0);
+
+        $pdf->SetFont('helvetica', '', 10);
+
+
+
+
+        $pdf->writeHTML("<br>", true, false, false, false, '');
+
+
+
+
+        $titulo= $this->propuestas_model->consultar_titulo(1);
+
+        $estudiantes= $this->propuestas_model->consultar_estudiantes(1);
+        $director= $this->propuestas_model->consultar_director(1);
+        $co_director= $this->propuestas_model->consultar_codirector(1);
+
+
+        $tbl = '
+        
+        <style type=text/css>
+
+                   th{
+                        color: #fff; font-weight: bold; 
+                       
+                        text-align: center;
+                        font-size: 12px;
+                         background-color: #469B49;
+                         
+                        
+                   
+                   }
+                   
+                   .w30{
+                        
+                        width: 30px;
+                   }
+                   
+                   .w20{
+                        
+                        width: 30px;
+                   }
+                   
+                   .w30{
+                        
+                        width: 60px;
+                   }
+                   
+                   .w130{
+                        
+                        width: 130px;
+                   }
+                   
+                   
+                   .opaco{
+                   
+                  
+                   
+                   }
+                   
+                   
+                   .text-center{
+                        
+                        text-align: center;
+                   }
+                   
+                                  
+  
+
+                </style>
+                <table border="">
+                 
+                 <tr>
+                    <td  class="tg-ecrz" ><b>TÍTULO DE LA PROPUESTA:</b> </td>
+                    
+                  
+                  </tr>
+                  
+                                   <tr>
+                    <td  class="tg-ecrz" ></td>
+                  </tr>
+                  
+                  <tr>
+                    <td  class="tg-ecrz" >'.$titulo.'</td>
+                    
+                  
+                  </tr>
+                  
+                                   <tr>
+                    <td  class="tg-ecrz" ></td>
+                  </tr>
+                  
+                  <tr>
+                  <td  class="tg-ecrz" ><b>PRESENTADA :</b> 
+                  
+                    </td>
+                  </tr>
+                  
+                 <tr>
+                    <td  class="tg-ecrz" >'.$estudiantes[0]['nombre'].'<br>'.$estudiantes[1]['nombre'].'<br>'.$estudiantes[2]['nombre'].'
+                    
+                    
+                    
+                    
+                    
+                    
+                    </td>
+                  </tr>
+                 
+                 <tr>
+                    <td  class="tg-ecrz" ><b>DIRECTORES :</b></td>
+                  </tr>
+                  
+                 <tr>
+                    <td  class="tg-ecrz" >'.$director[0]['nombre'].'</td>
+                  </tr>
+                 
+                 <tr>
+                    <td  class="tg-ecrz" >'.$co_director[0]['nombre'].'</td>
+                  </tr>
+                 
+                 </table>
+
+';
+
+
+
+
+        $pdf->writeHTML($tbl, true, false, false, false, '');
+        $evaluaciones=$this->propuestas_model->nota_parciales_propuesta(1);
+
+
+        $pdf->writeBR(1);
+
+        $tabla_evaluacion = '<table border="1" style="padding: 3px">
+
+
+                 <tr>
+                    <th class="tg-ecrz" >EVALUADORES</th>
+                    <th class="tg-ecrz" >NOTA</th>
+                 </tr>
+                            ';
+
+
+
+        $nota =0;
+
+        foreach ($evaluaciones as $evaluacion){
+
+            $tabla_evaluacion.='<tr>
+                                    <th class="tg-ecrz" >'.$evaluacion['evaluador'].'</th>
+                                    <th class="tg-ecrz" >'.$evaluacion['nota'].'</th>
+                                 </tr>';
+
+
+            $nota+=$evaluacion['nota'];
+        }
+
+
+
+
+        $tabla_evaluacion.='</table>';
+
+        $pdf->writeBR(2);
+        $pdf->writeHTML($tabla_evaluacion, true, false, false, false, '');
+
+        $tabla_nota_final="";
+
+        $tabla_nota_final.='<table><tr>
+                                    
+                                    <th class="tg-ecrz" ></th>
+                                    <th style="text-align: right;" class="tg-ecrz"> <b> NOTA FINAL : '.($nota/2).'</b></th>
+                                 </tr>
+                                 
+                                 </table>';
+
+
+
+        $pdf->writeHTML($tabla_nota_final, true, false, false, false, '');
+
+
+
+        $pdf->writeBR(16);
+
+
+        $tabla_firmas = '<table border="">
+
+
+                 <tr>
+                    <th style="text-align: center;" class="tg-ecrz" >________________________________</th>
+                    <th style="text-align: center;" class="tg-ecrz" >________________________________</th>
+                 </tr>
+
+                 <tr>
+                    <th style="text-align: center;" class="tg-ecrz" >Decano FCBIA</th>
+                    <th style="text-align: center;" class="tg-ecrz" >COOR. Comité de Investigación</th>
+                    
+                    
+
+                    
+                 </tr>
+                            ';
+
+
+        $tabla_firmas.='</table>';
+
+
+        $pdf->writeHTML($tabla_firmas, true, false, false, false, '');
+//        }
+//        $pdf->writeHTML($tbl, true, false, false, false, '');
+
+        // $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $tbl, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+
+
+// -----------------------------------------------------------------------------
+
+// NON-BREAKING ROWS (nobr="true")
+
+// -----------------------------------------------------------------------------
+        ob_end_clean();
+//Close and output PDF document
+        $pdf->Output('example_048.pdf', 'I');
+
+//============================================================+
+// END OF FILE
+//============================================================+
+    }
+
+
+    function r(){
+
+        $evaluaciones=$this->propuestas_model->nota_parciales_propuesta(1);
+
+        echo var_dump($evaluaciones);
+
+    }
 
 
 }

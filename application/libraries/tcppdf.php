@@ -37,4 +37,17 @@ class Tcppdf extends TCPDF
 
 
     }
+
+    function writeBR($lines){
+
+
+        for ($i = 0 ;$i<=$lines;$i++){
+
+            $this->writeHTML("<br>", true, false, false, false, '');
+
+
+
+        }
+
+    }
 }
