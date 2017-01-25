@@ -46,9 +46,9 @@ function quitarPropuestaDeHorarioDeSustentacion(codigoHorario) {
 
 
 
-    var x = $("#codigoHorario").html();
+    var x = $("#"+codigoHorario).html();
 
-    if(x==""){
+    if(x!=""){
 
 
         var url =  baseUrl+"/coordinador/quitar_propuesta_horario_sustentacion";

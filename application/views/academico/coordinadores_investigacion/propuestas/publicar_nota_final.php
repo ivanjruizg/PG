@@ -138,7 +138,7 @@
 
                         <div class="form-group  inv1">
                             <label class="col-md-2 control-label" for="name">Evaluador 1 : </label>
-                            <div class="col-md-7">
+                            <div class="col-md-6">
 
 
                                 <input disabled id="evaluador1" type="text" class="form-control">
@@ -146,7 +146,7 @@
 
                             </div>
 
-                            <label class="col-md-1 control-label" for="name">Nota : </label>
+                            <label class="col-md-2 control-label" for="name">Nota : </label>
 
                             <div class="col-md-2">
 
@@ -161,7 +161,7 @@
 
                         <div class="form-group inv2">
                             <label class="col-md-2 control-label" for="name">Evaluador 2:</label>
-                            <div class="col-md-7">
+                            <div class="col-md-6">
 
 
                                 <input disabled id="evaluador2" type="text" class="form-control">
@@ -169,11 +169,35 @@
 
                             </div>
 
-                            <label class="col-md-1 control-label" for="name">Nota : </label>
+                            <label class="col-md-2 control-label" for="name">Nota : </label>
                             <div class="col-md-2">
 
 
                                 <input readonly required id="nota-evaluador2" name="nota-evaluador2" type="text" class="form-control">
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group inv2">
+
+
+                            <label class="col-md-2 control-label" for="name">Estado : </label>
+                            <div class="col-md-6">
+
+
+                                <input readonly required id="desc" name="" type="text" class="form-control">
+
+
+                            </div>
+
+
+                            <label class="col-md-2 control-label" for="name">Nota final: </label>
+                            <div class="col-md-2">
+
+
+                                <input disabled required id="nota-final"  type="text" class="form-control">
 
 
                             </div>
@@ -187,7 +211,7 @@
                             <div class="col-md-4 col-md-offset-8">
 <!--                                <button class="btn btn-danger" onclick="cerrarModalId('modal-asignar-directores')">Cerrar</button>-->
 
-                                <input  type="submit" class="btn btn-success pull-right" value="Publicar nota">
+                                <input  type="submit"    id="publicar-nota-final" class="btn btn-success pull-right" value="Publicar nota">
                                 <button type="button" onclick="cerrarModalId('modal-asignar-directores')" class="btn btn-primary pull-right">Cancelar</button>
 
 
@@ -203,66 +227,3 @@
 </fieldset>
 
 
-<script>
-
-    function verModalEvaluacion(codigo) {
-
-
-
-        $("#form-publicar-nota-final")[0].reset();
-
-
-        $.ajax({
-
-            url: baseUrl+"/coordinador/ver_evaluacion_propuesta",
-            type: "POST",
-            data: {codigo: codigo},
-            appendTo: "#form-asignar-directores",
-            success: function (resp) {
-
-
-
-
-
-                valores = eval(resp);
-
-                for (var i = 0; i < valores.length; i++) {
-
-
-                    $("#codigo").val(codigo);
-                    $("#titulo-propuesta").val(valores[i].titulo);
-                    $("#fecha").val(valores[i].fecha_recepcion);
-                    $("#tipo").val(valores[i].tipo_propuesta);
-
-                    $("#evaluador1").val(valores[i].evaluador1);
-                    $("#evaluador2").val(valores[i].evaluador2);
-
-                    $("#nota-evaluador1").val(valores[i].nota1);
-                    $("#nota-evaluador2").val(valores[i].nota2);
-
-
-
-
-
-                }
-
-                abrirModalId('modal-asignar-directores');
-
-                $('#codigo').val(codigo);
-
-
-
-                console.log(valores);
-
-            }, error: function () {
-
-                alert("Error");
-
-            }
-        });
-        return false;
-
-    }
-
-
-</script>

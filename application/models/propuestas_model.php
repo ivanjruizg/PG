@@ -67,10 +67,14 @@ class Propuestas_model extends CI_Model
         $nota_definitiva= $result->result_array()[0]['nota_definitiva'];
 
 
+        $descripcion_nota = $this->descripcion_nota($nota_definitiva);
+
         $datos=array(
 
             "codigo_propuesta"=>$codigo_propuesta,
-            "nota"=>$nota_definitiva
+            "nota"=>$nota_definitiva,
+            "descripcion_nota "=>$descripcion_nota
+
 
         );
 
@@ -78,6 +82,37 @@ class Propuestas_model extends CI_Model
 
 
     }
+
+
+
+
+    function descripcion_nota($nota){
+
+        $descripcion_nota="";
+        if($nota<3){
+
+
+            $descripcion_nota="RECHAZADA";
+
+        }else if($nota>=3 && $nota<3.7){
+
+            $descripcion_nota="ACEPTADA CON MODIFICACIONES MAYORES";
+
+        }
+        else if($nota>=3.8 && $nota<4.3){
+
+            $descripcion_nota="ACEPTADA CON MODIFICACIONES MENORES";
+
+        }else if($nota>=4.4){
+
+
+            $descripcion_nota="ACEPTADA";
+        }
+
+
+        return $descripcion_nota;
+    }
+
 
     function listar_propuesta($codigo)
     {

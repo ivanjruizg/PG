@@ -112,8 +112,8 @@ class Coordinador extends CI_Controller
         $periodo = $this->propuestas_model->calendario_recepcion_abierto();
 
         $datos['propuestas'] = $this->coordinador_model->listar_propuestas_evaluadas($periodo);
-        $datos['css'] = array('jquery-ui.css', 'dataTables.bootstrap.css');
-        $datos['js'] = array('jquery-ui.js', 'mis-scripts/coordinador/asignarDirectores.js','mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
+        $datos['css'] = array('dataTables.bootstrap.css');
+        $datos['js'] = array('mis-scripts/coordinador/notasFinales.js','mis-scripts/modalBootstrap.js', 'datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
         $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
 
@@ -127,10 +127,12 @@ class Coordinador extends CI_Controller
         $codigo_propuesta = $this->input->post('codigo-propuesta');
 
 
-        $periodo = $this->propuestas_model->publicar_nota_final($codigo_propuesta);
+        $this->propuestas_model->publicar_nota_final($codigo_propuesta);
 
-        echo var_dump($periodo);
 
+
+
+        redirect(base_url('coordinador/publicar-nota-final'));
 
     }
 
@@ -815,19 +817,11 @@ class Coordinador extends CI_Controller
 
     function hoy(){
 
-        /*
-
-        $hoy = new DateTime('now');
-        $hoy->add()
-
-        echo var_dump($hoy->format('Y-m-d'));
-
-        */
+        echo var_dump( $this->coordinador_model->consultar_propuestas_con_notas_finales());
 
 
-        $fecha = new DateTime('now');
-        $fecha->add(new DateInterval('P1D'));
-        echo $fecha->format('Y-m-d');
+
+
 
     }
 
