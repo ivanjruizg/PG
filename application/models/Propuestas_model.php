@@ -17,12 +17,11 @@ class Propuestas_model extends CI_Model
         $this->db->limit('1');
         $result = $this->db->get();
 
-        if ($result->num_rows()>0) {
+        if ($result->num_rows() > 0) {
 
             return $result->result_array()[0]['periodo'];
 
-        }
-        else {
+        } else {
 
             return null;
         }
@@ -30,23 +29,17 @@ class Propuestas_model extends CI_Model
     }
 
 
-
-
-
-
-
-
     function evaluacion_propuesta($codigo_propuesta)
     {
 
-        $this->db->select("p.codigo, p.titulo,p.fecha_hora_subida,tp.convencion AS tipo,e.nota, CONCAT( d.nombres,' ',d.primer_apellido,d.segundo_apellido) AS evaluador",FALSE);
+        $this->db->select("p.codigo, p.titulo,p.fecha_hora_subida,tp.convencion AS tipo,e.nota, CONCAT( d.nombres,' ',d.primer_apellido,d.segundo_apellido) AS evaluador", FALSE);
         $this->db->from('propuestas p');
 
         $this->db->join('propuestas_evaluadas e', 'e.codigo_propuesta = p.codigo');
         $this->db->join('tipos_propuesta tp', 'p.tipo = tp.codigo');
         $this->db->join('docentes d', 'd.correo = e.correo_evaluador');
 
-        $this->db->where("p.codigo",$codigo_propuesta);
+        $this->db->where("p.codigo", $codigo_propuesta);
 
         $result = $this->db->get();
 
@@ -55,58 +48,57 @@ class Propuestas_model extends CI_Model
     }
 
 
-    function publicar_nota_final($codigo_propuesta){
+    function publicar_nota_final($codigo_propuesta)
+    {
 
 
-        $this->db->select("AVG(e.nota) AS nota_definitiva",FALSE);
+        $this->db->select("AVG(e.nota) AS nota_definitiva", FALSE);
         $this->db->from('propuestas p');
         $this->db->join('propuestas_evaluadas e', 'e.codigo_propuesta = p.codigo');
-        $this->db->where("p.codigo",$codigo_propuesta);
+        $this->db->where("p.codigo", $codigo_propuesta);
         $result = $this->db->get();
 
-        $nota_definitiva= $result->result_array()[0]['nota_definitiva'];
+        $nota_definitiva = $result->result_array()[0]['nota_definitiva'];
 
 
         $descripcion_nota = $this->descripcion_nota($nota_definitiva);
 
-        $datos=array(
+        $datos = array(
 
-            "codigo_propuesta"=>$codigo_propuesta,
-            "nota"=>$nota_definitiva,
-            "descripcion_nota "=>$descripcion_nota
+            "codigo_propuesta" => $codigo_propuesta,
+            "nota" => $nota_definitiva,
+            "descripcion_nota " => $descripcion_nota
 
 
         );
 
-        $this->db->insert("notas_finales_evaluacion_propuestas",$datos);
+        $this->db->insert("notas_finales_evaluacion_propuestas", $datos);
 
 
     }
 
 
+    function descripcion_nota($nota)
+    {
+
+        $descripcion_nota = "";
+        if ($nota < 3) {
 
 
-    function descripcion_nota($nota){
+            $descripcion_nota = "RECHAZADA";
 
-        $descripcion_nota="";
-        if($nota<3){
+        } else if ($nota >= 3 && $nota < 3.7) {
 
+            $descripcion_nota = "ACEPTADA CON MODIFICACIONES MAYORES";
 
-            $descripcion_nota="RECHAZADA";
+        } else if ($nota >= 3.8 && $nota < 4.3) {
 
-        }else if($nota>=3 && $nota<3.7){
+            $descripcion_nota = "ACEPTADA CON MODIFICACIONES MENORES";
 
-            $descripcion_nota="ACEPTADA CON MODIFICACIONES MAYORES";
-
-        }
-        else if($nota>=3.8 && $nota<4.3){
-
-            $descripcion_nota="ACEPTADA CON MODIFICACIONES MENORES";
-
-        }else if($nota>=4.4){
+        } else if ($nota >= 4.4) {
 
 
-            $descripcion_nota="ACEPTADA";
+            $descripcion_nota = "ACEPTADA";
         }
 
 
@@ -134,7 +126,8 @@ class Propuestas_model extends CI_Model
     }
 
 
-    function consultar_evaluadores($codigo_propuesta){
+    function consultar_evaluadores($codigo_propuesta)
+    {
 
         $this->db->select("p.correo_evaluador,CONCAT(d.nombres,' ',d.primer_apellido) AS nombre", FALSE);
         $this->db->from('propuestas_por_evaluar p');
@@ -150,7 +143,8 @@ class Propuestas_model extends CI_Model
     }
 
 
-    function consultar_estudiantes($codigo_propuesta){
+    function consultar_estudiantes($codigo_propuesta)
+    {
 
         $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido,' ', e.segundo_apellido) AS nombre", FALSE);
         $this->db->from('investigadores i');
@@ -166,7 +160,8 @@ class Propuestas_model extends CI_Model
     }
 
 
-    function consultar_director($codigo_propuesta){
+    function consultar_director($codigo_propuesta)
+    {
 
         $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido,e.segundo_apellido) AS nombre", FALSE);
         $this->db->from('investigadores i');
@@ -182,7 +177,8 @@ class Propuestas_model extends CI_Model
     }
 
 
-    function consultar_codirector($codigo_propuesta){
+    function consultar_codirector($codigo_propuesta)
+    {
 
         $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido,' ',e.segundo_apellido) AS nombre", FALSE);
         $this->db->from('investigadores i');
@@ -228,15 +224,14 @@ class Propuestas_model extends CI_Model
         );
 
 
-        $this->db->where("codigo",$codigo_sustentacion);
+        $this->db->where("codigo", $codigo_sustentacion);
         $this->db->update("sustentaciones", $datos);
 
 
     }
 
 
-
-    function crear_horario_sustentaciones($periodo,$aula, $fecha,$hora)
+    function crear_horario_sustentaciones($periodo, $aula, $fecha, $hora)
     {
 
 
@@ -255,32 +250,32 @@ class Propuestas_model extends CI_Model
 
     }
 
-    function horarios_de_sustentaciones(){
+    function horarios_de_sustentaciones()
+    {
 
 
         $this->db->select("s.hora, p.titulo");
         $this->db->from('sustentaciones s');
-        $this->db->join('propuestas p','s.codigo_propuesta = p.codigo');
+        $this->db->join('propuestas p', 's.codigo_propuesta = p.codigo');
         $result = $this->db->get();
 
         return $result->result_array();
 
 
-
     }
 
-    function horarios_de_sustentaciones2($fecha){
+    function horarios_de_sustentaciones2($fecha)
+    {
 
 
-        $sql ="SELECT s.* FROM sustentaciones s, propuestas p
+        $sql = "SELECT s.* FROM sustentaciones s, propuestas p
                 WHERE p.codigo = s.codigo_propuesta AND fecha='$fecha'
                 UNION
                 SELECT * FROM sustentaciones WHERE fecha='$fecha' 
                 ORDER BY fecha,hora
                       ";
 
-        $result= $this->db->query($sql);
-
+        $result = $this->db->query($sql);
 
 
         return $result->result_array();
@@ -288,24 +283,21 @@ class Propuestas_model extends CI_Model
     }
 
 
-    function mostrar_horario_sustentaciones($fecha){
+    function mostrar_horario_sustentaciones($fecha)
+    {
 
 
-        $sql ="SELECT s.* FROM sustentaciones s, propuestas consulrarHorarioDeSustentacion
+        $sql = "SELECT s.* FROM sustentaciones s, propuestas consulrarHorarioDeSustentacion
                 WHERE consulrarHorarioDeSustentacion.codigo = s.codigo_propuesta AND fecha='$fecha'
                 UNION
                 SELECT * FROM sustentaciones WHERE fecha='$fecha' 
                 ORDER BY fecha,hora
                       ";
 
-        $result= $this->db->query($sql);
-
-
-
+        $result = $this->db->query($sql);
 
 
         return $result->result_array();
-
 
 
     }
@@ -314,7 +306,7 @@ class Propuestas_model extends CI_Model
     function consultar_titulo($codigo)
     {
 
-        if(isset($codigo)) {
+        if (isset($codigo)) {
             $this->db->select("p.titulo");
             $this->db->from('propuestas p');
             $this->db->where("p.codigo", $codigo);
@@ -326,8 +318,6 @@ class Propuestas_model extends CI_Model
         return "";
 
     }
-
-
 
 
     function ver_calendario_de_trabajos_de_grado()
@@ -343,8 +333,8 @@ class Propuestas_model extends CI_Model
     }
 
 
-
-    function listar_tipos_propuestas(){
+    function listar_tipos_propuestas()
+    {
 
 
         $this->db->select('codigo,nombre');
@@ -356,7 +346,8 @@ class Propuestas_model extends CI_Model
     }
 
 
-    function observaciones_propuestas_evaluadas($codigo_propuesta){
+    function observaciones_propuestas_evaluadas($codigo_propuesta)
+    {
 
         /*SELECT Propuestas.codigo,
 propuestas_evaluadas.correo_evaluador,
@@ -371,87 +362,79 @@ propuestas
 INNER JOIN propuestas_evaluadas ON propuestas_evaluadas.codigo_propuesta = propuestas.codigo
 INNER JOIN docentes ON propuestas_evaluadas.correo_evaluador = docentes.correo*/
 
-        $this->db->select("p.titulo,p.estado,pe.observaciones,CONCAT( d.nombres,' ',d.primer_apellido,' ',d.segundo_apellido) AS evaluador",false);
+        $this->db->select("p.titulo,p.estado,pe.observaciones,CONCAT( d.nombres,' ',d.primer_apellido,' ',d.segundo_apellido) AS evaluador", false);
         $this->db->from('propuestas p');
-        $this->db->where('p.codigo',$codigo_propuesta);
-        $this->db->join('propuestas_evaluadas pe','p.codigo=pe.codigo_propuesta');
-        $this->db->join('docentes d','d.correo=pe.correo_evaluador');
+        $this->db->where('p.codigo', $codigo_propuesta);
+        $this->db->join('propuestas_evaluadas pe', 'p.codigo=pe.codigo_propuesta');
+        $this->db->join('docentes d', 'd.correo=pe.correo_evaluador');
         $result = $this->db->get();
 
         return $result->result_array();
 
 
-
-
-
     }
 
 
-
-
-    function nota_final_propuesta($codigo_propuesta){
+    function nota_final_propuesta($codigo_propuesta)
+    {
 
 
         $this->db->select("nf.nota,nf.descripcion_nota");
         $this->db->from('notas_finales_evaluacion_propuestas nf');
-        $this->db->join('propuestas p','nf.codigo_propuesta=p.codigo');
-        $this->db->where('p.codigo',$codigo_propuesta);
+        $this->db->join('propuestas p', 'nf.codigo_propuesta=p.codigo');
+        $this->db->where('p.codigo', $codigo_propuesta);
         $result = $this->db->get();
 
         return $result->result_array();
 
 
-
     }
 
 
-
-    function horarios_de_sustentacion_propuesta($codigo_propuesta){
+    function horarios_de_sustentacion_propuesta($codigo_propuesta)
+    {
 
 
         $this->db->select("s.hora,s.aula,s.fecha");
         $this->db->from('sustentaciones s');
-        $this->db->where('s.codigo_propuesta',$codigo_propuesta);
+        $this->db->where('s.codigo_propuesta', $codigo_propuesta);
 
-    function nota_parciales_propuesta($codigo_propuesta){
-
-
-        $this->db->select("pe.nota,CONCAT( d.nombres,' ',d.primer_apellido,' ',d.segundo_apellido) AS evaluador",false);
-        $this->db->from("propuestas_evaluadas pe");
-        $this->db->join("docentes d","pe.correo_evaluador = d.correo");
-        $this->db->where('pe.codigo_propuesta',$codigo_propuesta);
-
-        $result = $this->db->get();
-
-        return $result->result_array();
+        function nota_parciales_propuesta($codigo_propuesta)
+        {
 
 
+            $this->db->select("pe.nota,CONCAT( d.nombres,' ',d.primer_apellido,' ',d.segundo_apellido) AS evaluador", false);
+            $this->db->from("propuestas_evaluadas pe");
+            $this->db->join("docentes d", "pe.correo_evaluador = d.correo");
+            $this->db->where('pe.codigo_propuesta', $codigo_propuesta);
 
-    }
+            $result = $this->db->get();
 
-
-
-
-
-
-
-    function calendario_propuestas($anio){
-
-        $this->db->select("fecha_limite_recepcion,fecha_sustentacion");
-        $this->db->from("calendario_trabajos_de_grado");
-        //  $this->db->where("periodo",$periodo);
-
-        $this->db->where("LEFT(periodo,4)", $anio);
-
-        $result = $this->db->get();
-        return $result->result_array();
-    }
+            return $result->result_array();
 
 
-    function calendario_sustentaciones($fecha){
+        }
 
 
-        $result= $this->db->query(" Select p.codigo, s.fecha,s.aula,p.titulo,s.hora,i.correo_director,i.correo_codirector,pa.correo_evaluador
+        function calendario_propuestas($anio)
+        {
+
+            $this->db->select("fecha_limite_recepcion,fecha_sustentacion");
+            $this->db->from("calendario_trabajos_de_grado");
+            //  $this->db->where("periodo",$periodo);
+
+            $this->db->where("LEFT(periodo,4)", $anio);
+
+            $result = $this->db->get();
+            return $result->result_array();
+        }
+
+
+        function calendario_sustentaciones($fecha)
+        {
+
+
+            $result = $this->db->query(" Select p.codigo, s.fecha,s.aula,p.titulo,s.hora,i.correo_director,i.correo_codirector,pa.correo_evaluador
                         FROM propuestas p, sustentaciones s, investigadores i, propuestas_por_evaluar pa
                         WHERE pa.codigo_propuesta=p.codigo
                         AND p.codigo = s.codigo_propuesta
@@ -460,9 +443,9 @@ INNER JOIN docentes ON propuestas_evaluadas.correo_evaluador = docentes.correo*/
                                 
                         GROUP BY p.codigo;
         ");
-        return $result->result_array();
+            return $result->result_array();
+        }
+
+
     }
-
-
-
 }
