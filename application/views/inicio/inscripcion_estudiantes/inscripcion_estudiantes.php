@@ -28,10 +28,6 @@
 
                                     echo  '<option value="'.$programa['codigo'].'">'.$programa['nombre'].'</option>';
 
-
-
-
-
                                 }
 
                                 ?>

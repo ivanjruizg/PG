@@ -223,7 +223,7 @@
 
 
                                 <input  type="submit" class="btn btn-success pull-right" value="Asignar evaluadores">
-                                <button type="button" onclick="cerrarModalId('modal-asignar-evaluadores')" class="btn btn-primary pull-right">Cancelar</button>
+                                <button type="button" onclick="cerrarModalId('modal-asignar-evaluadores')" class="btn btn-primary pull-right">Cerrar</button>
 
 
 

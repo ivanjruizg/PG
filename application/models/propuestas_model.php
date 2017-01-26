@@ -403,4 +403,22 @@ INNER JOIN docentes ON propuestas_evaluadas.correo_evaluador = docentes.correo*/
 
 
     }
+
+
+    function horarios_de_sustentacion_propuesta($codigo_propuesta){
+
+
+        $this->db->select("s.hora,s.aula,s.fecha");
+        $this->db->from('sustentaciones s');
+        $this->db->where('s.codigo_propuesta',$codigo_propuesta);
+        $result = $this->db->get();
+
+        return $result->result_array();
+
+
+
+    }
+
+
+
 }

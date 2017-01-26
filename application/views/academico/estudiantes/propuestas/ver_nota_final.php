@@ -31,8 +31,9 @@
                         <table class="table table-striped projects">
                             <thead>
                             <tr>
-                                <th style="width: 1%">#</th>
-                                <th style="width: 50%">Título de la propuesta</th>
+                              <th style="width: 75%" class="col-md-12">Título de la propuesta: <?=$observaciones[0]['titulo']?></th>
+                            </tr>
+                            <tr>
                                 <th style="width: 15%">Evaluadores</th>
                                 <th>Observaciones</th>
 
@@ -45,9 +46,7 @@
 
 
                             foreach ($observaciones as $observacion)
-                            echo '<tr>
-                                <th style="width: 1%">#</th>
-                                <th style="width: 50%">'.$observacion['titulo'].'</th>
+                      echo '<tr>                              
                                 <th style="width: 15%">'.$observacion['evaluador'].'</th>
                                 <th>'.$observacion['observaciones'].'</th>
                                 

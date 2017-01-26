@@ -81,39 +81,9 @@ function verModalAsignarEvaluadores(codigo) {
         success: function (resp) {
 
 
-            $("#form-asignar-evaluadores")[0].reset();
 
 
-            valores = eval(resp);
 
-
-            for (var i = 0; i < valores.length; i++) {
-
-
-                $("#codigo").val(codigo);
-                $("#titulo-propuesta").val(valores[i].titulo);
-                $("#fecha").val(valores[i].fecha_recepcion);
-                $("#tipo").val(valores[i].tipo_propuesta);
-
-
-                $("#directores").val(valores[i].director);
-
-                if(valores[i].co_director!=null){
-
-
-                    $("#directores").val($("#directores").val()+" - "+valores[i].co_director);
-
-                }
-
-                $("#evaluador1").val(valores[i].evaluador1);
-                $("#evaluador2").val(valores[i].evaluador2);
-
-                $("#investigador" + (i + 1)).val(valores[i].estudiante);
-
-                $(".inv" + (i + 1)).show();
-
-
-            }
 
 
             console.log(valores);

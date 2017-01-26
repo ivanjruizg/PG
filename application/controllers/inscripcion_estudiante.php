@@ -252,13 +252,24 @@ class Inscripcion_estudiante extends CI_Controller
     }
 
     function enviar_correo_activacion($correo, $codigo_activacion){
+		
 
 
-        $this->load->library('email','','correo');
+        $this->load->library('email');
+		
+		
+		$configEmail = array(
+			'mailtype' => 'html',
+			'charset' => 'utf-8',
+			'newline' => "\r\n"
+		); 
+ 
+		//cargamos la configuración para enviar con yahoo
+		$this->email->initialize($configEmail);
 
-        $this->correo->from('pruebasaydii@gmail.com', 'Tu Nombre'); // correo sin espacio
-        $this->correo->to($correo); // correo sin espacio
-        $this->correo->subject('Esto es una prueba');
+        $this->email->from('pruebasaydii@gmail.com', 'Tu Nombre'); // correo sin espacio
+        $this->email->to($correo); // correo sin espacio
+        $this->email->subject('Esto es una prueba');
 
 
 
@@ -404,11 +415,11 @@ class Inscripcion_estudiante extends CI_Controller
                 </body>
                 </html>';
 
-        $this->correo->message($cuerpo);
+        $this->email->message($cuerpo);
 
 
 
-        return $this->correo->send();
+        return $this->email->send();
 
 
 
@@ -418,11 +429,22 @@ class Inscripcion_estudiante extends CI_Controller
     function enviar_correo_activacion_docente($correo, $codigo_activacion){
 
 
-        $this->load->library('email','','correo');
+        $this->load->library('email');
 
-        $this->correo->from('pruebasaydii@gmail.com', 'Tu Nombre'); // correo sin espacio
-        $this->correo->to($correo); // correo sin espacio
-        $this->correo->subject('Esto es una prueba');
+		
+		$configEmail = array(
+			'mailtype' => 'html',
+			'charset' => 'utf-8',
+			'newline' => "\r\n"
+		); 
+ 
+		//cargamos la configuración para enviar con yahoo
+		$this->email->initialize($configEmail);
+		
+		
+        $this->email->from('pruebasaydii@gmail.com', 'Tu Nombre'); // correo sin espacio
+        $this->email->to($correo); // correo sin espacio
+        $this->email->subject('Esto es una prueba');
 
 
 
@@ -568,11 +590,11 @@ class Inscripcion_estudiante extends CI_Controller
                 </body>
                 </html>';
 
-        $this->correo->message($cuerpo);
+        $this->email->message($cuerpo);
 
 
 
-        return $this->correo->send();
+        return $this->email->send();
 
 
 

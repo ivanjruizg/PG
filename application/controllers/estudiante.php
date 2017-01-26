@@ -54,7 +54,7 @@ class Estudiante extends CI_Controller
 
             $datos['titulo'] = "Estudiante";
             $datos['contenido'] = 'propuestas/ver_estado_propuesta';
-           // $datos['js'] = array("jquery.smartWizard.js");
+            $datos['js'] = array("jquery.smartWizard.js","mis-scripts/modalBootstrap.js","mis-scripts/estudiante/estadosPropuesta.js");
             $datos['propuestas'] = $propuesta;
             $datos['investigadores'] = $this->propuestas_model->consultar_estudiantes($propuesta[0]['codigo']);
             $this->load->view("academico/estudiantes/plantilla", $datos);
@@ -496,26 +496,55 @@ class Estudiante extends CI_Controller
     }
 
 
-    function vista_ver_nota_final($codigo_propuesta){
+    function ver_nota_final(){
 
 
-
+        $codigo_propuesta=$this->input->post('codigo');
 
         $observaciones=$this->propuestas_model->observaciones_propuestas_evaluadas($codigo_propuesta);
 
 
         $nota=$this->propuestas_model->nota_final_propuesta($codigo_propuesta);
 
+        echo '<table class="table table-striped table-bordered dt-responsive" cellspacing="0" width="100%">
+                        <thead>
+                             <tr>
+                                <th colspan="2">'.$observaciones[0]['titulo'].'</th>
+                             </tr>
+                             <tr>
+                                <th width="5">Evaluadores</th>
+                                <th width="5">Observaciones</th>
+                             </tr>
+                        </thead>
+                        <tbody>
+                        ';
 
-        $datos['titulo'] = "Estudiante-Nota Final";
-        $datos['contenido'] = 'propuestas/ver_nota_final';
 
-        $datos['observaciones']=$observaciones;
-
-        $datos['nota']=$nota;
+        foreach ($observaciones as $observacion){
 
 
-        $this->load->view("academico/estudiantes/plantilla", $datos);
+            echo '<tr>                              
+                    <th style="width: 15%">' . $observacion['evaluador'] . '</th>
+                    <th>' . $observacion['observaciones'] . '</th>
+                  </tr>';
+
+
+
+    }
+
+     echo ' </tbody>
+         
+         </table>
+
+        <div class="row">            
+                 <label class="col-md-2">Nota Final: '.$nota[0]['nota'].'</label>
+                 <strong>'.$nota[0]['descripcion_nota'].'</strong>
+        </div>';
+
+
+
+
+       // $this->load->view("academico/estudiantes/plantilla", $datos);
 
 
 
@@ -540,6 +569,105 @@ class Estudiante extends CI_Controller
 
 
     }
+
+
+
+    function ver_propuesta()
+    {
+
+        $codigo = $this->input->post('codigo');
+        $result = $this->propuestas_model->listar_propuesta($codigo);
+
+        $datos = array();
+
+        foreach ($result as $propuesta) {
+
+            $datos[] = array('codigo' => $propuesta['codigo'], 'titulo' => $propuesta['titulo'], 'estudiante' => $propuesta['estudiante'], 'tipo_propuesta' => $propuesta['tipo'], 'fecha_recepcion' => substr($propuesta['fecha_hora_subida'], 0, 10), 'director' => $propuesta['correo_director'], 'co_director' => $propuesta['correo_codirector']);
+
+        }
+
+
+        echo json_encode($datos);
+
+    }
+
+
+    function ver_sustentacion_asignada()
+    {
+
+
+        $codigo = $this->input->post('codigo');
+        $sustentacion=$this->propuestas_model->horarios_de_sustentacion_propuesta($codigo);
+        $result1 = $this->propuestas_model->listar_propuesta($codigo);
+
+        $result2 = $this->propuestas_model->consultar_evaluadores($codigo);
+
+        if(count($result2)==0){
+
+            $result2[0]= array(
+                "correo_evaluador"=>null
+            );
+
+
+            $result2[1]= array(
+                "correo_evaluador"=>null
+            );
+
+        }
+
+
+
+        $datos = array();
+
+        foreach ($result1 as $propuesta) {
+
+            $datos[] = array('codigo' => $propuesta['codigo'], 'titulo' => $propuesta['titulo'], 'estudiante' => $propuesta['estudiante'], 'tipo_propuesta' => $propuesta['tipo'], 'fecha_recepcion' => substr($propuesta['fecha_hora_subida'], 0, 10), 'director' => $propuesta['correo_director'], 'co_director' => $propuesta['correo_codirector'], 'evaluador1' => $result2[0]['correo_evaluador'], 'evaluador2' => $result2[1]['correo_evaluador'],'hora_sustentacion'=>$sustentacion[0]['hora'],'fecha_sustentacion'=>$sustentacion[0]['fecha'],'aula_sustentacion'=>$sustentacion[0]['aula']);
+
+        }
+
+
+        echo json_encode($datos);
+
+    }
+
+
+    function ver_propuesta_con_evaluadores(){
+
+        $codigo = $this->input->post('codigo');
+        $result1 = $this->propuestas_model->listar_propuesta($codigo);
+
+        $result2 = $this->propuestas_model->consultar_evaluadores($codigo);
+
+        if(count($result2)==0){
+
+            $result2[0]= array(
+                "correo_evaluador"=>null
+            );
+
+
+            $result2[1]= array(
+                "correo_evaluador"=>null
+            );
+
+        }
+
+
+
+        $datos = array();
+
+        foreach ($result1 as $propuesta) {
+
+            $datos[] = array('codigo' => $propuesta['codigo'], 'titulo' => $propuesta['titulo'], 'estudiante' => $propuesta['estudiante'], 'tipo_propuesta' => $propuesta['tipo'], 'fecha_recepcion' => substr($propuesta['fecha_hora_subida'], 0, 10), 'director' => $propuesta['correo_director'], 'co_director' => $propuesta['correo_codirector'], 'evaluador1' => $result2[0]['correo_evaluador'], 'evaluador2' => $result2[1]['correo_evaluador']);
+
+        }
+
+
+        echo json_encode($datos);
+
+
+    }
+
+
 
 
 
