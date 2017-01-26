@@ -373,14 +373,14 @@ $(document).ready(function () {
 
 			if ($(this).val() > max)
 			{
-				$(this).val("");
+				$(this).val(0);
 				$(this).focus();
 
 
 			}
 			else if ($(this).val() < min)
 			{
-				$(this).val("");
+				$(this).val(0);
 				$(this).focus();
 			}
 		});

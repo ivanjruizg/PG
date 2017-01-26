@@ -1,7 +1,8 @@
 <!-- footer content -->
 <footer>
     <div class="pull-right">
-        Sistema de información <a href="https://cecar.edu.co">CECAR</a>
+
+        SAPG - Sistema de Administración de Propuestas de  Grado
     </div>
     <div class="clearfix"></div>
 </footer>

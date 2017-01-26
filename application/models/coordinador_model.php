@@ -283,7 +283,7 @@ class Coordinador_Model extends  CI_Model {
 
 
 
-        $this->db->where("p.estado",4);
+        $this->db->where("p.estado",5);
 
         //$this->db->where_not_in('p.codigo',$this->consultar_propuestas_con_notas_finales());
 

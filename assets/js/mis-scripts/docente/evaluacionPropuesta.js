@@ -10,3 +10,30 @@ function abrirModalFormatoDeEvaluacion(codigo,titulo) {
 
 }
 
+
+
+function calcularNota() {
+
+    var notaFinal=0;
+    var nota=0;
+
+    for (var i = 1;i<=8;i++){
+
+        var valor = parseFloat($('#nota-p'+i).val());
+
+
+        if(!isNaN(valor)){
+
+            var porc = parseFloat($('#porc-p'+i).val());
+            nota = valor*porc;
+            notaFinal+=nota;
+
+
+        }
+
+       }
+
+
+    $("#nota").val(formatoDecimal(notaFinal,2));
+
+}

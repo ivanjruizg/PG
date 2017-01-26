@@ -12,8 +12,8 @@
                         <div class="login-wrap">
 
 
-                            <input type="text" required oninvalid="setCustomValidity('Introduzca los nombres')" name="nombres" id="nombre" class="form-control mayus" placeholder="Nombres" >
-                            <input type="text" required oninvalid="setCustomValidity('Introduzca el primer apellido')" name="primer-apellido" id="primer-apellido" class="form-control mayus" placeholder="Primer Apellido">
+                            <input type="text" required  name="nombres" id="nombre" class="form-control mayus" placeholder="Nombres" >
+                            <input type="text" required  name="primer-apellido" id="primer-apellido" class="form-control mayus" placeholder="Primer Apellido">
                             <input type="text"  name="segundo-apellido" id="segundo-apellido" class="form-control mayus" placeholder="Segundo Apellido">
 
 
@@ -61,8 +61,7 @@
 
                             <!--pattern="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$" -->
 
-                            <input type="email" required oninvalid="setCustomValidity('Introduzca su correo institucional \n' +
-                             'Ejemplo: nombre.apellido@cecar.edu.co')" name="email" id="email" class="form-control mayus"   placeholder="Correo Electrónico Institucional" >
+                            <input type="email" required name="email" id="email" class="form-control mayus"   placeholder="Correo Electrónico Institucional" >
 
 
                             <input type="password" required name="clave" id="clave" class="form-control mayus" placeholder="Contraseña" onkeyup="comprobarClavesRegistro()">
