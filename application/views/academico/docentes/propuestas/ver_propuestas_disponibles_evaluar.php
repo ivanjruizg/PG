@@ -1,33 +1,33 @@
 <!-- page content -->
 <div class="right_col" role="main">
-    <div class="">
-
-
-        <div class="clearfix"></div>
-
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Propuestas por calificar 2</h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
 
 
 
-                    <div class="x_content">
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Propuestas por calificar</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
 
 
-                           <?php
+
+                <div class="x_content">
+
+
+                    <?php
 
 
 
-                            if(count($propuestas)==0) {
+                    if(count($propuestas)==0) {
 
-                                echo '<h4 class="text-center">
+                        echo '<h4 class="text-center">
 
                                             Estimado '.$this->session->userdata('nombres').', en el momento no tienes propuestas por evaluar
                     
@@ -35,14 +35,14 @@
                                     </h4>';
 
 
-                                      echo  '<h1 class="text-center">  <i onclick="javascrip:location.reload(true)" class="fa fa-refresh fa-3x" aria-hidden="true"></i></h1>';
+                        echo  '<h1 class="text-center">  <i onclick="javascrip:location.reload(true)" class="fa fa-refresh fa-3x" aria-hidden="true"></i></h1>';
 
 
-                            }
+                    }
 
-                            else{
+                    else{
 
-                              echo  '<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap"
+                        echo  '<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap"
                                cellspacing="0" width="100%">
                             <thead>
                             <tr>
@@ -55,13 +55,13 @@
                             </thead>
                             <tbody>';
 
-                                foreach ($propuestas as $propuesta) {
+                        foreach ($propuestas as $propuesta) {
 
 
-                                    $titulo2 = "'" . $propuesta['titulo'] . "'";
+                            $titulo2 = "'" . $propuesta['titulo'] . "'";
 
 
-                                    echo '<tr>
+                            echo '<tr>
 
                                         
                                                
@@ -72,20 +72,19 @@
 
                                             </tr>';
 
-                                }
+                        }
 
 
-                            }
+                    }
 
-                            ?>
-
-
-                            </tbody>
-
-                        </table>
+                    ?>
 
 
-                    </div>
+                    </tbody>
+
+                    </table>
+
+
                 </div>
             </div>
         </div>
@@ -139,8 +138,6 @@
                             <th width="50" class="text-center">Valor</th>
                             <th width="70" class="text-center">0-5</th>
 
-
-
                         </tr>
                         </thead>
 
@@ -148,59 +145,59 @@
                         <tbody>
 
 
-
-
-
-
-
-
-
-                    <?php
+                        <?php
 
 
 
                         foreach ($preguntas as $pregunta){
 
 
-                        echo '<tr>
+                            echo '<tr>
 
 
 
-                            <td><label class="col-md-11 col-sm-10 col-xs-12" for="name">'.$pregunta['pregunta'].'<span class="required">*</span>
-                        </label><input type="hidden" name="p'.$pregunta['codigo'].'" value="'.$pregunta['codigo'].'"></td>
+                            <td>
+                            <label class="col-md-11 col-sm-10 col-xs-12" for="name">'.$pregunta['pregunta'].'<span class="required">*</span>
+                            </label><input type="hidden" name="p'.$pregunta['codigo'].'" value="'.$pregunta['codigo'].'"></td>
                             
-                            <td>'.($pregunta['valor_pregunta']*100).'%'.'</td>
-                            <td ><input name="nota-p'.$pregunta['codigo'].'"
-                                   class=" item form-control col-md-7 col-xs-12 decimal-2-places-positive numberBox" max="5" min="0" required="required" type="text"></td>
+                            <td>'
+                                .($pregunta['valor_pregunta']*100).'%'.'<input type="hidden" id="porc-p'.$pregunta['codigo'].'" value="'.$pregunta['valor_pregunta'].'">
+                            </td>
+                            <td >
+                                <input id="nota-p'.$pregunta['codigo'].'" name="nota-p'.$pregunta['codigo'].'"class=" item form-control col-md-7 col-xs-12 decimal-2-places-positive numberBox" max="5" min="0"  required type="text" onkeyup="calcularNota()" onchange="calcularNota()" autocomplete="off">
+                            
+                            </td>
                             
 
 
                         </tr>';
 
-                       /* echo '<div id="" class="item form-group">
-
-
-
-
-                        <div class="col-md-1 col-sm-6 col-xs-12">
-
-
-
-
-
-                            <input name="nota-p'.$pregunta['codigo'].'"
-                                   class=" item form-control col-md-7 col-xs-12 decimal-2-places-positive numberBox" max="5" min="0" required="required" type="text">
-
-
-                        </div>
-                    </div>';*/
-
-
-
                         }
 
+                        echo '<tr>
 
-                    ?>
+                                <td>
+                                    <label class="col-md-11 col-sm-10 col-xs-12" for="name">NOTA
+                                </label>
+                                </td>
+                                
+                                
+                                <td>100%
+                            </td>
+                                
+                                <td>
+                                
+                                <input id="nota" class=" item form-control col-md-7 col-xs-12 decimal-2-places-positive numberBox" max="5" min="0"  required type="text" readonly>
+                            
+                                
+                                </td>
+                            
+
+
+                               </tr>';
+
+
+                        ?>
 
                         </tbody>
 
@@ -211,12 +208,12 @@
                         <div class="ln_solid"></div>
 
                         <h2 class="text-center mayus">Observaciones y comentarios</h2>
-                            <div class="col-md-12 col-sm-6 col-xs-12">
+                        <div class="col-md-12 col-sm-6 col-xs-12">
 
                                     <textarea rows="10" cols="3"   name="observaciones"
                                               class="form-control mayus"></textarea>
 
-                            </div>
+                        </div>
 
 
                     </div>
@@ -247,11 +244,5 @@
 
 
 
-<script !src="">
-    
 
-
-</script>
-
-<!-- /page content -->
 

@@ -12,14 +12,16 @@ $this->load->view("academico/inc/js");
 ?>
 
 <?php
+
 if(isset($js)) {
     foreach ($js as $script) {
-        if ($script != '') {
-            echo script_tag('assets/js/' . $script);
-            echo br(1);
-        }
+        //echo script_tag('assets/js/'.$script);
+        ?>
+        <script src="<?=base_url('assets/js').'/'.$script?>"></script>
+        <?php
     }
 }
+
 ?>
 
 <?php
