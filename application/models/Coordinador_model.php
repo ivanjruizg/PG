@@ -171,11 +171,9 @@ class Coordinador_Model extends  CI_Model {
         $this->db->join('estado_propuesta e', 'p.estado = e.codigo');
 
 
-        if($periodo_recepcion!=null){
 
             $this->db->where("periodo_recepcion",$periodo_recepcion);
-        }
-
+       
 
       //  $this->db->order_by('p.estado','DESC');
 
@@ -192,15 +190,16 @@ class Coordinador_Model extends  CI_Model {
         $this->db->from('propuestas p');
         $this->db->join('tipos_propuesta tp', 'p.tipo = tp.codigo');
         $this->db->join('estado_propuesta e', 'p.estado = e.codigo');
-        $this->db->where('estado',1);
-        $this->db->or_where('estado',2);
 
 
 
-        if($periodo_recepcion!=null){
 
-            $this->db->where("periodo_recepcion",$periodo_recepcion);
-        }
+
+        $this->db->where_in("estado",array(1, 2));
+
+
+        $this->db->where("periodo_recepcion",$periodo_recepcion);
+
 
         $result = $this->db->get();
 
@@ -290,8 +289,8 @@ class Coordinador_Model extends  CI_Model {
 
         if($periodo_recepcion!=null){
 
-                $this->db->where("periodo_recepcion",$periodo_recepcion);
-            }
+                $this->db->where("p.periodo_recepcion",$periodo_recepcion);
+           }
 
 
             $this->db->group_by('p.codigo');
@@ -309,15 +308,16 @@ class Coordinador_Model extends  CI_Model {
         $this->db->from('propuestas p');
         $this->db->join('tipos_propuesta tp', 'p.tipo = tp.codigo');
         $this->db->join('estado_propuesta e', 'p.estado = e.codigo');
+
+        $this->db->where("periodo_recepcion",$periodo_recepcion);
+
+
         $this->db->where('estado',2);
         $this->db->or_where('estado',3);
 
 
 
-        if($periodo_recepcion!=null){
 
-            $this->db->where("periodo_recepcion",$periodo_recepcion);
-        }
 
         $result = $this->db->get();
 

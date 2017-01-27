@@ -366,6 +366,13 @@ class Estudiante extends CI_Controller
         $palabras_claves = mb_strtoupper($this->input->post('palabras-clave'));
 
 
+
+
+
+       $titulo = trim($titulo);
+
+
+
         $resumen = $this->input->post('resumen');
 
         $investigador2 = $this->input->post('investigador2');

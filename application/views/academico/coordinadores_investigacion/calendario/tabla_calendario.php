@@ -22,6 +22,7 @@
                                 <thead>
                                     <tr>
 
+                                        <th>Periodo</th>
                                         <th>Fecha incio de recepción</th>
                                         <th >Fecha limite de recepción </th>
                                         <th >Fecha sustentación</th>
@@ -49,7 +50,7 @@
                                             $periodoR = "'".$periodo['periodo']."'";
 
                                             echo '<tr>
-                                     
+                                     <td>'.$periodo['periodo'].'</td>
                                         <td>' . $ci->formateador_fechas->fechas_español($periodo['fecha_inicio_recepcion']). '</td>
                                         <td>' .$ci->formateador_fechas->fechas_español($periodo['fecha_limite_recepcion']) . '</td>
                                         <td>' .$ci->formateador_fechas->fechas_español($periodo['fecha_sustentacion']) . '</td>
@@ -83,14 +84,14 @@
 
         <fieldset>
 
-        <div class="modal fade" id="editar-periodo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade modal-wide55" id="editar-periodo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
 
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title" id="myModalLabel">
-                            <i class="glyphicon glyphicon-edit"></i>
+                            <i class="fa fa-bars"></i>
                             <b>Editar periodo de recepción</b></h4>
                     </div>
 

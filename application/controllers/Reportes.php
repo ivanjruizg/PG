@@ -69,7 +69,7 @@ class Reportes extends CI_Controller
 
 // Establecemos el contenido para imprimir
 
-        $provincias = $this->propuestas_model->calendario_propuestas(date('Y'));
+        $calendario = $this->propuestas_model->ver_calendario_de_trabajos_de_grado(date('Y'));
 
         $this->load->library("formateador_fechas");
 
@@ -111,7 +111,7 @@ class Reportes extends CI_Controller
 
 
         //provincias es la respuesta de la función getProvinciasSeleccionadas($provincia) del modelo
-        foreach ($provincias as $fila) {
+        foreach ($calendario as $fila) {
 
             $id = $this->formateador_fechas->formateador($fila['fecha_limite_recepcion']);
             $localidad = $this->formateador_fechas->formateador($fila['fecha_sustentacion']);
@@ -231,7 +231,7 @@ class Reportes extends CI_Controller
 // ---------------------------------------------------------
 
 // set font
-        $pdf->SetFont('helvetica', 'B', 14);
+        $pdf->SetFont('helvetica', 'B', 11);
 
 // add a page
         $pdf->AddPage();
@@ -239,6 +239,8 @@ class Reportes extends CI_Controller
         $pdf->Write(0, 'SUSTENTACIÓN PROPUESTAS DE TRABAJOS DE GRADO', '', 0, 'C', true, 0, false, false, 0);
 
         $pdf->SetFont('helvetica', '', 8);
+
+        $pdf->writeBR(1);
 
 
         $tbl = '
@@ -316,7 +318,7 @@ class Reportes extends CI_Controller
 ';
 
 
-        $calendario = $this->pdfs_model->calendario_sustentaciones($fecha);
+        $calendario = $this->propuestas_model->calendario_sustentaciones($fecha);
 
         //    $x= $result->result_array();
 
@@ -336,7 +338,8 @@ class Reportes extends CI_Controller
                   <tr>
                     <td class="text-center">' . $i . '</td>
                     <td class="text-center">' . $horario['titulo'] . '</td>
-                    <td class="text-center">' . $estudiantes[0]['nombre'] . '<hr>' . $estudiantes[1]['nombre'] . '<br>' . $estudiantes[2]['nombre'] . '</td>
+                    <td class="text-center">' . $estudiantes[0]['nombre'] . '<br>' . $estudiantes[1]['nombre'] . '<br>' . $estudiantes[2]['nombre'] . '</td>
+                  
                     <td class="text-center">' . $director[0]['nombre'] . '<br>' . $co_director[0]['nombre'] . '</td>
                     <td class="text-center">' . $evaluadores[0]['nombre'] . '<br>' . $evaluadores[1]['nombre'] . '</td>
 

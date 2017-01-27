@@ -16,7 +16,7 @@
             </li>
 
 
-            <li><a><i class="fa fa-calendar"></i>Periodos de recepción <span class="fa fa-chevron-down"></span></a>
+            <li><a><i class="fa fa-calendar"></i>Calendario recepción <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="<?=base_url('coordinador/calendario-recepcion-propuestas')?>">Calendario <?= date("Y"); ?> </a></li>
                     <li><a href="<?=base_url('coordinador/nuevo-periodo-recepcion')?>">Crear periodos de recepción</a></li>
@@ -27,19 +27,13 @@
 
 
 
-            <li><a><i class="fa fa-table"></i> Informes <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li><a href="tables.html">Tables</a></li>
-                    <li><a href="tables_dynamic.html">Table Dynamic</a></li>
-                </ul>
-            </li>
 
             <li><a><i class="fa fa-users"></i>Sustentaciones<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
 
                     <li><a href="<?=base_url('coordinador/crear-fechas-sustentaciones')?>">Crear fechas</a></li>
                     <li><a href="<?=base_url('coordinador/asignar-sustentaciones')?>">Asignar horario</a></li>
-                    <li><a href="fixed_footer.html">Fixed Footer</a></li>
+
                 </ul>
             </li>
 
@@ -52,8 +46,15 @@
             </li>
 
 
+            <li><a><i class="fa fa-search"></i> consultas <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="tables.html">Tables</a></li>
+                    <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                </ul>
+            </li>
 
 
+<!--
             <li><a><i class="fa fa-bar-chart-o"></i> Estadísticas <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="chartjs.html">Chart JS</a></li>
@@ -63,7 +64,7 @@
                     <li><a href="other_charts.html">Other Charts</a></li>
                 </ul>
             </li>
-
+-->
         </ul>
     </div>
 
