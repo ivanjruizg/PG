@@ -11,6 +11,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Docentes_Model extends  CI_Model
 {
 
+
+
+    function consultar_nombres($correo_docente){
+
+
+        $this->db->select("CONCAT(nombres, ' ', primer_apellido,' ',segundo_apellido) AS nombres", FALSE);
+        $this->db->from('docentes');
+        $this->db->where('correo', $correo_docente);
+        $reslt = $this->db->get();
+        return $reslt->result_array();
+
+    }
+
+
+
+
     function consultar($nombres)
     {
 

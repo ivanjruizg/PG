@@ -129,7 +129,7 @@ class Propuestas_model extends CI_Model
     function consultar_evaluadores($codigo_propuesta)
     {
 
-        $this->db->select("p.correo_evaluador,CONCAT(d.nombres,' ',d.primer_apellido) AS nombre", FALSE);
+        $this->db->select("p.correo_evaluador,CONCAT(d.nombres,' ',d.primer_apellido,' ',d.segundo_apellido) AS nombre", FALSE);
         $this->db->from('propuestas_por_evaluar p');
         $this->db->join('docentes d', 'p.correo_evaluador = d.correo');
         $this->db->where('p.codigo_propuesta', $codigo_propuesta);

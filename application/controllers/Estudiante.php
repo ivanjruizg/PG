@@ -10,6 +10,7 @@ class Estudiante extends CI_Controller
         parent::__construct();
 
         $this->load->model('estudiantes_model');
+        $this->load->model('docentes_model');
         $this->load->model('propuestas_model');
         if ($this->session->userdata('tipo') != ESTUDIANTES) {
 
@@ -147,7 +148,7 @@ class Estudiante extends CI_Controller
                 $datos['js'] = array();
                 $datos['titulo_propuesta'] = $mis_propuestas;
                 $datos['titulo'] = "Nueva Propuesta";
-                $datos['contenido'] = 'propuestas/plataforma_deshalitada';
+                $datos['contenido'] = 'propuestas/plataforma_deshabilitada';
                 $this->load->view("academico/estudiantes/plantilla", $datos);
 
 
@@ -496,6 +497,9 @@ class Estudiante extends CI_Controller
     }
 
 
+    /**
+     *
+     */
     function ver_nota_final(){
 
 
@@ -506,10 +510,12 @@ class Estudiante extends CI_Controller
 
         $nota=$this->propuestas_model->nota_final_propuesta($codigo_propuesta);
 
-        echo '<table class="table table-striped table-bordered dt-responsive" cellspacing="0" width="100%">
+        if(count($observaciones)>0) {
+
+            echo '<table class="table table-striped table-bordered dt-responsive" cellspacing="0" width="100%">
                         <thead>
                              <tr>
-                                <th colspan="2">'.$observaciones[0]['titulo'].'</th>
+                                <th colspan="2">' . $observaciones[0]['titulo'] . '</th>
                              </tr>
                              <tr>
                                 <th width="5">Evaluadores</th>
@@ -520,35 +526,37 @@ class Estudiante extends CI_Controller
                         ';
 
 
-        foreach ($observaciones as $observacion){
+            foreach ($observaciones as $observacion) {
 
 
-            echo '<tr>                              
+                echo '<tr>                              
                     <th style="width: 15%">' . $observacion['evaluador'] . '</th>
                     <th>' . $observacion['observaciones'] . '</th>
                   </tr>';
 
 
+            }
 
-    }
-
-     echo ' </tbody>
+            echo ' </tbody>
          
-         </table>
+         </table>';
 
-        <div class="row">            
-                 <label class="col-md-2">Nota Final: '.$nota[0]['nota'].'</label>
-                 <strong>'.$nota[0]['descripcion_nota'].'</strong>
-        </div>';
+
+            if (count($nota) > 0) {
+                echo '<div class="row">            
+                 <label class="col-md-2">Nota Final: <b>' . $nota[0]['nota'] . '</b></label>
+                 <strong>' . $nota[0]['descripcion_nota'] . '</strong>
+        
+                      </div>';
+
+            }
+
+        }
 
 
 
 
        // $this->load->view("academico/estudiantes/plantilla", $datos);
-
-
-
-
 
     }
 
@@ -578,11 +586,28 @@ class Estudiante extends CI_Controller
         $codigo = $this->input->post('codigo');
         $result = $this->propuestas_model->listar_propuesta($codigo);
 
+
+
         $datos = array();
 
-        foreach ($result as $propuesta) {
 
-            $datos[] = array('codigo' => $propuesta['codigo'], 'titulo' => $propuesta['titulo'], 'estudiante' => $propuesta['estudiante'], 'tipo_propuesta' => $propuesta['tipo'], 'fecha_recepcion' => substr($propuesta['fecha_hora_subida'], 0, 10), 'director' => $propuesta['correo_director'], 'co_director' => $propuesta['correo_codirector']);
+        if(!empty($result)) {
+            foreach ($result as $propuesta) {
+
+                $director = $this->docentes_model->consultar_nombres($propuesta['correo_director']);
+                $co_director = $this->docentes_model->consultar_nombres($propuesta['correo_codirector']);
+
+
+                if (empty($co_director)) {
+
+                    $datos[] = array('titulo' => $propuesta['titulo'], 'director' => $director[0]['nombres']);
+                } else {
+
+                    $datos[] = array('titulo' => $propuesta['titulo'], 'director' => $director[0]['nombres'], 'co_director' => $co_director[0]['nombres']);
+
+                }
+
+            }
 
         }
 
@@ -621,7 +646,7 @@ class Estudiante extends CI_Controller
 
         foreach ($result1 as $propuesta) {
 
-            $datos[] = array('codigo' => $propuesta['codigo'], 'titulo' => $propuesta['titulo'], 'estudiante' => $propuesta['estudiante'], 'tipo_propuesta' => $propuesta['tipo'], 'fecha_recepcion' => substr($propuesta['fecha_hora_subida'], 0, 10), 'director' => $propuesta['correo_director'], 'co_director' => $propuesta['correo_codirector'], 'evaluador1' => $result2[0]['correo_evaluador'], 'evaluador2' => $result2[1]['correo_evaluador'],'hora_sustentacion'=>$sustentacion[0]['hora'],'fecha_sustentacion'=>$sustentacion[0]['fecha'],'aula_sustentacion'=>$sustentacion[0]['aula']);
+            $datos[] = array('titulo' => $propuesta['titulo'],'evaluador1' => $result2[0]['nombre'], 'evaluador2' => $result2[1]['nombre'],'hora_sustentacion'=>$sustentacion[0]['hora'],'fecha_sustentacion'=>$sustentacion[0]['fecha'],'aula_sustentacion'=>$sustentacion[0]['aula']);
 
         }
 
@@ -634,9 +659,11 @@ class Estudiante extends CI_Controller
     function ver_propuesta_con_evaluadores(){
 
         $codigo = $this->input->post('codigo');
+
         $result1 = $this->propuestas_model->listar_propuesta($codigo);
 
         $result2 = $this->propuestas_model->consultar_evaluadores($codigo);
+
 
         if(count($result2)==0){
 
@@ -653,11 +680,13 @@ class Estudiante extends CI_Controller
 
 
 
+
+
         $datos = array();
 
         foreach ($result1 as $propuesta) {
 
-            $datos[] = array('codigo' => $propuesta['codigo'], 'titulo' => $propuesta['titulo'], 'estudiante' => $propuesta['estudiante'], 'tipo_propuesta' => $propuesta['tipo'], 'fecha_recepcion' => substr($propuesta['fecha_hora_subida'], 0, 10), 'director' => $propuesta['correo_director'], 'co_director' => $propuesta['correo_codirector'], 'evaluador1' => $result2[0]['correo_evaluador'], 'evaluador2' => $result2[1]['correo_evaluador']);
+           $datos[] = array('codigo' => $propuesta['codigo'], 'titulo' => $propuesta['titulo'], 'estudiante' => $propuesta['estudiante'], 'tipo_propuesta' => $propuesta['tipo'], 'fecha_recepcion' => substr($propuesta['fecha_hora_subida'], 0, 10), 'director' => $propuesta['correo_director'], 'co_director' => $propuesta['correo_codirector'], 'evaluador1' => $result2[0]['nombre'], 'evaluador2' => $result2[1]['nombre']);
 
         }
 
