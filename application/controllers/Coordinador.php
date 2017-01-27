@@ -752,7 +752,7 @@ class Coordinador extends CI_Controller
        // $ci = &get_instance();
         //$ci->load->model("propuestas_model");
         $fecha_sustentacion = new DateTime($fecha);
-        $ahora= new DateTime("now");
+      //  $ahora= new DateTime("now");
 
 
         $result = $this->propuestas_model->mostrar_horario_sustentaciones($fecha);
@@ -774,7 +774,7 @@ class Coordinador extends CI_Controller
                 }
 
 
-                if ($fecha_sustentacion > $ahora) {
+               // if ($fecha_sustentacion > $ahora) {
 
 
                     echo '<tr> 
@@ -786,7 +786,7 @@ class Coordinador extends CI_Controller
 
                   </tr>';
 
-                }else{
+      /*          }else{
 
                     echo '<tr> 
 
@@ -798,6 +798,8 @@ class Coordinador extends CI_Controller
                   </tr>';
 
                 }
+
+      */
             }
 
         }else{

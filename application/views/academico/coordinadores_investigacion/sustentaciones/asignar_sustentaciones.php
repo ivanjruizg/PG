@@ -70,7 +70,7 @@ $ci->load->library('formateador_fechas');
                                     }
 
 
-                            if ($fecha_sustentacion > $ahora) {
+//                            if ($fecha_sustentacion > $ahora) {
 
                                 echo '<tr>
 
@@ -79,6 +79,8 @@ $ci->load->library('formateador_fechas');
                                              <td class="text-center"><a href="javascript:quitarPropuestaDeHorarioDeSustentacion('.$horario['codigo'].');" class="fa fa-trash"></a></td> 
                                           </tr>';
 
+
+                                /*
                             }else{
 
                                 echo '<tr>
@@ -90,7 +92,7 @@ $ci->load->library('formateador_fechas');
                             }
 
 
-
+*/
 
                                 }
 
