@@ -48,7 +48,7 @@
                                                 <td>'.$propuesta['titulo'].'</td>
                                                 <td>'.$propuesta['tipo'].'</td>
                                                  <td ><span class="label label-success pull-left">'.$propuesta['estado'].'</span></td>
-                                                <td class="text-center"><a href="' . base_url('assets/docs/cartas') . '/' . $ruta_carta . '" download="" class="btn btn-primary btn-xs"><i class="fa fa-download">Descargar</i></a>
+                                                <td class="text-center"><a href="'.base_url('coordinador/descargarArchivo').'/'.$ruta_carta.'" download="" class="btn btn-primary btn-xs"><i class="fa fa-download">Descargar</i></a>
                                                 <a href="javascript:verCartaRemision(' . $propuesta['codigo'] . ');" class="btn btn-success btn-xs"><i class="fa fa-eye">Ver</i></a></td>
                                                 <td class="text-center"><a href="javascript:verPropuesta('.$propuesta['codigo'].');" class="fa fa-eye"></a></td>
                                                 
