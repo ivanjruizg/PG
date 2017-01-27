@@ -146,7 +146,7 @@
                                     <div class="col-md-10">
 
 
-                                        <textarea disabled class="form-control" name="" id="titulo-propuesta" cols="20" rows="5"></textarea>
+                                        <textarea  disabled class="form-control text-justify" name="" id="titulo-propuesta" cols="20" rows="5"></textarea>
 
 
                                     </div>

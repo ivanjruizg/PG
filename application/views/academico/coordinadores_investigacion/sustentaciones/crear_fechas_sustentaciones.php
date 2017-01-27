@@ -12,11 +12,17 @@
 
                         </ul>
                         <div class="clearfix"></div>
+
+
                     </div>
                     <div class="x_content">
 
 
+                        <?php
 
+
+                        if(!empty($periodo)){
+                            ?>
 
                         <form id="crear-periodo-recpcion" method="post" class="form-horizontal form-label-left"  action="<?=base_url('coordinador/crear_fechas_sustentacion')?>" >
 
@@ -67,9 +73,9 @@
 
                                     <select name="jornada" required class="form-control" id="">
                                         <option value="">SELECCIONE</option>
-                                        <option value="1">MAÑANA</option>
-                                        <option value="2">TARDE</option>
-                                        <option value="12">MAÑANA-TARDE</option>
+                                        <option value="M">MAÑANA</option>
+                                        <option value="T">TARDE</option>
+
 
 
                                     </select>
@@ -102,6 +108,28 @@
                                 </div>
                             </div>
                         </form>
+
+
+                        <?php
+
+                        }else{
+
+                            ?>
+
+                        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                            </button>
+                            <strong>No existe un periodo de recepción de propuestas!</strong> Para crear una fecha de sustentación debe estar un periodo de recepción
+                        </div>
+
+                        <?php
+
+                        }
+
+
+                        ?>
+
+
 
 
 

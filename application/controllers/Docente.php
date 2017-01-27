@@ -119,7 +119,7 @@ class Docente extends  CI_Controller {
 
 
         $codigo_propuesta = $this->input->post('codigo-propuesta');
-        $observaciones = $this->input->post('observaciones');
+        $observaciones = mb_strtoupper( $this->input->post('observaciones'));
         $preguntas=array();
 
         for ($i =1; $i<=8 ; $i++ ){
@@ -174,12 +174,7 @@ class Docente extends  CI_Controller {
     }
 
 
-    function  x(){
 
-
-        echo var_dump();
-
-    }
 
 
     function propuestas_dirigidas2()

@@ -23,7 +23,7 @@ class Propuestas_model extends CI_Model
 
         } else {
 
-            return null;
+            return "";
         }
 
     }
@@ -146,7 +146,7 @@ class Propuestas_model extends CI_Model
     function consultar_estudiantes($codigo_propuesta)
     {
 
-        $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido,' ', e.segundo_apellido) AS nombre", FALSE);
+        $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido,' ',e.segundo_apellido) AS nombre", FALSE);
         $this->db->from('investigadores i');
         $this->db->join('estudiantes e', 'i.correo_estudiante = e.correo');
         $this->db->where('i.codigo_propuesta', $codigo_propuesta);
@@ -163,7 +163,7 @@ class Propuestas_model extends CI_Model
     function consultar_director($codigo_propuesta)
     {
 
-        $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido,e.segundo_apellido) AS nombre", FALSE);
+        $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido,' ',e.segundo_apellido) AS nombre", FALSE);
         $this->db->from('investigadores i');
         $this->db->join('docentes e', 'i.correo_director = e.correo');
         $this->db->where('i.codigo_propuesta', $codigo_propuesta);
@@ -231,23 +231,46 @@ class Propuestas_model extends CI_Model
     }
 
 
-    function crear_horario_sustentaciones($periodo, $aula, $fecha, $hora)
+    function crear_horario_sustentaciones($periodo, $aula, $fecha, $hora,$jornada)
     {
 
 
-        $datos = array(
-
-            "periodo_recepcion" => $periodo,
-            "aula" => $aula,
-            "fecha" => $fecha,
-            "hora" => $hora
-
-        );
+        $existe = false;
 
 
-        $this->db->insert("sustentaciones", $datos);
+        $this->db->select("COUNT(*) AS cont");
+        $this->db->from("sustentaciones");
+        $this->db->where("periodo_recepcion",$periodo);
+        $this->db->where("fecha",$fecha);
+        $this->db->where("jornada",$jornada);
+        $this->db->where("hora",$hora);
+
+        $result = $this->db->get();
+
+         $result->result_array();
 
 
+
+
+        if($result->result_array()[0]['cont']==0){
+
+            $datos = array(
+
+                "periodo_recepcion" => $periodo,
+                "aula" => $aula,
+                "fecha" => $fecha,
+                "hora" => $hora,
+                "jornada"=>$jornada
+
+            );
+
+            $this->db->insert("sustentaciones", $datos);
+
+            $existe = true;
+
+        }
+
+        return $existe;
     }
 
     function horarios_de_sustentaciones()
@@ -333,6 +356,23 @@ class Propuestas_model extends CI_Model
     }
 
 
+
+
+    function calendario_propuestas($anio)
+    {
+
+        $this->db->select("fecha_limite_recepcion,fecha_sustentacion");
+        $this->db->from("calendario_trabajos_de_grado");
+        //  $this->db->where("periodo",$periodo);
+
+        $this->db->where("LEFT(periodo,4)", $anio);
+
+        $result = $this->db->get();
+        return $result->result_array();
+    }
+
+
+
     function listar_tipos_propuestas()
     {
 
@@ -399,42 +439,35 @@ INNER JOIN docentes ON propuestas_evaluadas.correo_evaluador = docentes.correo*/
         $this->db->from('sustentaciones s');
         $this->db->where('s.codigo_propuesta', $codigo_propuesta);
 
-        function nota_parciales_propuesta($codigo_propuesta)
-        {
+        $result = $this->db->get();
+
+        return $result->result_array();
+
+    }
 
 
-            $this->db->select("pe.nota,CONCAT( d.nombres,' ',d.primer_apellido,' ',d.segundo_apellido) AS evaluador", false);
-            $this->db->from("propuestas_evaluadas pe");
-            $this->db->join("docentes d", "pe.correo_evaluador = d.correo");
-            $this->db->where('pe.codigo_propuesta', $codigo_propuesta);
-
-            $result = $this->db->get();
-
-            return $result->result_array();
+    function nota_parciales_propuesta($codigo_propuesta)
+    {
 
 
-        }
+        $this->db->select("pe.nota,CONCAT( d.nombres,' ',d.primer_apellido,' ',d.segundo_apellido) AS evaluador", false);
+        $this->db->from("propuestas_evaluadas pe");
+        $this->db->join("docentes d", "pe.correo_evaluador = d.correo");
+        $this->db->where('pe.codigo_propuesta', $codigo_propuesta);
+
+        $result = $this->db->get();
+
+        return $result->result_array();
 
 
-        function calendario_propuestas($anio)
-        {
-
-            $this->db->select("fecha_limite_recepcion,fecha_sustentacion");
-            $this->db->from("calendario_trabajos_de_grado");
-            //  $this->db->where("periodo",$periodo);
-
-            $this->db->where("LEFT(periodo,4)", $anio);
-
-            $result = $this->db->get();
-            return $result->result_array();
-        }
+    }
 
 
-        function calendario_sustentaciones($fecha)
-        {
+    function calendario_sustentaciones($fecha)
+    {
 
 
-            $result = $this->db->query(" Select p.codigo, s.fecha,s.aula,p.titulo,s.hora,i.correo_director,i.correo_codirector,pa.correo_evaluador
+        $result = $this->db->query(" SELECT p.codigo, s.fecha,s.aula,p.titulo,s.hora,i.correo_director,i.correo_codirector,pa.correo_evaluador
                         FROM propuestas p, sustentaciones s, investigadores i, propuestas_por_evaluar pa
                         WHERE pa.codigo_propuesta=p.codigo
                         AND p.codigo = s.codigo_propuesta
@@ -443,9 +476,6 @@ INNER JOIN docentes ON propuestas_evaluadas.correo_evaluador = docentes.correo*/
                                 
                         GROUP BY p.codigo;
         ");
-            return $result->result_array();
-        }
-
-
+        return $result->result_array();
     }
 }

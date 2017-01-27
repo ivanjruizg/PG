@@ -12,6 +12,10 @@
   width: 85%;
 }
 
+.modal.modal-wide55 .modal-dialog {
+  width: 55%;
+}
+
 
 #label-preguntas{
 

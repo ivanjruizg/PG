@@ -32,6 +32,7 @@ $ci->load->library('formateador_fechas');
 
                                 <th  class="text-center width60px">Hora</th>
                                 <th> Propuesta </th>
+                                <th width="100"> Aula </th>
                                 <th class="width2px"> Quitar </th>
 
 
@@ -76,7 +77,11 @@ $ci->load->library('formateador_fechas');
 
                                             <td class="text-center">'.$horario['hora'].'</td> 
                                             <td id="'.$horario['codigo'].'"  onclick="abrirModalPropuestasParaSustentar('.$horario['codigo'].','.$codigo_propuesta.')">'.$ci->propuestas_model->consultar_titulo($horario['codigo_propuesta']).'</td>
-                                             <td class="text-center"><a href="javascript:quitarPropuestaDeHorarioDeSustentacion('.$horario['codigo'].');" class="fa fa-trash"></a></td> 
+                                            
+                                             <td >'.$horario['aula'].'</td>
+                                           
+                                            
+                                            <td class="text-center"><a href="javascript:quitarPropuestaDeHorarioDeSustentacion('.$horario['codigo'].');" class="fa fa-trash"></a></td> 
                                           </tr>';
 
 
@@ -207,10 +212,9 @@ $ci->load->library('formateador_fechas');
                         <thead>
                         <tr>
 
-                            <th width="5">Codigo</th>
-                            <th>Título</th>
-                            <th width="5">Evaluadores</th>
-                            <th width="5">Seleccionar</th>
+                            <th class="width2px">Codigo</th>
+                            <th width="200">Título</th>
+                            <th class="width2px">Seleccionar</th>
 
 
                         </tr>
