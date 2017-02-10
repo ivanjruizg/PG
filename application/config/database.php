@@ -79,9 +79,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-    'hostname' => 'mastv.com.co',
-    'username' => 'mastvcom_riosr',
-    'password' => 'F?]W-c,om,dQ',
+    'hostname' => 'localhost',
+    'username' => 'root',
+    'password' => '',
     'database' => 'mastvcom_proyecto_grado',
     'dbdriver' => 'mysqli',
 	'dbprefix' => '',

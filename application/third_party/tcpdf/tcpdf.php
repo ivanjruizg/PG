@@ -11293,7 +11293,7 @@ class TCPDF {
 	 *	 <li>width (float): Width of the line in user units.</li>
 	 *	 <li>cap (string): Type of cap to put on the line. Possible values are:
 	 * butt, round, square. The difference between "square" and "butt" is that
-	 * "square" projects a flat end past the end of the line.</li>
+	 * "square" projects a icheck end past the end of the line.</li>
 	 *	 <li>join (string): Type of join. Possible values are: miter, round,
 	 * bevel.</li>
 	 *	 <li>dash (mixed): Dash pattern. Is 0 (without dash) or string with

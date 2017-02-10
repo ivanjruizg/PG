@@ -24,11 +24,8 @@ class Reportes extends CI_Controller
 
         $this->load->library('tcppdf');
         $pdf = new Tcppdf('P', 'mm', 'letter', true, 'UTF-8', false);
-        $pdf->SetCreator("FFFF");
-        $pdf->SetAuthor('Israel Parra');
-        $pdf->SetTitle('Ejemplo de provincías con TCPDF');
-        $pdf->SetSubject('Tutorial TCPDF');
-        $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->SetTitle('Circular Trabajos de Grado');
+
 
 
         $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -73,6 +70,9 @@ class Reportes extends CI_Controller
 
         $this->load->library("formateador_fechas");
 
+
+        $pdf->writeBR(1);
+
         //preparamos y maquetamos el contenido a crear
         $html = '';
         $html .= "<style type=text/css>
@@ -104,9 +104,12 @@ class Reportes extends CI_Controller
        ';
 
         $html .= '<h2 >Calendario de trabajos de grado</h2>';
-        $html .= '<p>electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas \"Letraset\", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</p>';
+        $html .= '<p style="text-align: justify">Mediante la presente se socializan las fechas de recepción y sustentación  a los estudiantes interesados 
+                     en presentar su propuesta de trabajo de grado al comité de investigación del presente año.   
+                     
+                  </p>';
 
-        $html .= '<table border="1px">';
+        $html .= '<table border="1px" style="padding: 3px">';
         $html .= '<tr ><th>Fecha límite de recepción </th><th>Fecha de sustentación</th></tr>';
 
 
@@ -123,7 +126,7 @@ class Reportes extends CI_Controller
         }
         $html .= '</table>';
 
-        $html .= '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>';
+        $html .= '<p>Envio de correspondencia o inquietudes : coordinacioninvestigacionfcbia@cecar.edu.co</p>';
 
 
         $html .= '
@@ -131,7 +134,7 @@ class Reportes extends CI_Controller
               <table width="100%">
             
                   <tr>
-                    <td>Cordialmente</td>
+                    <td>Cordialmente.</td>
                     <td></td>
                     
                   </tr>
@@ -161,9 +164,22 @@ class Reportes extends CI_Controller
 
                   <tr>
                   
+                  
                   <br>
                   <br>
-                    <td><strong>Comite de cordinación FCBIA</strong></td>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                   
+                   <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  
+                    <td><strong>Comite de coordinación FCBIA</strong></td>
                     
                     <td style="text-align: center;"><p> <strong>Decano FCBIA</strong></p></td>
                   </tr>
@@ -295,7 +311,7 @@ class Reportes extends CI_Controller
   
 
                 </style>
-                <table border="1">
+                <table border="1" style="margin: 15px">
                  
                  <tr>
                     <th  class="tg-ecrz" colspan="5">SUSTENTACIÓN PROPUESTAS DE TRABAJOS DE GRADO</th>

@@ -16,12 +16,7 @@
                             </div>
                             <div class="x_content">
 
-                                <!--
-                                                                <p class="text-muted font-13 m-b-30">
-                                                                    Responsive is an extension for DataTables that resolves that problem by optimising the table's layout for different screen sizes through the dynamic insertion and removal of columns from the table.
-                                                                </p>
-                                                                -->
-                                <table id="datatable-propuestas-recibidas-periodo-actual" class="table table-striped table-bordered dt-responsive" cellspacing="0" width="100%"  >
+                                 <table id="datatable-propuestas-recibidas-periodo-actual" class="table table-striped table-bordered dt-responsive" cellspacing="0" width="100%"  >
                                     <thead>
                                     <tr>
 
@@ -215,7 +210,7 @@
                             <h4 class="modal-title" id="myModalLabel">
 
 
-                                <i class="fa fa-eye"></i>
+                                <i class="fa fa-bars"></i>
 
                                 <b>Carta de Remisión</b></h4>
                         </div>

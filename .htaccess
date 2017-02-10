@@ -1,5 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteBase /pg/
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond $1 !^(index\.php|images|robots\.txt)
@@ -8,5 +9,3 @@
 <IfModule !mod_rewrite.c>
     ErrorDocument 404
 </IfModule>
-
-

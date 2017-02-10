@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 //$config['base_url'] = 'http://localhost/pg/';
-$config['base_url'] = 'http://pruebasitios.tk/';
+$config['base_url'] = 'http://localhost/pg/';
 
 
 

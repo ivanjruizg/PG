@@ -39,11 +39,46 @@ class Coordinador extends CI_Controller
 
     }
 
+    function revisar_propuesta(){
 
-    function periodo_abierto()
+
+        $codigo_propuesta = $this->input->post("codigo");
+        $aceptada = $this->input->post("aceptada");
+
+
+        if($aceptada==1){
+
+            $this->propuestas_model->cambiar_estado($codigo_propuesta,$aceptada);
+
+
+
+
+        }else{
+
+            $this->propuestas_model->borrar($codigo_propuesta);
+
+        }
+
+        redirect(base_url('coordinador/revisar-propuesta'));
+
+    }
+
+
+    function vista_revisar_propuesta()
     {
 
-        echo var_dump($this->propuestas_model->calendario_recepcion_abierto());
+
+        $datos['titulo'] = "Coordinador de investigación";
+        $datos['contenido'] = "propuestas/propuestas_por_revisar";
+
+
+        $periodo_recepcion = $this->propuestas_model->calendario_recepcion_abierto();
+
+
+        $datos['propuestas'] = $this->coordinador_model->listar_propuestas_por_revisar($periodo_recepcion);
+        $datos['css'] = array('dataTables.bootstrap.css','icheck/green.css');
+        $datos['js'] = array("icheck.min.js",'mis-scripts/coordinador/coordinadorIndex.js','mis-scripts/modalBootstrap.js','datatables/jquery.dataTables.min.js', 'datatables/dataTables.bootstrap.min.js', 'datatables/dataTables.responsive.min.js');
+        $this->load->view("academico/coordinadores_investigacion/plantilla", $datos);
 
     }
 

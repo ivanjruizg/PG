@@ -127,7 +127,7 @@ class Estudiante extends CI_Controller
         $this->load->model('propuestas_model');
         $result = $this->propuestas_model->calendario_recepcion_abierto();
 
-        if (is_null($result)) {
+        if (empty($result)) {
 
             $datos['css'] = array('flipclock.css');
             $datos['js'] = array('temporizador/flipclock.min.js', 'temporizador/temporizador.js');
@@ -143,13 +143,20 @@ class Estudiante extends CI_Controller
 
             if (count($mis_propuestas) > 0) {
 
+                /*
 
                 $datos['css'] = array();
                 $datos['js'] = array();
                 $datos['titulo_propuesta'] = $mis_propuestas;
                 $datos['titulo'] = "Nueva Propuesta";
                 $datos['contenido'] = 'propuestas/plataforma_deshabilitada';
-                $this->load->view("academico/estudiantes/plantilla", $datos);
+                $this->load->view("academico/estudiantes/plantilla", $dato);
+
+                */
+
+
+                $this->vista_consultar_propuesta();
+
 
 
             } else {

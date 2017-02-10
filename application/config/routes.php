@@ -71,6 +71,9 @@ $route['coordinador/cambiar-clave-de-acceso'] = 'coordinador/vista_cambiar_clave
 $route['coordinador/publicar-nota-final'] = 'coordinador/vista_publicar_nota_final';
 $route['coordinador/reportes-horario-sustentacion'] = 'coordinador/vista_reportes_horarios_de_sustentacion';
 
+$route['coordinador/revisar-propuesta'] = 'coordinador/vista_revisar_propuesta';
+
+
 
 $route['docente/subir-informe-final'] = 'docente/vista_subir_informe_final';
 $route['docente/propuestas-dirigidas'] = 'docente/vista_propuestas_dirigidas';

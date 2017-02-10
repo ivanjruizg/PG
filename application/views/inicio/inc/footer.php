@@ -2,19 +2,23 @@
 <footer class="footer">
     <div class="container">
         <div class="row">
-            <div class="col-lg-5 col-sm-4 address wow fadeInUp" data-wow-duration="2s" data-wow-delay=".1s">
+            <div class="col-lg-5 col-sm-12 address wow fadeInUp" data-wow-duration="2s" data-wow-delay=".1s">
+
+                <div class="text-footer">
+
                 <h1>Información de Contacto</h1>
                 <address>
                     <p><i class="fa fa-home pr-10"></i>Dirección: Carretera Troncal de Occidente KM.1 Vía Corozal</p>
                     <p><i class="fa fa-globe pr-10"></i>Sincelejo, Sucre</p>
                     <p><i class="fa fa-mobile pr-10"></i>Teléfono Movil : (+57) 456-7890</p>
                     <p><i class="fa fa-phone pr-10"></i>Teléfono Fijo : (123) 456-7890</p>
-                    <p><i class="fa fa-envelope pr-10"></i>Correo Electrónico : <a href="javascript:;">coordinacioninvestigacionfcbia@cecar.edu.co</a></p>
+                    <p><i class="fa fa-envelope pr-10"></i>Correo : <a>coordinacioninvestigacionfcbia@cecar.edu.co</a></p>
                 </address>
             </div>
+            </div>
 
-            <div class="col-lg-5 col-md-5">
-                <div class="page-footer wow fadeInUp" data-wow-duration="2s" data-wow-delay=".5s">
+            <div class="col-lg-5 col-sm-12 col-md-5 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".1s">
+                <div class="text-footer">
                     <h1>
                         FACULTAD DE CIENCIAS BÁSICAS, INGENIERÍA Y ARQUITECTURA
                     </h1>
@@ -38,11 +42,13 @@
             </div>
 
 
-            <div class="col-lg-2 col-md-2">
+            <div class="col-lg-2 col-sm-12 col-md-2 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".1s">
 
-                <div class="text-footer wow fadeInUp" data-wow-duration="2s" data-wow-delay=".7s">
+                <div class="text-footer">
                     <h1>BIENVENIDO</h1>
-                    <p>
+                    <p class="text-justify">
+
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.
 
                     </p>
                 </div>

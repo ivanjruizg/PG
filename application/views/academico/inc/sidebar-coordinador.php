@@ -6,8 +6,10 @@
 
             <li><a href="<?=base_url('coordinador')?>"><i class="fa fa-home"></i> Inicio </a> </li>
 
-            <li><a><i class="fa fa-edit"></i> Propuestas <span class="fa fa-chevron-down"></span></a>
+            <li><a><i class="fa fa-file-word-o"></i> Propuestas <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
+
+                    <li><a href="<?=base_url('coordinador/revisar-propuesta')?>">Revisar</a></li>
                     <li><a href="<?=base_url('coordinador/asignar-directores')?>">Asignar directores</a></li>
                     <li><a href="<?=base_url('coordinador/asignar-evaluadores')?>">Asignar evaluadores</a></li>
                     <li><a href="<?=base_url('coordinador/publicar-nota-final')?>">Publicar nota final</a></li>

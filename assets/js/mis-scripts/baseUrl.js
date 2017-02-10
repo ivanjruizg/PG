@@ -1,2 +1,2 @@
-//var baseUrl="http://localhost/pg";
-var baseUrl="http://pruebasitios.tk";
+var baseUrl="http://localhost/pg";
+//var baseUrl="http://pruebasitios.tk";

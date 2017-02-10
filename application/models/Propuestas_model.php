@@ -126,6 +126,66 @@ class Propuestas_model extends CI_Model
     }
 
 
+    function cambiar_estado($codigo, $estado){
+
+
+        $datos = array(
+
+            "estado"=>$estado
+
+        );
+
+        $this->db->where("codigo",$codigo);
+        $this->db->update("propuestas", $datos);
+
+
+
+    }
+
+
+    function borrar($codigo){
+
+
+
+        $this->db->select("ruta_carta,ruta_propuesta");
+        $this->db->from("propuestas");
+        $this->db->where("codigo",$codigo);
+        $result= $this->db->get();
+
+
+        $propuesta= $result->result_array()[0];
+
+
+        $nombre_carta =$propuesta["ruta_carta"];
+        $nombre_propuesta =$propuesta["ruta_propuesta"];
+
+
+
+
+
+            $ruta_carta= 'D:/xampp/htdocs/pg/assets/docs/cartas'.'/'.$nombre_carta;
+        $ruta_propuesta= 'D:/xampp/htdocs/pg/assets/docs/propuestas'.'/'.$nombre_propuesta;
+
+
+
+        unlink($ruta_carta);
+        unlink($ruta_propuesta);
+
+
+        echo $ruta_propuesta;
+        echo "<br>";
+        echo $ruta_carta;
+
+
+
+        $this->db->where("codigo",$codigo);
+        $this->db->delete("propuestas");
+
+
+
+    }
+
+
     function consultar_evaluadores($codigo_propuesta)
     {
 

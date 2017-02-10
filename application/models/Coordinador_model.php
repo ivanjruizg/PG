@@ -183,6 +183,31 @@ class Coordinador_Model extends  CI_Model {
 
     }
 
+
+    function listar_propuestas_por_revisar($periodo_recepcion=null)
+    {
+
+        $this->db->select("p.codigo, p.titulo, p.ruta_carta, tp.convencion AS tipo,e.descripcion AS estado");
+        $this->db->from('propuestas p');
+        $this->db->join('tipos_propuesta tp', 'p.tipo = tp.codigo');
+        $this->db->join('estado_propuesta e', 'p.estado = e.codigo');
+
+
+
+
+        $this->db->where("estado",0);
+
+        $this->db->where("periodo_recepcion",$periodo_recepcion);
+
+
+        //  $this->db->order_by('p.estado','DESC');
+
+        $result = $this->db->get();
+
+        return $result->result_array();
+
+    }
+
     function listar_propuestas_para_asignar_directores($periodo_recepcion=null)
     {
 

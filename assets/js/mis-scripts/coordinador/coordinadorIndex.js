@@ -17,7 +17,7 @@ function verPropuesta(codigo) {
 
 
     $.ajax({
-        url: $('#form-mostrar-propuesta').attr("action"),
+        url:baseUrl+"/coordinador/ver_propuesta",
         type: "POST",
         data: {codigo: codigo},
         success: function (resp) {
