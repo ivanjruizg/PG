@@ -46,10 +46,10 @@ $(document).ready(function () {
         select: function(event, ui) {
             event.preventDefault();
 
-
-
-            $('#investigador3').val(ui.item.label);
+            $('#investigador3').val(ui.item.label+" ("+ui.item.value+")");
             $('#correo-investigador3').val(ui.item.value);
+
+
 
 
 

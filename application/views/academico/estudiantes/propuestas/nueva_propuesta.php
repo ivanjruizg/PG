@@ -35,7 +35,7 @@
                             <div class="control-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Palabras claves  <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-9 col-xs-12">
-                                    <input id="tags_1" name="palabras-clave" type="text" class="tags form-control" value="" />
+                                    <input id="tags_1" name="palabras-clave" type="text" class="tags form-control mayus" value="" />
                                     <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
                                 </div>
                             </div>

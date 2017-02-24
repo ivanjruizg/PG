@@ -113,13 +113,7 @@ class Estudiante extends CI_Controller
     }
 
 
-    function xx()
-    {
 
-        echo var_dump($this->estudiantes_model->consultar_mis_propuestas($this->session->userdata('correo')));
-
-
-    }
 
     function vista_nueva_propuesta()
     {
@@ -142,17 +136,6 @@ class Estudiante extends CI_Controller
 
 
             if (count($mis_propuestas) > 0) {
-
-                /*
-
-                $datos['css'] = array();
-                $datos['js'] = array();
-                $datos['titulo_propuesta'] = $mis_propuestas;
-                $datos['titulo'] = "Nueva Propuesta";
-                $datos['contenido'] = 'propuestas/plataforma_deshabilitada';
-                $this->load->view("academico/estudiantes/plantilla", $dato);
-
-                */
 
 
                 $this->vista_consultar_propuesta();
@@ -427,6 +410,11 @@ class Estudiante extends CI_Controller
             if ($this->estudiantes_model->registrar_investigadores($datos_investigador1) > 0) {
 
 
+
+
+
+
+
                 if (!empty($investigador2[0])) {
 
 
@@ -472,6 +460,19 @@ class Estudiante extends CI_Controller
             }
 
 
+
+            $this->load->library('correos');
+
+            $estudiantes = $this->propuestas_model->consultar_estudiantes($codigo_propuesta);
+
+            foreach ($estudiantes as $estudiante){
+
+
+                $this->correos->asiganacion_estudiantes("Asignación de propuesta",$estudiante['correo'],$estudiante['nombre'] ,$titulo);
+
+            }
+
+
         } else {
 
             echo "No propuesta";
@@ -479,7 +480,7 @@ class Estudiante extends CI_Controller
         }
 
 
-        redirect(base_url('estudiante/nueva-propuesta'));
+       redirect(base_url('estudiante/nueva-propuesta'));
 
 
     }

@@ -53,6 +53,7 @@ class Estudiantes_Model extends  CI_Model {
         $this->db->from('propuestas p');
         $this->db->join('investigadores i', 'p.codigo = i.codigo_propuesta');
         $this->db->where("correo_estudiante",$correo);
+        $this->db->where("p.estado!=",60);
 
         $result = $this->db->get();
 

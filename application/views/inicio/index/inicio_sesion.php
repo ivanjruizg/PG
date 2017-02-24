@@ -26,7 +26,18 @@
                             <br>
 
                             <br>
-                            <input type="submit" class="btn btn-lg btn-login btn-block" value="Acceder">
+
+
+
+                            <button  type="submit" class="btn btn-lg btn-login btn-block">
+
+
+                                <i id="loading" class="">
+
+                                </i>Acceder
+
+                            </button>
+
 
                             <div class="registration">
                                 ¿No tienes Cuenta Aún?

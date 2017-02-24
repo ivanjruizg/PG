@@ -44,14 +44,12 @@ class Coordinador extends CI_Controller
 
         $codigo_propuesta = $this->input->post("codigo");
         $aceptada = $this->input->post("aceptada");
+        $observaciones = $this->input->post("observaciones");
 
 
         if($aceptada==1){
 
             $this->propuestas_model->cambiar_estado($codigo_propuesta,$aceptada);
-
-
-
 
         }else{
 
@@ -59,7 +57,20 @@ class Coordinador extends CI_Controller
 
         }
 
-        redirect(base_url('coordinador/revisar-propuesta'));
+        $this->load->library('correos');
+
+        $estudiantes = $this->propuestas_model->consultar_estudiantes($codigo_propuesta);
+
+        foreach ($estudiantes as $estudiante){
+
+          $this->correos->enviar_propuesta_revisada("Propuesta revisada",$estudiante['correo'],$estudiante['nombre'], $aceptada,$observaciones);
+
+        }
+
+
+
+
+       redirect(base_url('coordinador/revisar-propuesta'));
 
     }
 
@@ -174,6 +185,22 @@ class Coordinador extends CI_Controller
 
 
 
+        $this->load->library('correos');
+
+        $estudiantes = $this->propuestas_model->consultar_estudiantes($codigo_propuesta);
+        $titulo_propuesta =$this->propuestas_model->consultar_titulo($codigo_propuesta);
+
+        foreach ($estudiantes as $estudiante){
+
+
+
+            $this->correos->publicacion_nota("Nota publicada",$estudiante['correo'],$estudiante['nombre'], $titulo_propuesta);
+
+        }
+
+
+
+
         redirect(base_url('coordinador/publicar-nota-final'));
 
     }
@@ -210,17 +237,19 @@ class Coordinador extends CI_Controller
         $director = $this->input->post('director');
         $co_director = $this->input->post('co-director');
 
-
-
-
         $datos1 = array(
 
             "correo_director" => $director
 
         );
 
+        $this->load->library('correos');
+
 
          $this->coordinador_model->asignar_director($codigo_propuesta, $datos1);
+
+
+
 
 
             if (!empty($co_director)) {
@@ -237,7 +266,36 @@ class Coordinador extends CI_Controller
             }
 
             $this->coordinador_model->asignar_codirector($codigo_propuesta, $datos2);
-            redirect(base_url('coordinador/vista_asignar_directores'));
+         //   redirect(base_url('coordinador/vista_asignar_directores'));
+
+
+        $directores = $this->propuestas_model->consultar_director($codigo_propuesta);
+
+
+        $titulo_propuesta =$this->propuestas_model->consultar_titulo($codigo_propuesta);
+
+        foreach ($directores as $dir){
+
+
+            $this->correos->asignacion_de_codirector("Asignacion de director(a)",$dir['correo'],$dir['nombre'],$titulo_propuesta);
+
+
+
+
+        }
+
+        $codirectores = $this->propuestas_model->consultar_codirector($codigo_propuesta);
+
+
+
+        foreach ($codirectores as $dir){
+
+
+            $this->correos->asignacion_de_codirector("Asignacion de codirector(a)",$dir['correo'],$dir['nombre'],$titulo_propuesta);
+
+
+
+        }
 
 
     }
@@ -371,12 +429,38 @@ class Coordinador extends CI_Controller
             //echo $codigo."----".$hora;
             $this->propuestas_model->registrar_sustentaciones($codigo_propuestas, $codigo_sustentacion);
 
+            $sustentacion= $this->propuestas_model->horarios_de_sustentacion_propuesta($codigo_propuestas);
+
+
+            $this->load->library('correos');
+
+            $estudiantes = $this->propuestas_model->consultar_estudiantes($codigo_propuestas);
+
+            foreach ($estudiantes as $estudiante){
+
+                $titulo_propuesta =$this->propuestas_model->consultar_titulo($codigo_propuestas);
+
+                $this->correos->asignacion_de_sustentacion_estudiante("Asignación de horario de sustentación",$estudiante['correo'],$estudiante['nombre'], $titulo_propuesta,$sustentacion[0]['fecha'],$sustentacion[0]['hora'],$sustentacion[0]['aula']);
+
+            }
+
+
+
+            // asignacion_de_sustentacion_estudiante($comunicado,$correo,$estudiante,$titulo_propuesta,$fecha, $aula)
+
 
             $cont++;
         }
 
 
         echo $cont;
+    }
+
+
+    function ver_plantilla(){
+
+        $this->load->library('correos');
+      echo  $this->correos->ver_plantilla("Comunicado","jose.rios@cecar.edu.co","José David Ríos","Propuesta","02-03-1992","", "");
     }
 
 
@@ -406,6 +490,33 @@ class Coordinador extends CI_Controller
         );
 
         $this->coordinador_model->asignar_evaluadores($codigo_propuesta,$datos1,$datos2);
+        $this->load->library('correos');
+
+
+
+
+        $estudiantes = $this->propuestas_model->consultar_estudiantes($codigo_propuesta);
+        $titulo_propuesta =$this->propuestas_model->consultar_titulo($codigo_propuesta);
+
+        foreach ($estudiantes as $estudiante){
+
+            $this->correos->asignacion_de_evaluador_estudiante("Asignación de evaluador",$estudiante['correo'],$estudiante['nombre'] ,$titulo_propuesta);
+
+        }
+
+
+
+        $evaluadores = $this->propuestas_model->consultar_evaluadores($codigo_propuesta);
+
+        foreach ($evaluadores as $evaluador){
+
+
+            $this->correos->asignacion_de_evaluador("Asignación de evaluador",$evaluador['correo'],$evaluador['nombre'] ,$titulo_propuesta);
+
+
+        }
+
+
 
 
 
@@ -642,12 +753,7 @@ class Coordinador extends CI_Controller
 
 
 
-    function ya(){
 
-        $estudiantes = $this->propuestas_model->consultar_estudiantes(11);
-
-        echo var_dump($estudiantes);
-    }
 
     function ver_evaluacion_propuesta()
     {

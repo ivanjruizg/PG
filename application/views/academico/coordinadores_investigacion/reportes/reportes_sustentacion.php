@@ -18,7 +18,7 @@
 
 
 
-                        <form id="crear-periodo-recpcion" method="post" class="form-horizontal form-label-left"  action="<?=base_url('reportes/horario_de_sustentaciones')?>" target="_blank">
+                        <form id="crear-periodo-recpcion" method="post" class="form-horizontal form-label-left"  action="<?=base_url('horario-de-sustentaciones')?>" target="_blank">
 
 
 

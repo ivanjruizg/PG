@@ -191,10 +191,6 @@ function asignarSustentaciones(){
 
     if(propuestas.length>0) {
 
-
-
-
-
         $.ajax({
 
             type: "POST",

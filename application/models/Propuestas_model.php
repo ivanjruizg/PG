@@ -87,11 +87,11 @@ class Propuestas_model extends CI_Model
 
             $descripcion_nota = "RECHAZADA";
 
-        } else if ($nota >= 3 && $nota < 3.7) {
+        } else if ($nota >= 3 && $nota < 3.8) {
 
             $descripcion_nota = "ACEPTADA CON MODIFICACIONES MAYORES";
 
-        } else if ($nota >= 3.8 && $nota < 4.3) {
+        } else if ($nota >= 3.8 && $nota < 4.4) {
 
             $descripcion_nota = "ACEPTADA CON MODIFICACIONES MENORES";
 
@@ -189,7 +189,7 @@ class Propuestas_model extends CI_Model
     function consultar_evaluadores($codigo_propuesta)
     {
 
-        $this->db->select("p.correo_evaluador,CONCAT(d.nombres,' ',d.primer_apellido,' ',d.segundo_apellido) AS nombre", FALSE);
+        $this->db->select("p.correo_evaluador,CONCAT(d.nombres,' ',d.primer_apellido,' ',d.segundo_apellido) AS nombre, correo", FALSE);
         $this->db->from('propuestas_por_evaluar p');
         $this->db->join('docentes d', 'p.correo_evaluador = d.correo');
         $this->db->where('p.codigo_propuesta', $codigo_propuesta);
@@ -206,7 +206,7 @@ class Propuestas_model extends CI_Model
     function consultar_estudiantes($codigo_propuesta)
     {
 
-        $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido,' ',e.segundo_apellido) AS nombre", FALSE);
+        $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido,' ',e.segundo_apellido) AS nombre, correo", FALSE);
         $this->db->from('investigadores i');
         $this->db->join('estudiantes e', 'i.correo_estudiante = e.correo');
         $this->db->where('i.codigo_propuesta', $codigo_propuesta);
@@ -223,7 +223,7 @@ class Propuestas_model extends CI_Model
     function consultar_director($codigo_propuesta)
     {
 
-        $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido,' ',e.segundo_apellido) AS nombre", FALSE);
+        $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido,' ',e.segundo_apellido) AS nombre, correo", FALSE);
         $this->db->from('investigadores i');
         $this->db->join('docentes e', 'i.correo_director = e.correo');
         $this->db->where('i.codigo_propuesta', $codigo_propuesta);
@@ -240,7 +240,7 @@ class Propuestas_model extends CI_Model
     function consultar_codirector($codigo_propuesta)
     {
 
-        $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido,' ',e.segundo_apellido) AS nombre", FALSE);
+        $this->db->select("CONCAT(e.nombres,' ',e.primer_apellido,' ',e.segundo_apellido) AS nombre,correo", FALSE);
         $this->db->from('investigadores i');
         $this->db->join('docentes e', 'i.correo_codirector = e.correo');
         $this->db->where('i.codigo_propuesta', $codigo_propuesta);

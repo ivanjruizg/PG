@@ -8,12 +8,16 @@ class Inicio extends CI_Controller
     {
 
 
+        /*
             $datos['titulo'] = "INICIO";
             $datos['contenido'] = "index/inicio";
 
             $this->load->view('inicio/plantilla', $datos);
 
 
+        */
+
+        $this->vista_iniciar_sesion();
 
     }
 

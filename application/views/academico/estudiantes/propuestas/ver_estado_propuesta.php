@@ -51,8 +51,10 @@
 
                             foreach ($investigadores as $investigador) {
 
+                                $nombre_investigador="'".$investigador['nombre']."'";
+
                                 echo '<li>
-                                            <img src=' . base_url("assets/img/user.png") . ' class="avatar" alt="Avatar" title=' . $investigador['nombre'] . '>
+                                            <img src=' . base_url("assets/img/user.png") . ' class="avatar" alt="Avatar" title=' . $nombre_investigador . '>
                                         </li>';
 
                             }
@@ -61,41 +63,81 @@
                                 </td>';
 
                             foreach ($propuestas as $propuesta) {
+
+
+                            if ($propuesta['estado'] == 0) {
+                                echo '<td>
+                                    <button type="button" class="btn btn-warning btn-xs" onclick="">' . $propuesta['descripcion'] . '</button>
+                                </td>
+                             </tr>';
+
+                            }
+
                                 if ($propuesta['estado'] == 1) {
                                     echo '<td>
-                                    <button type="button" class="btn btn-success btn-xs" onclick="">' . $propuesta['descripcion'] . '</button>
+                                    <button type="button" class="btn btn-info btn-xs" onclick="">' . $propuesta['descripcion'] . '</button>
                                 </td>
                              </tr>';
 
                                 }
                                 if ($propuesta['estado'] == 2) {
                                     echo '<td>
-                                    <button type="button" class="btn btn-success btn-xs" onclick="verDirectoresPropuesta(' . $propuesta['codigo'] . ')">' . $propuesta['descripcion'] . '</button>
+                                    <button type="button" class="btn btn-info btn-xs" onclick="verDirectoresPropuesta(' . $propuesta['codigo'] . ')">' . $propuesta['descripcion'] . '</button>
                                 </td>
                              </tr>';
 
                                 }
                                 if ($propuesta['estado'] == 3) {
                                     echo '<td>
-                                    <a type="button" class="btn btn-success btn-xs" onclick="verEvaluadoresAsignados(' . $propuesta['codigo'] . ')">' . $propuesta['descripcion'] . '</a>
+                                    <a type="button" class="btn btn-info btn-xs" onclick="verEvaluadoresAsignados(' . $propuesta['codigo'] . ')">' . $propuesta['descripcion'] . '</a>
                                 </td>
                              </tr>';
 
                                 }
                                 if ($propuesta['estado'] == 4) {
                                     echo '<td>
-                                    <a type="button" class="btn btn-success btn-xs" onclick="verSustentacionAsignada(' . $propuesta['codigo'] . ')">' . $propuesta['descripcion'] . '</a>
+                                    <a type="button" class="btn btn-info btn-xs" onclick="verSustentacionAsignada(' . $propuesta['codigo'] . ')">' . $propuesta['descripcion'] . '</a>
                                 </td>
                              </tr>';
 
                                 }
                                 if ($propuesta['estado'] == 5) {
                                     echo '<td>
+                                    <a type="button" class="btn btn-info btn-xs" onclick="verNotaFinal(' . $propuesta['codigo'] . ')">' . $propuesta['descripcion'] . '</a>
+                                </td>
+                             </tr>';
+
+
+
+                                }
+
+
+                                if ($propuesta['estado'] == 6) {
+                                    echo '<td>
+                                    <a type="button" class="btn btn-info btn-xs" onclick="verNotaFinal(' . $propuesta['codigo'] . ')">' . $propuesta['descripcion'] . '</a>
+                                </td>
+                             </tr>';
+
+                                }
+
+                                if ($propuesta['estado'] == 60) {
+                                        echo '<td>
+                                    <a type="button" class="btn btn-danger btn-xs" onclick="verNotaFinal(' . $propuesta['codigo'] . ')">' . $propuesta['descripcion'] . '</a>
+                                </td>
+                             </tr>';
+
+                                }
+
+                                if ($propuesta['estado'] == 61) {
+                                    echo '<td>
                                     <a type="button" class="btn btn-success btn-xs" onclick="verNotaFinal(' . $propuesta['codigo'] . ')">' . $propuesta['descripcion'] . '</a>
                                 </td>
                              </tr>';
 
                                 }
+
+
+
                             }
 
                             ?>

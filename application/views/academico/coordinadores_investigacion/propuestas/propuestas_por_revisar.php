@@ -220,7 +220,7 @@
 
                             <div class="col-md-10">
 
-                                <textarea class="form-control"  name="" id="" cols="30" rows="7"></textarea>
+                                <textarea  class="form-control"  name="observaciones" id="" cols="30" rows="7"></textarea>
                             </div>
 
                         </div>

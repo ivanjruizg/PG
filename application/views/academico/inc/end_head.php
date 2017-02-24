@@ -6,7 +6,7 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="<?=base_url('estudiante')?>" class="site_title"><i class="fa fa-home"></i> <span>FCBIA</span></a>
+                    <a href="<?=base_url('estudiante')?>" class="site_title"><i class="fa fa-home"></i> <span>SAPG</span></a>
                 </div>
 
                 <div class="clearfix"></div>

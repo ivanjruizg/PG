@@ -2,12 +2,21 @@
 
 function registroEstudiante(){
 
+
+
+    $('#loading').addClass("glyphicon glyphicon-refresh glyphicon-refresh-animate");
     event.preventDefault();
     $.ajax({
         url:$("#form-inscripcion-estudiante").attr("action"),
         type:$("#form-inscripcion-estudiante").attr("method"),
         data:$("#form-inscripcion-estudiante").serialize(),
         success:function(resp){
+
+
+
+
+
+            console.log(resp);
 
 
             if(resp=="correo-duplicado") {
@@ -17,6 +26,7 @@ function registroEstudiante(){
                 $("#email").addClass("validar");
 
 
+                $('#loading').removeClass("glyphicon glyphicon-refresh glyphicon-refresh-animate");
                 $("#mensaje").html('<div class="alert alert-danger"> <strong>¡Correo duplicado!</strong>  Ingresaste un correo </div>');
 
 

@@ -60,6 +60,14 @@ $route['registrar-estudiante'] = 'inicio/vista_registro_estudiante';
 $route['registrar-docente'] = 'inicio/vista_registro_docente';
 $route['registro-exitoso'] = 'inscripcion_estudiante/vista_registro_exitoso';
 
+
+$route['calendario-de-trabajos-de-grado'] = 'reportes/calendario_de_trabajos_de_grado';
+$route['horario-de-sustentaciones'] = 'reportes/horario_de_sustentaciones';
+
+
+
+
+
 $route['coordinador/nuevo-periodo-recepcion'] = 'coordinador/vista_crear_periodo_recepcion';
 $route['coordinador/asignar-directores'] = 'coordinador/vista_asignar_directores';
 $route['coordinador/asignar-evaluadores'] = 'coordinador/vista_asignar_evaluadores';

@@ -216,10 +216,9 @@ class Reportes extends CI_Controller
         $pdf = new Tcppdf(PDF_PAGE_ORIENTATION, 'mm', 'letter', true, 'UTF-8', false);
 
         $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetAuthor('Nicola Asuni');
-        $pdf->SetTitle('TCPDF Example 048');
-        $pdf->SetSubject('TCPDF Tutorial');
-        $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+        $pdf->SetTitle('Sustentación Propuestas De Trabajos De Grado');
+
+
 
 
         $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));

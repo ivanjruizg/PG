@@ -75,7 +75,16 @@
 
                             <br>
 
-                            <input type="submit" class="btn btn-lg btn-login btn-block" value="REGISTRAR">
+                            <button  type="submit" class="btn btn-lg btn-login btn-block">
+
+
+                                <i id="loading" class="">
+
+                                </i>Registrar
+
+                            </button>
+
+
 
 
 
@@ -123,6 +132,13 @@
 
                 </a>
 
+                <!-- Code snippet -->
+                <div class="form-group">
+                    <div class="col-md-12 text-center">
+                        <span ></span>
+                    </div>
+                </div>
+
             </div>
 
 
@@ -138,4 +154,8 @@
 
 
 </div>
+
+
+
+
 
