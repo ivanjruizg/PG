@@ -39,36 +39,22 @@ class EnviarCorreos
 
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
        <tbody><tr>
-			<td align="center" bgcolor="#34495e" style="border-bottom:40px solid #2C3E50">
+			<td align="center" bgcolor="#34495e" style="border-bottom:23px solid #2C3E50">
 	
 					</td>
 					
 		</tr>
 		<tr>
-			<td align="center" bgcolor="#34495e" style="border-bottom:40px solid #34495e">
+			<td align="center" bgcolor="#34495e" style="border-bottom:4px solid #34495e">
 	
+		<img style="max-width:550px;display:block;line-height:0px;font-size:0px;border:0px;text-align:center;margin:0px auto" src="http://aaadetoluviejo.com/img/logo-cecar2.png" alt="logo" class="CToWUd">
+						
 					</td>
 					
+		
+					
 		</tr>
-		<tr>
-			<td align="center" bgcolor="#fff" style="padding-top:15px;padding-bottom:15px;background-position:50% 50%">
-				<table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
-				
 
-					
-					<tbody><tr>
-						<td style="line-height:0px">
-							<img style="max-width:250px;display:block;line-height:0px;font-size:0px;border:0px;text-align:center;margin:0px auto" src="https://cecar.edu.co/images/email/2016/comunicado_v2/logo-cecar.png" alt="logo" class="CToWUd">
-						</td>
-					</tr>
-
-
-					
-
-					
-				</tbody></table>
-			</td>
-		</tr>
 	</tbody></table>
 
 	
@@ -101,14 +87,17 @@ class EnviarCorreos
 						<td align="center">
 							<table align="center" width="30" border="0" cellpadding="0" cellspacing="0">
 								<tbody><tr>
-									<td style="border-bottom:2px solid rgb(0,109,49)" height="10"></td>
+							
+									
+									<hr style="border-top : 2px dotted #34495e ;">
+									
 								</tr>
 							</tbody></table>
 						</td>
 					</tr>
                     
                     <tr>
-						<td align="center" style="font-family:&quot;open sans&quot;,arial,sans-serif;font-size:20px;font-style:italic;color:rgb(0,109,49)">
+						<td align="center" style="font-family:&quot;open sans&quot;,arial,sans-serif;font-size:20px;font-style:italic;color:#2C3E50">
 						
 						';
 
@@ -156,8 +145,8 @@ class EnviarCorreos
 
 
 
-        $this->footer='<p style="font-size:12px;color:rgb(0,109,49);font-weight:bold;padding-bottom:20px;padding-top:20px"><i>Cordialmente,</i></p>
-                                                    <p style="font-size:12px;color:rgb(0,109,49);font-weight:bold;line-height:0px"><i>Angélica María Torregroza Espinoza</i></p>
+        $this->footer='<p style="font-size:12px;color:#2C3E50;font-weight:bold;padding-bottom:20px;padding-top:20px"><i>Cordialmente,</i></p>
+                                                    <p style="font-size:12px;color:#2C3E50 font-weight:bold;line-height:0px"><i>Angélica María Torregroza Espinoza</i></p>
                                                     <p>Coordinadora de investigación de la FCBIA</p>
 												</td>
 											</tr>
