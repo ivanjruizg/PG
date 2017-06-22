@@ -25,7 +25,7 @@ function iniciarSesion(){
 
 					$("#error-login").html('<div class="alert alert-danger"> <strong>¡Fallo en la autenticación!</strong>  Ingresaste un correo o contraseña incorrecto. </div>');
 
-					$("#password").addClass("validar")
+					$("#password").addClass("validar");
 
 					$('#loading').removeClass("glyphicon glyphicon-refresh glyphicon-refresh-animate");
 

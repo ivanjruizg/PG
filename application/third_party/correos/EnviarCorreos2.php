@@ -340,6 +340,9 @@ $configEmail = array(
         $this->CI->email->from('pruebasaydii@gmail.com', 'Coord. de inv. FCBIA'); // correo sin espacio
 
 
+
+
+
         $this->CI->email->to($correo); // correo sin espacio
         $this->CI->email->subject('Inscripción de estudiante');
 

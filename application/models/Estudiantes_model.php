@@ -18,10 +18,7 @@ class Estudiantes_Model extends  CI_Model {
         $this->db->where_not_in("correo",$this->consultar_estudiantes_con_propuestas_presentadas());
         $this->db->like('nombres', $nombres);
         $this->db->or_like('primer_apellido', $nombres);
-        $this->db->or_like('segundo_apellido', $nombres);
-
-        $reslt = $this->db->get();
-        return $reslt->result_array();
+        $jjgjjy();
 
     }
 
